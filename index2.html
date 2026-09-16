@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#05070d">
+<meta name="description" content="Energylandia — an immersive fan-made guide to Poland's giant theme park, its themed zones and roller coasters.">
+<title>ENERGYLANDIA — The Ultimate Park Guide</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+:root{
+  --bg:#05070d;
+  --bg2:#090d17;
+  --panel:#0d1320;
+  --panel2:#111a29;
+  --line:rgba(255,255,255,.09);
+  --text:#f7f9fc;
+  --muted:#94a3b8;
+  --blue:#19d3ff;
+  --blue2:#008cff;
+  --red:#ff3151;
+  --yellow:#ffc857;
+  --green:#42e6a4;
+  --shadow:0 30px 90px rgba(0,0,0,.38);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:Inter,system-ui,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 15% 0%,rgba(0,174,255,.08),transparent 28rem),
+    radial-gradient(circle at 85% 20%,rgba(255,49,81,.06),transparent 30rem),
+    var(--bg);
+  overflow-x:hidden;
+}
+body.modal-open{overflow:hidden}
+a{text-decoration:none;color:inherit}
+button,input,select{font:inherit}
+button{cursor:pointer}
+img{display:block;max-width:100%}
+::selection{background:var(--blue);color:#001018}
+::-webkit-scrollbar{width:9px}
+::-webkit-scrollbar-track{background:#03050a}
+::-webkit-scrollbar-thumb{background:#253146;border-radius:99px}
+::-webkit-scrollbar-thumb:hover{background:var(--blue)}
+
+.noise{
+  position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+}
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--blue),var(--red));z-index:10000;box-shadow:0 0 18px var(--blue)}
+
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  padding:18px 28px;
+  transition:.45s var(--ease);
+}
+.nav.scrolled{padding:10px 28px}
+.nav-inner{
+  max-width:1420px;margin:auto;height:66px;padding:0 14px 0 20px;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(5,7,13,.55);backdrop-filter:blur(22px);
+  border-radius:22px;box-shadow:0 15px 50px rgba(0,0,0,.2);
+}
+.logo{font-family:Oswald,sans-serif;font-size:25px;font-weight:700;letter-spacing:1.5px}
+.logo i{font-style:normal;color:var(--blue)}
+.logo span{color:var(--red)}
+.nav-links{display:flex;align-items:center;gap:7px}
+.nav-links a{
+  color:#cbd5e1;font-size:13px;font-weight:700;padding:11px 13px;border-radius:12px;
+  transition:.25s ease;
+}
+.nav-links a:hover,.nav-links a.active{color:#fff;background:rgba(255,255,255,.07)}
+.nav-right{display:flex;align-items:center;gap:8px}
+.icon-btn{
+  width:42px;height:42px;border-radius:13px;border:1px solid var(--line);
+  background:rgba(255,255,255,.045);color:#fff;display:grid;place-items:center;
+  transition:.25s var(--ease)
+}
+.icon-btn:hover{transform:translateY(-2px);border-color:rgba(25,211,255,.5);color:var(--blue)}
+.mobile-btn{display:none}
+
+/* Custom Language Dropdown Menu */
+.custom-lang-dropdown {
+  position: relative;
+  display: inline-block;
+}
+.lang-btn {
+  height: 42px; padding: 0 14px 0 12px; border-radius: 12px; border: 1px solid var(--line);
+  background: rgba(255,255,255,.045); color: #fff; font-size: 10px; font-weight: 900; letter-spacing: .8px;
+  text-transform: uppercase; outline: 0; cursor: pointer; display: flex; align-items: center; gap: 8px;
+  transition: .25s var(--ease);
+}
+.lang-btn:hover, .custom-lang-dropdown.open .lang-btn { border-color: rgba(25,211,255,.5); color: var(--blue); }
+.lang-btn i { font-size: 9px; transition: transform .3s var(--ease); }
+.custom-lang-dropdown.open .lang-btn i { transform: rotate(180deg); }
+.lang-menu {
+  position: absolute; top: calc(100% + 6px); right: 0; min-width: 140px;
+  background: rgba(13, 19, 32, 0.95); backdrop-filter: blur(20px);
+  border: 1px solid rgba(25,211,255,.25); border-radius: 14px;
+  box-shadow: 0 15px 40px rgba(0,0,0,.4); padding: 6px;
+  display: none; z-index: 600;
+  animation: dropdownFade .2s var(--ease);
+}
+.custom-lang-dropdown.open .lang-menu { display: block; }
+@keyframes dropdownFade {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.lang-option {
+  width: 100%; text-align: left; padding: 10px 12px; border: 0; background: transparent;
+  color: #cbd5e1; font-size: 10px; font-weight: 900; letter-spacing: .8px; text-transform: uppercase;
+  border-radius: 10px; cursor: pointer; transition: .2s; display: flex; align-items: center; gap: 8px;
+}
+.lang-option:hover, .lang-option.active { background: rgba(25,211,255,.12); color: var(--blue); }
+
+.load-more-wrap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;padding:0 18px 24px}
+.load-more{width:100%;min-height:48px;padding:0 22px;border:1px solid rgba(25,211,255,.28);border-radius:13px;background:rgba(25,211,255,.07);color:#b9f4ff;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:1px;transition:.25s var(--ease)}
+
+/* Narrowed Load More Coasters Button */
+#loadMoreBtn{grid-column:1/-1; width: calc(100% - 150px); margin: 0 auto;}
+
+#collapseBtn{grid-column:1 / -1 !important;width:100% !important;max-width:none !important;margin-left:0 !important;justify-self:stretch;transform:none;align-self:end}
+.load-more:hover{transform:translateY(-2px);background:var(--blue);border-color:var(--blue);color:#001018}
+.nav-cta{
+  border:0;border-radius:13px;padding:12px 16px;background:linear-gradient(135deg,var(--red),#d80d35);
+  color:#fff;font-size:12px;font-weight:900;letter-spacing:.7px;box-shadow:0 10px 30px rgba(255,49,81,.25)
+}
+
+.hero{
+  min-height:100vh;position:relative;display:grid;place-items:center;overflow:hidden;
+  background:#02050b;
+}
+.hero-bg{
+  position:absolute;inset:-14% -6%;z-index:0;overflow:hidden;will-change:transform;
+  transform:translate3d(0,0,0);
+}
+.hero-bg img{
+  width:100%;height:100%;display:block;object-fit:cover;
+  transform:scale(1.08);transform-origin:center center;
+  filter:saturate(1.05) contrast(1.04);
+  will-change:transform;
+}
+
+.hero::before{
+  content:"";position:absolute;inset:0;z-index:1;
+  background:
+    linear-gradient(180deg,rgba(2,5,11,.18) 0%,rgba(2,5,11,.25) 28%,rgba(2,5,11,.92) 100%),
+    linear-gradient(90deg,rgba(2,5,11,.8),transparent 55%,rgba(2,5,11,.35));
+}
+.hero::after{
+  content:"";position:absolute;inset:auto 0 0;height:190px;
+  background:linear-gradient(transparent,var(--bg));z-index:2
+}
+.hero-grid{
+  position:absolute;inset:0;z-index:1;opacity:.16;
+  background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);
+  background-size:70px 70px;mask-image:linear-gradient(to bottom,black,transparent 85%);
+}
+.hero-content{
+  position:relative;z-index:3;max-width:1180px;width:100%;padding:150px 28px 110px;
+  display:grid;grid-template-columns:1.35fr .65fr;gap:60px;align-items:end;
+}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;color:#bfefff;font-size:11px;font-weight:900;
+  letter-spacing:2px;text-transform:uppercase;margin-bottom:20px
+}
+.live-dot{width:8px;height:8px;background:#48e79c;border-radius:50%;box-shadow:0 0 16px #48e79c;animation:pulse 1.7s infinite}
+@keyframes pulse{50%{opacity:.35;transform:scale(.65)}}
+.hero h1{
+  font-family:Oswald,sans-serif;font-size:clamp(58px,9vw,132px);line-height:.82;
+  text-transform:uppercase;letter-spacing:-3px;max-width:950px
+}
+.hero h1 .blue{color:var(--blue);text-shadow:0 0 55px rgba(25,211,255,.28)}
+.hero h1 .red{color:var(--red);text-shadow:0 0 55px rgba(255,49,81,.22)}
+.hero-copy{max-width:690px;color:#d7dfeb;font-size:17px;line-height:1.7;margin-top:28px;text-shadow:0 2px 18px rgba(0,0,0,.75)}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:52px;padding:0 20px;border-radius:14px;border:1px solid var(--line);
+  font-size:12px;font-weight:900;letter-spacing:.6px;text-transform:uppercase;transition:.3s var(--ease)
+}
+.btn-primary{background:#fff;color:#05070d;border-color:#fff}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 15px 35px rgba(255,255,255,.16)}
+.btn-dark{background:rgba(5,7,13,.48);color:#fff;backdrop-filter:blur(12px)}
+.btn-dark:hover{transform:translateY(-3px);border-color:var(--blue);color:var(--blue)}
+.hero-panel{
+  padding:22px;border:1px solid rgba(255,255,255,.14);background:rgba(4,8,15,.54);
+  backdrop-filter:blur(20px);border-radius:22px;box-shadow:var(--shadow)
+}
+.hero-panel-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.panel-label{font-size:10px;text-transform:uppercase;letter-spacing:1.8px;color:var(--muted);font-weight:900}
+.status{color:#66efb0;font-size:10px;font-weight:900;text-transform:uppercase}
+.hero-feature{display:grid;grid-template-columns:88px 1fr;gap:15px;align-items:center}
+.hero-feature img{width:88px;height:88px;object-fit:cover;border-radius:16px;border:1px solid rgba(255,255,255,.12)}
+.hero-feature h3{font-family:Oswald;font-size:26px;text-transform:uppercase}
+.hero-feature p{color:var(--muted);font-size:12px;margin-top:3px}
+.feature-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
+.mini-stat{padding:12px;border-radius:13px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.07)}
+.mini-stat b{display:block;font-family:Oswald;font-size:20px}
+.mini-stat span{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+
+.ticker{
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#080c15;
+  overflow:hidden;white-space:nowrap
+}
+.ticker-track{display:inline-flex;animation:marquee 34s linear infinite}
+.ticker-item{padding:15px 28px;font-size:10px;font-weight:900;letter-spacing:1.6px;text-transform:uppercase;color:#9eacc0}
+.ticker-item b{color:var(--blue)}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+.section{max-width:1420px;margin:auto;padding:115px 28px}
+.section-alt{background:linear-gradient(180deg,#070b13,#090e18 50%,#070b13)}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:42px}
+.section-kicker{color:var(--blue);font-size:10px;font-weight:900;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:10px}
+.section h2{font-family:Oswald;font-size:clamp(42px,5.5vw,78px);line-height:.95;text-transform:uppercase;letter-spacing:-1px}
+.section-intro{max-width:480px;color:var(--muted);font-size:14px;line-height:1.7}
+
+.stats-wrap{margin-top:-45px;position:relative;z-index:4}
+.stats-grid{
+  max-width:1200px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr);
+  border:1px solid rgba(255,255,255,.12);border-radius:24px;overflow:hidden;background:rgba(10,15,25,.86);
+  backdrop-filter:blur(18px);box-shadow:var(--shadow)
+}
+.stat{
+  padding:29px 24px;border-right:1px solid var(--line);position:relative;overflow:hidden
+}
+.stat:last-child{border:0}
+.stat::after{content:"";position:absolute;inset:auto 0 0;height:2px;background:linear-gradient(90deg,transparent,var(--blue),transparent);opacity:.6}
+.stat strong{font-family:Oswald;font-size:43px;line-height:1}
+.stat span{display:block;color:var(--muted);font-size:10px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;margin-top:8px}
+
+.zone-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:15px}
+.zone-card{position:relative;height:340px;overflow:hidden;border-radius:22px;border:1px solid var(--line);background:#0a0f18;cursor:pointer;transition:.45s var(--ease)}
+.zone-card:nth-child(1),.zone-card:nth-child(2){grid-column:span 6;height:360px}
+.zone-card:nth-child(3){grid-column:span 8;height:360px}
+.zone-card:nth-child(4),.zone-card:nth-child(5){grid-column:span 4;height:360px}
+.zone-card:nth-child(6){grid-column:span 3;height:360px}
+.zone-card:nth-child(7){grid-column:span 5;height:360px}
+.zone-card img{width:100%;height:100%;object-fit:cover;transition:.7s var(--ease);filter:saturate(.9)}
+.zone-card::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 25%,rgba(2,5,10,.88) 100%);z-index:1}
+.zone-card::after{content:"";position:absolute;inset:0;border:1px solid transparent;border-radius:22px;transition:.3s}
+.zone-card:hover{transform:translateY(-7px);box-shadow:0 25px 55px rgba(0,0,0,.4)}
+.zone-card:hover::after{border-color:rgba(25,211,255,.55);box-shadow:inset 0 0 35px rgba(25,211,255,.08)}
+.zone-card:hover img{transform:scale(1.08);filter:saturate(1.15)}
+.zone-info{position:absolute;left:22px;right:22px;bottom:20px;z-index:2}
+.zone-info .tag{font-size:9px;letter-spacing:1.7px;text-transform:uppercase;color:var(--blue);font-weight:900}
+.zone-info h3{font-family:Oswald;font-size:30px;text-transform:uppercase;margin:3px 0}
+.zone-info p{font-size:11px;color:#b6c1d1;max-width:460px}
+.zone-arrow{position:absolute;right:20px;bottom:20px;width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,.1);display:grid;place-items:center;z-index:2}
+
+.records{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px
+}
+.record-card{
+  min-height:270px;padding:30px;border:1px solid var(--line);border-radius:24px;
+  background:linear-gradient(135deg,rgba(18,27,42,.95),rgba(8,12,20,.95));position:relative;overflow:hidden
+}
+.record-card::before{content:"";position:absolute;width:240px;height:240px;border-radius:50%;right:-90px;top:-90px;background:radial-gradient(circle,rgba(25,211,255,.18),transparent 65%)}
+.record-card.red::before{background:radial-gradient(circle,rgba(255,49,81,.17),transparent 65%)}
+.record-top{display:flex;justify-content:space-between;align-items:center}
+.record-icon{width:45px;height:45px;border-radius:14px;display:grid;place-items:center;background:rgba(25,211,255,.1);color:var(--blue);font-size:18px}
+.red .record-icon{background:rgba(255,49,81,.1);color:var(--red)}
+.record-label{max-width:calc(100% - 62px);font-size:14px;line-height:1.25;color:#cbd6e8;font-weight:900;letter-spacing:1.5px;text-transform:uppercase}
+.record-card h3{font-family:Oswald;font-size:46px;text-transform:uppercase;margin-top:35px}
+.record-value{font-family:Oswald;font-size:70px;line-height:.9;color:#fff;margin-top:7px}
+.record-value small{font-family:Inter;font-size:21px;color:#cbd6e8;font-weight:800}
+.record-foot{display:flex;justify-content:space-between;margin-top:22px;color:#9da9bb;font-size:11px}
+.record-foot b{color:#fff}
+
+.db-shell{position:relative;border:1px solid var(--line);border-radius:28px;background:rgba(10,15,24,.72);box-shadow:var(--shadow);overflow:hidden}
+.db-toolbar{padding:18px;border-bottom:1px solid var(--line);display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.search{
+  flex:1;min-width:240px;display:flex;align-items:center;gap:10px;padding:0 15px;height:47px;
+  background:#080d16;border:1px solid var(--line);border-radius:13px;color:var(--muted)
+}
+.search input{border:0;outline:0;background:transparent;color:#fff;width:100%;font-size:13px}
+.pills{display:flex;gap:7px;flex-wrap:wrap}
+.pill{
+  height:43px;padding:0 14px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.035);
+  color:#aab5c6;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.8px;transition:.2s
+}
+.pill:hover,.pill.active{background:var(--blue);color:#021018;border-color:var(--blue)}
+.sort-select{height:43px;padding:0 12px;background:#080d16;border:1px solid var(--line);color:#dce4ee;border-radius:12px;outline:0}
+.db-meta{padding:0 18px 18px;color:#718096;font-size:11px}
+.rides-grid{padding:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.ride{
+  position:relative;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:#0b111c;
+  transition:.4s var(--ease);cursor:pointer
+}
+.ride:hover{transform:translateY(-6px);border-color:rgba(25,211,255,.45);box-shadow:0 20px 45px rgba(0,0,0,.32)}
+.ride-image{height:205px;position:relative;overflow:hidden;background:#111827}
+.ride-image img{width:100%;height:100%;object-fit:cover;transition:.65s var(--ease)}
+.ride:hover .ride-image img{transform:scale(1.07)}
+.ride-rank{position:absolute;top:12px;left:12px;width:39px;height:39px;border-radius:12px;display:grid;place-items:center;background:rgba(2,5,11,.78);backdrop-filter:blur(12px);font-family:Oswald;font-size:18px;border:1px solid rgba(255,255,255,.14)}
+.ride-type{position:absolute;right:12px;top:12px;padding:7px 9px;border-radius:9px;background:rgba(2,5,11,.76);backdrop-filter:blur(12px);font-size:8px;letter-spacing:1px;text-transform:uppercase;font-weight:900;border:1px solid rgba(255,255,255,.13)}
+.ride-body{padding:18px}
+.manufacturer{color:var(--blue);font-size:9px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase}
+.ride h3{font-family:Oswald;font-size:25px;text-transform:uppercase;line-height:1;margin:5px 0 13px}
+.ride-desc{font-size:11px;color:#8d99aa;line-height:1.55;min-height:52px}
+.ride-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:16px}
+.ride-stat{padding:9px;background:#080d15;border:1px solid rgba(255,255,255,.06);border-radius:10px}
+.ride-stat span{display:block;color:#657286;font-size:8px;text-transform:uppercase;letter-spacing:.7px}
+.ride-stat b{display:block;color:#eef3f8;font-size:12px;margin-top:3px}
+.view-btn{width:100%;height:42px;margin-top:12px;border:1px solid rgba(255,255,255,.09);border-radius:11px;background:rgba(255,255,255,.045);color:#fff;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:1px;transition:.2s}
+.view-btn:hover{background:var(--blue);color:#001018;border-color:var(--blue)}
+
+.empty{padding:60px 20px;text-align:center;color:var(--muted);grid-column:1/-1}
+.empty i{font-size:35px;margin-bottom:12px;color:#536177}
+
+.compare{
+  display:grid;grid-template-columns:1fr 1fr;gap:15px
+}
+.compare-card{
+  padding:25px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,#101827,#0a0f18)
+}
+.compare-card label{display:block;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:1.5px;font-weight:900;margin-bottom:9px}
+.compare-card select{width:100%;height:48px;border-radius:12px;background:#080d15;border:1px solid var(--line);color:#fff;padding:0 13px;outline:0}
+.compare-card select:focus{border-color:var(--blue)}
+.compare-table-wrap{grid-column:1/-1;border:1px solid var(--line);border-radius:20px;overflow:auto}
+.compare-table{width:100%;border-collapse:collapse;min-width:650px}
+.compare-table th,.compare-table td{padding:16px 18px;border-bottom:1px solid var(--line);text-align:left;font-size:12px}
+.compare-table th{background:#080d15;color:#78869a;text-transform:uppercase;font-size:9px;letter-spacing:1.3px}
+.compare-table td:first-child{color:#78869a;font-weight:800}
+.compare-table tr:last-child td{border:0}
+.win{color:var(--green)!important;font-weight:900}
+
+.timeline{position:relative;max-width:1040px;margin:auto}
+.timeline::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:linear-gradient(var(--blue),rgba(255,49,81,.5),transparent)}
+.time-item{position:relative;width:50%;padding:0 45px 55px}
+.time-item:nth-child(even){margin-left:50%}
+.time-item::after{content:"";position:absolute;top:8px;width:13px;height:13px;border:3px solid var(--bg2);background:var(--blue);border-radius:50%;box-shadow:0 0 0 5px rgba(25,211,255,.1),0 0 20px rgba(25,211,255,.5)}
+.time-item:nth-child(odd)::after{right:-7px}
+.time-item:nth-child(even)::after{left:-7px}
+.time-card{padding:23px;border:1px solid var(--line);background:#0b111b;border-radius:19px;transition:.3s}
+.time-card:hover{transform:translateY(-4px);border-color:rgba(25,211,255,.3)}
+.time-year{font-family:Oswald;font-size:28px;color:var(--blue)}
+.time-badge{display:inline-block;margin-left:8px;color:#8e9bad;font-size:8px;text-transform:uppercase;letter-spacing:1.2px;font-weight:900}
+.time-card h3{font-family:Oswald;font-size:24px;text-transform:uppercase;margin:6px 0}
+.time-card p{font-size:11px;line-height:1.65;color:#8996a8}
+
+.footer{padding:70px 28px 25px;border-top:1px solid var(--line);background:#03050a}
+.footer-inner{max-width:1420px;margin:auto;display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap}
+.footer-brand{max-width:480px}
+.footer-brand h2{font-family:Oswald;font-size:40px}
+.footer-brand p{color:#748195;font-size:11px;line-height:1.7;margin-top:12px}
+.footer-links{display:flex;gap:55px}
+.footer-links h4{font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:#fff;margin-bottom:13px}
+.footer-links a{display:block;color:#728095;font-size:11px;margin:8px 0}
+.footer-links a:hover{color:var(--blue)}
+.footer-bottom{max-width:1420px;margin:55px auto 0;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;color:#566174;font-size:9px;text-transform:uppercase;letter-spacing:.8px}
+
+.modal{
+  position:fixed;inset:0;z-index:2000;background:rgba(1,3,7,.78);backdrop-filter:blur(16px);
+  display:grid;place-items:center;padding:20px;opacity:0;visibility:hidden;transition:.3s
+}
+.modal.active{opacity:1;visibility:visible}
+.modal-box{width:min(900px,100%);max-height:90vh;overflow:auto;background:#0a101a;border:1px solid rgba(255,255,255,.13);border-radius:25px;box-shadow:0 40px 100px rgba(0,0,0,.6);transform:translateY(20px) scale(.97);transition:.35s var(--ease)}
+.modal.active .modal-box{transform:none}
+.modal-hero{height:310px;position:relative}
+.modal-hero img{width:100%;height:100%;object-fit:cover}
+.modal-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 30%,#0a101a 100%)}
+.close{position:absolute;right:15px;top:15px;z-index:2;width:42px;height:42px;border-radius:13px;border:1px solid rgba(255,255,255,.15);background:rgba(0,0,0,.5);color:#fff;font-size:18px}
+.modal-content{padding:0 30px 30px;margin-top:-35px;position:relative;z-index:2}
+.modal-kicker{color:var(--blue);font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:1.8px}
+.modal-content h2{font-family:Oswald;font-size:48px;text-transform:uppercase;line-height:1;margin:5px 0 10px}
+.modal-content>p{color:#9aa6b7;font-size:12px;line-height:1.7;max-width:720px}
+.modal-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:20px}
+.modal-stat{padding:15px;border-radius:13px;background:#070c14;border:1px solid var(--line)}
+.modal-stat span{display:block;color:#66748a;font-size:8px;text-transform:uppercase;letter-spacing:1px}
+.modal-stat b{display:block;font-family:Oswald;font-size:24px;margin-top:3px}
+.zone-modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+.zone-modal-card{padding:18px;border:1px solid var(--line);border-radius:15px;background:#070c14}
+.zone-modal-card h4{font-family:Oswald;font-size:23px;text-transform:uppercase}
+.zone-modal-card p{font-size:10px;color:var(--muted);margin-top:4px}
+.zone-rides{display:flex;flex-wrap:wrap;gap:7px;margin-top:13px}
+.zone-rides span{padding:7px 9px;border:1px solid rgba(25,211,255,.2);background:rgba(25,211,255,.06);color:#8be8ff;border-radius:9px;font-size:9px;font-weight:800}
+
+.reveal{opacity:0;transform:translateY(30px);transition:.8s var(--ease)}
+.reveal.show{opacity:1;transform:none}
+.delay-1{transition-delay:.08s}.delay-2{transition-delay:.16s}.delay-3{transition-delay:.24s}
+
+@media(max-width:1050px){
+  .nav-links{display:none}
+  .mobile-btn{display:grid}
+  .nav-links.open{
+    display:flex;position:absolute;top:78px;left:28px;right:28px;padding:12px;
+    flex-direction:column;align-items:stretch;background:rgba(5,7,13,.96);border:1px solid var(--line);border-radius:18px
+  }
+  .nav-links a{text-align:center}
+  .hero-content{grid-template-columns:1fr}
+  .hero-panel{max-width:600px}
+  .rides-grid{grid-template-columns:repeat(2,1fr)}
+  .load-more-wrap{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #loadMoreBtn{width: 100%;}
+  #collapseBtn{grid-column:1 / -1 !important;width:100% !important;max-width:none !important;margin-left:0 !important;justify-self:stretch;transform:none;align-self:end}
+}
+@media(max-width:760px){
+  .nav{padding:10px}
+  .nav.scrolled{padding:7px 10px}
+  .nav-inner{height:60px;border-radius:17px}
+  .nav-cta{display:none}
+  .hero-content{padding:130px 20px 80px}
+  .hero h1{font-size:clamp(56px,16vw,100px);letter-spacing:-2px}
+  .hero-copy{font-size:14px}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .stat:nth-child(2){border-right:0}
+  .stat:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .section{padding:82px 18px}
+  .section-head{display:block}
+  .section-intro{margin-top:15px}
+  .zone-card:nth-child(1),.zone-card:nth-child(2),.zone-card:nth-child(3),.zone-card:nth-child(n+4){grid-column:span 12;height:280px}
+  .records{grid-template-columns:1fr}
+  .rides-grid{grid-template-columns:1fr}
+  .load-more-wrap{grid-template-columns:1fr}
+  #loadMoreBtn{width: 100%;}
+  #collapseBtn{grid-column:1 !important;width:100% !important;max-width:none;margin-left:0 !important;transform:none}
+  .compare{grid-template-columns:1fr}
+  .compare-table-wrap{grid-column:1}
+  .timeline::before{left:8px}
+  .time-item,.time-item:nth-child(even){width:100%;margin:0;padding:0 0 35px 35px}
+  .time-item:nth-child(odd)::after,.time-item:nth-child(even)::after{left:2px;right:auto}
+  .modal-stats{grid-template-columns:repeat(2,1fr)}
+  .zone-modal-grid{grid-template-columns:1fr}
+  .footer-links{gap:30px}
+  .footer-bottom{display:block;line-height:1.8}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+}
+</style>
+</head>
+
+<body>
+<div class="noise"></div>
+<div class="progress" id="progress"></div>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="logo" href="#home">ENERGY<i>LANDIA</i><span>•</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="#home" class="active">Home</a>
+      <a href="#zones">Zones</a>
+      <a href="#records">Records</a>
+      <a href="#rides">Coasters</a>
+      <a href="#history">History</a>
+      <a href="#compare">Compare</a>
+    </div>
+    <div class="nav-right">
+      <div class="custom-lang-dropdown" id="langDropdown">
+        <button class="lang-btn" id="langBtn" aria-expanded="false"><span id="currentLangLabel">🇬🇧 English</span> <i class="fa-solid fa-chevron-down"></i></button>
+        <div class="lang-menu" id="langMenu">
+          <button class="lang-option active" data-value="en">🇬🇧 English</button>
+          <button class="lang-option" data-value="pl">🇵🇱 Polski</button>
+          <button class="lang-option" data-value="de">🇩🇪 Deutsch</button>
+          <button class="lang-option" data-value="cs">🇨🇿 Čeština</button>
+          <button class="lang-option" data-value="sk">🇸🇰 Slovenčina</button>
+        </div>
+      </div>
+      <a href="#rides" class="nav-cta" id="navCta">EXPLORE RIDES <i class="fa-solid fa-arrow-right"></i></a>
+      <button class="icon-btn mobile-btn" id="mobileBtn" aria-label="Open menu"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="home">
+  <div class="hero-bg" aria-hidden="true"><img src="hero_main.jpg" alt=""></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div>
+      <div class="eyebrow"><span class="live-dot"></span> Zator, Poland • Fan-made park guide</div>
+      <h1>Built for <span class="blue">giants.</span><br>Made for <span class="red">thrills.</span></h1>
+      <p class="hero-copy">Explore Energylandia through a coaster database, immersive themed zones, park history and side-by-side ride comparisons — all in one place.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#rides">Explore the database <i class="fa-solid fa-arrow-down"></i></a>
+        <a class="btn btn-dark" href="#zones">Enter the zones <i class="fa-solid fa-compass"></i></a>
+      </div>
+    </div>
+
+    <aside class="hero-panel reveal delay-2">
+      <div class="hero-panel-top">
+        <span class="panel-label">Featured coaster</span>
+        <span class="status"><span class="live-dot"></span> Extreme</span>
+      </div>
+      <div class="hero-feature">
+        <img src="hyperion.jpg" alt="Hyperion">
+        <div>
+          <h3>Hyperion</h3>
+          <p>Intamin • Mega Coaster</p>
+        </div>
+      </div>
+      <div class="feature-stats">
+        <div class="mini-stat"><b>77 m</b><span>Height</span></div>
+        <div class="mini-stat"><b>142</b><span>km/h</span></div>
+        <div class="mini-stat"><b>1450 m</b><span>Length</span></div>
+      </div>
+    </aside>
+  </div>
+</header>
+
+<div class="ticker">
+  <div class="ticker-track">
+    <div class="ticker-item">ENERGYLANDIA <b>•</b> ZATOR, POLAND</div>
+    <div class="ticker-item">ZADRA <b>•</b> HYPERION <b>•</b> ABYSSUS</div>
+    <div class="ticker-item">19 COASTERS <b>•</b> 7 THEMING AREAS</div>
+    <div class="ticker-item">THRILLS <b>•</b> FAMILY <b>•</b> WATER <b>•</b> ADVENTURE</div>
+    <div class="ticker-item">ENERGYLANDIA <b>•</b> ZATOR, POLAND</div>
+    <div class="ticker-item">ZADRA <b>•</b> HYPERION <b>•</b> ABYSSUS</div>
+    <div class="ticker-item">19 COASTERS <b>•</b> 7 THEMING AREAS</div>
+    <div class="ticker-item">THRILLS <b>•</b> FAMILY <b>•</b> WATER <b>•</b> ADVENTURE</div>
+  </div>
+</div>
+
+<section class="stats-wrap">
+  <div class="stats-grid">
+    <div class="stat reveal"><strong class="counter" data-target="133">0</strong><span>Attractions</span></div>
+    <div class="stat reveal delay-1"><strong class="counter" data-target="19">0</strong><span>Roller coasters</span></div>
+    <div class="stat reveal delay-2"><strong class="counter" data-target="70" data-suffix="+">0</strong><span>Hectares</span></div>
+    <div class="stat reveal delay-3"><strong class="counter" data-target="2014">0</strong><span>Opened</span></div>
+  </div>
+</section>
+
+<section class="section" id="zones">
+  <div class="section-head reveal">
+    <div>
+      <div class="section-kicker">Explore the park</div>
+      <h2>Seven worlds.<br>One <span style="color:var(--blue)">park.</span></h2>
+    </div>
+    <p class="section-intro">From medieval dragons to a submerged ancient city, Energylandia is built around radically different environments. Click a zone for its highlights.</p>
+  </div>
+
+  <div class="zone-grid">
+    <article class="zone-card reveal" onclick="openZoneModal('Extreme Zone')">
+      <img src="extreme_zone.jpg" alt="Extreme Zone">
+      <div class="zone-info"><span class="tag">Adrenaline 5/5</span><h3>Extreme Zone</h3><p>Home to Hyperion, Speed and some of the park's most intense rides.</p></div><span class="zone-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+    </article>
+    <article class="zone-card reveal delay-1" onclick="openZoneModal('Dragon Zone')">
+      <img src="dragon_zone.jpg" alt="Dragon Zone">
+      <div class="zone-info"><span class="tag">Medieval fantasy</span><h3>Dragon Zone</h3><p>Dark timber, fire and the legendary wooden-steel giant Zadra.</p></div><span class="zone-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+    </article>
+    <article class="zone-card reveal" onclick="openZoneModal('Aqualantis')">
+      <img src="aqualantis.jpg" alt="Aqualantis">
+      <div class="zone-info"><span class="tag">Sunken city</span><h3>Aqualantis</h3><p>Ancient ruins and the launch-heavy Abyssus.</p></div><span class="zone-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+    </article>
+    <article class="zone-card reveal delay-1" onclick="openZoneModal('Sweet Valley')">
+      <img src="sweet_valley.jpg" alt="Sweet Valley">
+      <div class="zone-info"><span class="tag">Candy themed</span><h3>Sweet Valley</h3><p>Bright colors, family rides and Choco Chip Creek.</p></div><span class="zone-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+    </article>
+    <article class="zone-card reveal delay-2" onclick="openZoneModal('Family Zone')">
+      <img src="family_zone.jpg" alt="Family Zone">
+      <div class="zone-info"><span class="tag">All ages</span><h3>Family Zone</h3><p>Gentler experiences for the whole crew.</p></div><span class="zone-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+    </article>
+    <article class="zone-card reveal" onclick="openZoneModal('Little Kids Zone')">
+      <img src="little_kids_zone.jpg" alt="Little Kids Zone">
+      <div class="zone-info"><span class="tag">Bajtkolandia</span><h3>Little Kids</h3><p>A colorful fairytale playground for younger guests.</p></div><span class="zone-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+    </article>
+    <article class="zone-card reveal delay-1" onclick="openZoneModal('Water Park')">
+      <img src="water_park.jpg" alt="Water Park">
+      <div class="zone-info"><span class="tag">Tropical oasis</span><h3>Water Park</h3><p>Slides, splash zones, pools and places to slow down.</p></div><span class="zone-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+    </article>
+  </div>
+</section>
+
+<section class="section section-alt" id="records">
+  <div class="section-head reveal">
+    <div><div class="section-kicker">Numbers that matter</div><h2>Park <span style="color:var(--red)">records.</span></h2></div>
+    <p class="section-intro">A quick-hit view of the biggest numbers in the existing database. Open any coaster below for its complete profile.</p>
+  </div>
+  <div class="records">
+    <article class="record-card reveal">
+      <div class="record-top"><span class="record-label">Tallest mega coaster in Europe</span><span class="record-icon"><i class="fa-solid fa-arrow-up"></i></span></div>
+      <h3>Hyperion</h3><div class="record-value">77 <small>m</small></div>
+      <div class="record-foot"><span>Category record</span><b>Hyperion</b></div>
+    </article>
+    <article class="record-card red reveal delay-1">
+      <div class="record-top"><span class="record-label">Fastest mega coaster in Europe</span><span class="record-icon"><i class="fa-solid fa-gauge-high"></i></span></div>
+      <h3>Hyperion</h3><div class="record-value">142 <small>km/h</small></div>
+      <div class="record-foot"><span>Category record</span><b>Hyperion</b></div>
+    </article>
+    <article class="record-card reveal delay-2">
+      <div class="record-top"><span class="record-label">Largest amusement park in Europe</span><span class="record-icon"><i class="fa-solid fa-map"></i></span></div>
+      <h3>Energylandia</h3><div class="record-value">19 <small>coasters</small></div>
+      <div class="record-foot"><span id="coasterCountFoot">Current count</span><b>Zator, Poland</b></div>
+    </article>
+    <article class="record-card red reveal delay-3">
+      <div class="record-top"><span class="record-label">Tallest hybrid coaster in the world</span><span class="record-icon"><i class="fa-solid fa-tree"></i></span></div>
+      <h3>Zadra</h3><div class="record-value">63.8 <small>m</small></div>
+      <div class="record-foot"><span>Manufacturer</span><b>RMC</b></div>
+    </article>
+  </div>
+</section>
+
+<section class="section" id="rides">
+  <div class="section-head reveal">
+    <div><div class="section-kicker">Interactive database</div><h2>Coaster <span style="color:var(--blue)">vault.</span></h2></div>
+    <p class="section-intro">Search, filter and sort the rides. Every card opens a detailed profile with the database values used by this fan site.</p>
+  </div>
+
+  <div class="db-shell reveal">
+    <div class="db-toolbar">
+      <div class="search"><i class="fa-solid fa-magnifying-glass"></i><input id="search" type="search" placeholder="Search by coaster or manufacturer…" autocomplete="off"></div>
+      <div class="pills" id="filters">
+        <button class="pill active" data-filter="all">All</button>
+        <button class="pill" data-filter="Extreme">Extreme</button>
+        <button class="pill" data-filter="Thrill">Thrill</button>
+        <button class="pill" data-filter="Family">Family</button>
+        <button class="pill" data-filter="Kiddie">Kiddie</button>
+      </div>
+      <select class="sort-select" id="sort">
+        <option value="best">Rank: best</option>
+        <option value="fastest">Speed: fastest</option>
+        <option value="tallest">Height: tallest</option>
+        <option value="longest">Length: longest</option>
+        <option value="newest">Year: newest</option>
+      </select>
+    </div>
+    <div class="db-meta" id="dbMeta"></div>
+    <div class="rides-grid" id="ridesGrid"></div>
+    <div class="load-more-wrap" id="loadMoreWrap"><button class="load-more" id="loadMoreBtn">Load more coasters <i class="fa-solid fa-arrow-down"></i></button><button class="load-more" id="collapseBtn" hidden>Collapse coasters <i class="fa-solid fa-chevron-up"></i></button></div>
+  </div>
+</section>
+
+<section class="section section-alt" id="compare">
+  <div class="section-head reveal">
+    <div><div class="section-kicker">Head to head</div><h2>Compare<br><span style="color:var(--red)">giants.</span></h2></div>
+    <p class="section-intro">Pick two coasters and instantly compare their height, speed, length, manufacturer and opening year.</p>
+  </div>
+  <div class="compare">
+    <div class="compare-card reveal"><label id="compareOneLabel">Coaster one</label><select id="compare1"></select></div>
+    <div class="compare-card reveal delay-1"><label id="compareTwoLabel">Coaster two</label><select id="compare2"></select></div>
+    <div class="compare-table-wrap reveal">
+      <table class="compare-table" id="compareTable"></table>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="history">
+  <div class="section-head reveal">
+    <div><div class="section-kicker">How it grew</div><h2>A decade of<br><span style="color:var(--blue)">expansion.</span></h2></div>
+    <p class="section-intro">The original site's timeline, rebuilt into a cleaner visual story.</p>
+  </div>
+  <div class="timeline">
+    <article class="time-item reveal"><div class="time-card"><span class="time-year">2014</span><span class="time-badge">Grand opening</span><h3>Park inception</h3><p>Energylandia officially opens in Zator with initial family and kiddie coasters.</p></div></article>
+    <article class="time-item reveal"><div class="time-card"><span class="time-year">2015</span><span class="time-badge">First thrills</span><h3>Adrenaline leap</h3><p>Energuś, Dragon Roller Coaster and Roller Coaster Mayan join the park.</p></div></article>
+    <article class="time-item reveal"><div class="time-card"><span class="time-year">2016–17</span><span class="time-badge">Expansion</span><h3>Launches & shuttles</h3><p>Formuła arrives, followed by Boomerang, Circus Coaster and Happy Loops.</p></div></article>
+    <article class="time-item reveal"><div class="time-card"><span class="time-year">2018</span><span class="time-badge">Megapark</span><h3>Hyperion & Speed</h3><p>The park adds Hyperion and the towering Speed water coaster.</p></div></article>
+    <article class="time-item reveal"><div class="time-card"><span class="time-year">2019</span><span class="time-badge">Dragon Zone</span><h3>Smoczy Gród & Zadra</h3><p>The medieval Dragon Zone opens with Zadra, Frida and Draken.</p></div></article>
+    <article class="time-item reveal"><div class="time-card"><span class="time-year">2021</span><span class="time-badge">Aqualantis</span><h3>Sunken city launch</h3><p>Aqualantis opens with Abyssus and Light Explorers.</p></div></article>
+    <article class="time-item reveal"><div class="time-card"><span class="time-year">2024</span><span class="time-badge">Sweet Valley</span><h3>Immersive expansion</h3><p>Sweet Valley debuts with Choco Chip Creek and Honey Harbour.</p></div></article>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h2>ENERGY<span style="color:var(--red)">LANDIA</span></h2>
+      <p>A redesigned fan-made Energylandia guide focused on roller coasters, themed zones, park history and interactive comparisons.</p>
+    </div>
+    <div class="footer-links">
+      <div><h4>Explore</h4><a href="#zones">Themed zones</a><a href="#rides">Coaster vault</a><a href="#records">Park records</a></div>
+      <div><h4>Tools</h4><a href="#compare">Compare coasters</a><a href="#history">Park history</a><a href="#home">Back to top</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>Fan-made • Not officially affiliated with Energylandia</span>
+    <span>Built as a single-file HTML experience</span>
+  </div>
+</footer>
+
+<div class="modal" id="rideModal" role="dialog" aria-modal="true">
+  <div class="modal-box">
+    <button class="close" onclick="closeModal()" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    <div class="modal-hero"><img id="modalImg" src="" alt=""></div>
+    <div class="modal-content">
+      <span class="modal-kicker" id="modalKicker"></span>
+      <h2 id="modalName"></h2>
+      <p id="modalDesc"></p>
+      <div class="modal-stats">
+        <div class="modal-stat"><span>Height</span><b id="modalHeight">—</b></div>
+        <div class="modal-stat"><span>Speed</span><b id="modalSpeed">—</b></div>
+        <div class="modal-stat"><span>Length</span><b id="modalLength">—</b></div>
+        <div class="modal-stat"><span>Opened</span><b id="modalYear">—</b></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="zoneModal" role="dialog" aria-modal="true">
+  <div class="modal-box">
+    <button class="close" onclick="closeZoneModal()" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    <div class="modal-content" style="padding-top:38px;margin-top:0">
+      <span class="modal-kicker">Themed area</span>
+      <h2 id="zoneTitle"></h2>
+      <p id="zoneDesc"></p>
+      <div class="zone-modal-grid">
+        <div class="zone-modal-card"><h4>Highlights</h4><p>Key attractions and coasters associated with this area.</p><div class="zone-rides" id="zoneRides"></div></div>
+        <div class="zone-modal-card"><h4>Experience</h4><p id="zoneExperience"></p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const coasters = [
+  { name: "Zadra", rank: 1, year: 2019, type: "Extreme", mfg: "RMC", height: "63.8 m", heightNum: 63.8, speed: "121.0 km/h", speedNum: 121.0, length: "1316 m", lengthNum: 1316, image: "zadra.jpg", desc: "World-class RMC hybrid coaster featuring massive wooden structure look with hyper-steep steel tracking and inversions." },
+  { name: "Hyperion", rank: 2, year: 2018, type: "Extreme", mfg: "Intamin", height: "77.0 m", heightNum: 77.0, speed: "142.0 km/h", speedNum: 142.0, length: "1450 m", lengthNum: 1450, image: "hyperion.jpg", desc: "The crown jewel mega-coaster featuring staggering drops, high-speed airtime hills, and extreme velocity." },
+  { name: "Abyssus", rank: 3, year: 2021, type: "Extreme", mfg: "Vekoma", height: "38.5 m", heightNum: 38.5, speed: "100.0 km/h", speedNum: 100.0, length: "1316 m", lengthNum: 1316, image: "abyssus.jpg", desc: "Powerful Vekoma multi-launch coaster loaded with airtime, inversions, and lightning-fast transitions." },
+  { name: "Formuła", rank: 4, year: 2016, type: "Extreme", mfg: "Vekoma", height: "24.7 m", heightNum: 24.7, speed: "100 km/h", speedNum: 100, length: "560 m", lengthNum: 560, image: "formula.jpg", desc: "Acceleration-packed launched coaster model Space Warp with multiple inversions." },
+  { name: "Speed", rank: 5, year: 2018, type: "Extreme", mfg: "Intamin", height: "60 m", heightNum: 60, speed: "110 km/h", speedNum: 110, length: "687 m", lengthNum: 687, image: "speed.jpg", desc: "Massive Intamin water coaster featuring a giant towering lift and massive splashdown." },
+  { name: "Roller Coaster Mayan", rank: 6, year: 2015, type: "Extreme", mfg: "Vekoma", height: "33.3 m", heightNum: 33.3, speed: "80.0 km/h", speedNum: 80.0, length: "689 m", lengthNum: 689, image: "mayan.jpg", desc: "Vekoma Suspended Looping Coaster (SLC) delivering intense inversions and g-forces." },
+  { name: "Choco Chip Creek", rank: 7, year: 2024, type: "Thrill", mfg: "Vekoma", height: "16.5 m", heightNum: 16.5, speed: "55.0 km/h", speedNum: 55.0, length: "1200 m", lengthNum: 1200, image: "choco_chip.jpg", desc: "Thematic modern mine train adventure adding immersive family fun in Sweet Valley." },
+  { name: "Dragon Roller Coaster", rank: 8, year: 2015, type: "Family", mfg: "Vekoma", height: "20 m", heightNum: 20, speed: "75.6 km/h", speedNum: 75.6, length: "453 m", lengthNum: 453, image: "dragon_roller_coaster.jpg", desc: "Suspended family coaster taking riders through tight helices and near-ground drops." },
+  { name: "Energuś", rank: 9, year: 2015, type: "Family", mfg: "Vekoma", height: "13.0 m", heightNum: 13.0, speed: "45 km/h", speedNum: 45, length: "335 m", lengthNum: 335, image: "ergus.jpg", desc: "Popular custom junior coaster smoothly navigating quick turns for families." },
+  { name: "Light Explorers", rank: 10, year: 2021, type: "Family", mfg: "Vekoma", height: "24.2 m", heightNum: 24.2, speed: "60.0 km/h", speedNum: 60.0, length: "238 m", lengthNum: 238, image: "light_explorers.jpg", desc: "Exciting family shuttle layout with multiple forward and backward direction passes." },
+  { name: "Frida", rank: 11, year: 2019, type: "Family", mfg: "Vekoma", height: "13.0 m", heightNum: 13.0, speed: "44.6 km/h", speedNum: 44.6, length: "247 m", lengthNum: 247, image: "frida.jpg", desc: "Smooth family junior coaster layout nestled in the Dragon Zone." },
+  { name: "Boomerang", rank: 12, year: 2018, type: "Family", mfg: "Vekoma", height: "25 m", heightNum: 25, speed: "70 km/h", speedNum: 70, length: "200 m", lengthNum: 200, image: "boomerang.jpg", desc: "Junior Boomerang model that travels forward and backward through the layout." },
+  { name: "Honey Harbour", rank: 13, year: 2024, type: "Family", mfg: "Vekoma", height: "11.7 m", heightNum: 11.7, speed: "46.0 km/h", speedNum: 46.0, length: "254 m", lengthNum: 254, image: "honey_harbour.jpg", desc: "Sweet-themed family coaster providing smooth dynamic turns in Sweet Valley." },
+  { name: "Draken", rank: 14, year: 2019, type: "Family", mfg: "Preston & Barbieri", height: "7.3 m", heightNum: 7.3, speed: "34.5 km/h", speedNum: 34.5, length: "140 m", lengthNum: 140, image: "draken.jpg", desc: "Charming family coaster nestled in Smoczy Gród." },
+  { name: "Viking Roller Coaster", rank: 15, year: 2014, type: "Thrill", mfg: "SBF Visa Group", height: "13 m", heightNum: 13, speed: "43 km/h", speedNum: 43, length: "320 m", lengthNum: 320, image: "viking.jpg", desc: "Spinning wild mouse style coaster offering erratic rotations and family thrills." },
+  { name: "Mars", rank: 16, year: 2014, type: "Family", mfg: "SBF Visa Group", height: "6.0 m", heightNum: 6.0, speed: "24.7 km/h", speedNum: 24.7, length: "150 m", lengthNum: 150, image: "mars.jpg", desc: "Early junior model built for family entertainment and younger visitors." },
+  { name: "Frutti Loop Coaster", rank: 17, year: 2014, type: "Kiddie", mfg: "SBF Visa Group", height: "3.7 m", heightNum: 3.7, speed: "20 km/h", speedNum: 20, length: "90 m", lengthNum: 90, image: "frutti_loop.jpg", desc: "A compact starter kiddie coaster by SBF Visa Group located in Bajtkolandia." },
+  { name: "Circus Coaster", rank: 18, year: 2017, type: "Kiddie", mfg: "Visa Rides", height: "—", heightNum: 0, speed: "12 km/h", speedNum: 12, length: "32 m", lengthNum: 32, image: "circus_coaster.jpg", desc: "Powered circuit experience tailored for younger children." },
+  { name: "Happy Loops", rank: 19, year: 2017, type: "Family", mfg: "SBF Visa Group", height: "7 m", heightNum: 7, speed: "30 km/h", speedNum: 30, length: "90 m", lengthNum: 90, image: "happy_loops.jpg", desc: "Spinning track layout packed with joyful layout switches." }
+];
+
+const zoneData = {
+  'Extreme Zone': { desc: 'The ultimate adrenaline hub featuring Europe’s tallest hypercoaster and fastest water coaster.', rides: ['Hyperion', 'Speed', 'Roller Coaster Mayan', 'Formuła'] },
+  'Dragon Zone': { desc: 'Medieval fantasy realm protected by legendary creatures and world-class coasters.', rides: ['Zadra', 'Dragon Roller Coaster', 'Frida', 'Draken'] },
+  'Aqualantis': { desc: 'A majestic ancient city in ruins surrounded by roaring waters and high-speed launches.', rides: ['Abyssus', 'Light Explorers'] },
+  'Sweet Valley': { desc: 'A colorful, candy-themed wonderland offering immersive family thrills.', rides: ['Choco Chip Creek', 'Honey Harbour'] },
+  'Family Zone': { desc: 'Attractions and gentle experiences designed for visitors of all generations.', rides: ['Energuś', 'Boomerang'] },
+  'Little Kids Zone': { desc: 'Magical fairytale wonderland (Bajtkolandia) tailored for toddlers and young children.', rides: ['Frutti Loop Coaster', 'Mars', 'Circus Coaster', 'Happy Loops'] },
+  'Water Park': { desc: 'A tropical paradise featuring numerous slides, water games, and relaxation beaches.', rides: ['Big Shark', 'Tropical Splash', 'Aloha Beach'] }
+};
+
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+
+let activeFilter = 'all';
+let searchTerm = '';
+let sortBy = 'best';
+let visibleCount = 12;
+
+function badgeClass(type){
+  return type === 'Extreme' ? 'red' : type === 'Thrill' ? 'yellow' : type === 'Kiddie' ? 'green' : 'blue';
+}
+
+function rideCopy(c){
+  const lang=document.documentElement.lang||'en';
+  const localized=(rideTranslations[lang]||{})[c.name]||{};
+  return {desc:localized.desc||(rideDescriptionTranslations[lang]||{})[c.type]||c.desc,type:localized.type||(rideTypeTranslations[lang]||{})[c.type]||c.type};
+}
+
+function renderRides(){
+  const ui=translations[document.documentElement.lang]||translations.en;
+  const copyUi=rideUiTranslations[document.documentElement.lang]||rideUiTranslations.en;
+  const grid = $('#ridesGrid');
+  let list = coasters.filter(c => {
+    const f = activeFilter === 'all' || c.type === activeFilter;
+    const q = searchTerm.toLowerCase();
+    const s = !q || c.name.toLowerCase().includes(q) || c.mfg.toLowerCase().includes(q);
+    return f && s;
+  });
+
+  list.sort((a,b)=>{
+    if(sortBy==='fastest') return b.speedNum-a.speedNum;
+    if(sortBy==='tallest') return b.heightNum-a.heightNum;
+    if(sortBy==='longest') return b.lengthNum-a.lengthNum;
+    if(sortBy==='newest') return b.year-a.year;
+    return a.rank-b.rank;
+  });
+
+  const shown=list.slice(0, visibleCount);
+  $('#dbMeta').innerHTML = `<b style="color:#dfe7f1">${shown.length}</b> / ${list.length} ${copyUi.shown} <span style="margin-left:8px">•</span> ${copyUi.click}`;
+
+  $('#loadMoreWrap').style.display = list.length > 12 ? 'flex' : 'none';
+  $('#loadMoreBtn').style.display = list.length > visibleCount ? '' : 'none';
+  $('#collapseBtn').hidden = visibleCount <= 12;
+  $('#loadMoreBtn').innerHTML = `${copyUi.load} <i class="fa-solid fa-arrow-down"></i>`;
+  $('#collapseBtn').innerHTML = `${copyUi.collapse} <i class="fa-solid fa-chevron-up"></i>`;
+  if(!list.length){
+    grid.innerHTML = `<div class="empty"><i class="fa-solid fa-magnifying-glass"></i><div>No coasters match that search.</div></div>`;
+    return;
+  }
+
+  grid.innerHTML = shown.map(c => `
+    <article class="ride" onclick="openRideModal('${c.name.replace(/'/g,"\\'")}')">
+      <div class="ride-image">
+        <img src="${c.image}" alt="${c.name}" loading="lazy" onerror="this.style.opacity='.25'">
+        <span class="ride-rank">#${c.rank}</span>
+        <span class="ride-type">${rideCopy(c).type}</span>
+      </div>
+      <div class="ride-body">
+        <span class="manufacturer">${c.mfg}</span>
+        <h3>${c.name}</h3>
+        <p class="ride-desc">${rideCopy(c).desc}</p>
+        <div class="ride-stats">
+          <div class="ride-stat"><span>${ui.height}</span><b>${c.height}</b></div>
+          <div class="ride-stat"><span>${ui.speed}</span><b>${c.speed}</b></div>
+          <div class="ride-stat"><span>${ui.length}</span><b>${c.length}</b></div>
+        </div>
+        <button class="view-btn">${copyUi.profile} <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+    </article>
+  `).join('');
+
+  const shell = $('.db-shell');
+  const wrap = $('#loadMoreWrap');
+  const lastRide = grid.querySelector('.ride:last-child');
+  const expanded = list.length > 12 && visibleCount > 12 && lastRide;
+
+  if(expanded){
+    const shellRect = shell.getBoundingClientRect();
+    const rideRect = lastRide.getBoundingClientRect();
+
+    wrap.style.position = 'absolute';
+    wrap.style.left = `${rideRect.right - shellRect.left + 15}px`;
+    wrap.style.right = '18px';
+    wrap.style.width = 'auto';
+    wrap.style.top = `${rideRect.bottom - shellRect.top - 48}px`;
+    wrap.style.padding = '0';
+    wrap.style.display = 'block';
+  }else{
+    wrap.style.position = '';
+    wrap.style.left = '';
+    wrap.style.right = '';
+    wrap.style.width = '';
+    wrap.style.top = '';
+    wrap.style.paddingBottom = '';
+    wrap.style.display = '';
+  }
+}
+
+function openRideModal(name){
+  const c = coasters.find(x=>x.name===name);
+  if(!c) return;
+  const ui=translations[document.documentElement.lang]||translations.en;
+  const copyUi=rideUiTranslations[document.documentElement.lang]||rideUiTranslations.en;
+  const copy=rideCopy(c);
+  $('#modalImg').src=c.image;
+  $('#modalImg').alt=c.name;
+  $('#modalKicker').textContent=`${c.mfg} • ${copy.type} • ${copyUi.rank} #${c.rank}`;
+  $('#modalName').textContent=c.name;
+  $('#modalDesc').textContent=copy.desc;
+  $('#modalHeight').textContent=c.height;
+  $('#modalSpeed').textContent=c.speed;
+  $('#modalLength').textContent=c.length;
+  $('#modalYear').textContent=c.year;
+  $$('.modal-stat span').forEach((el,i)=>el.textContent=[ui.height,ui.speed,ui.length,copyUi.opened][i]);
+  $('#rideModal').classList.add('active');
+  document.body.classList.add('modal-open');
+}
+function closeModal(){ $('#rideModal').classList.remove('active'); document.body.classList.remove('modal-open'); }
+
+function openZoneModal(name){
+  const z=zoneData[name];
+  if(!z) return;
+  $('#zoneTitle').textContent=name;
+  $('#zoneDesc').textContent=z.desc;
+  $('#zoneRides').innerHTML=z.rides.map(r=>`<span>${r}</span>`).join('');
+  const experiences={
+    'Extreme Zone':'Maximum adrenaline, dominated by the park’s largest thrill machines.',
+    'Dragon Zone':'A medieval fantasy atmosphere built around timber, stone, fire and dragons.',
+    'Aqualantis':'A cinematic underwater-city theme paired with modern launch-coaster thrills.',
+    'Sweet Valley':'Bright, playful theming designed around candy and family-friendly adventure.',
+    'Family Zone':'A broad mix of accessible attractions aimed at families and mixed-age groups.',
+    'Little Kids Zone':'A fairytale-style environment designed for younger children.',
+    'Water Park':'A tropical water-focused escape with slides, pools and relaxation areas.'
+  };
+  $('#zoneExperience').textContent=experiences[name] || 'Explore the attractions and atmosphere of this themed area.';
+  $('#zoneModal').classList.add('active');
+  document.body.classList.add('modal-open');
+}
+function closeZoneModal(){ $('#zoneModal').classList.remove('active'); document.body.classList.remove('modal-open'); }
+
+$$('.pill').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    $$('.pill').forEach(x=>x.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter=btn.dataset.filter;
+    visibleCount=12;
+    renderRides();
+  });
+});
+$('#search').addEventListener('input',e=>{searchTerm=e.target.value;visibleCount=12;renderRides()});
+$('#sort').addEventListener('change',e=>{sortBy=e.target.value;visibleCount=12;renderRides()});
+$('#loadMoreBtn').addEventListener('click',()=>{visibleCount+=12;renderRides();});
+$('#collapseBtn').addEventListener('click',()=>{visibleCount=12;renderRides();$('#rides').scrollIntoView({behavior:'smooth',block:'start'})});
+
+function fillCompare(){
+  const options=coasters.map((c,i)=>`<option value="${i}">${c.name}</option>`).join('');
+  $('#compare1').innerHTML=options;
+  $('#compare2').innerHTML=options;
+  $('#compare1').value=1;
+  $('#compare2').value=0;
+  updateCompare();
+}
+function updateCompare(){
+  if(!$('#compare1').value || !$('#compare2').value)return;
+  const a=coasters[$('#compare1').value], b=coasters[$('#compare2').value];
+  const labels=comparisonTranslations[document.documentElement.lang]||comparisonTranslations.en;
+  const metric=(label,va,vb,mode='text')=>{
+    if(mode==='num'){
+      const na=parseFloat(va),nb=parseFloat(vb);
+      const ca=na>nb?'win':'',cb=nb>na?'win':'';
+      return `<tr><td>${label}</td><td class="${ca}">${va}</td><td class="${cb}">${vb}</td></tr>`;
+    }
+    return `<tr><td>${label}</td><td>${va}</td><td>${vb}</td></tr>`;
+  };
+  $('#compareTable').innerHTML=`
+    <tr><th>${labels.metric}</th><th>${a.name}</th><th>${b.name}</th></tr>
+    ${metric(labels.type,a.type,b.type)}
+    ${metric(labels.manufacturer,a.mfg,b.mfg)}
+    ${metric(labels.openingYear,a.year,b.year)}
+    ${metric(labels.height,a.height,b.height,'num')}
+    ${metric(labels.maxSpeed,a.speed,b.speed,'num')}
+    ${metric(labels.trackLength,a.length,b.length,'num')}
+  `;
+}
+$('#compare1').addEventListener('change',updateCompare);
+$('#compare2').addEventListener('change',updateCompare);
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){closeModal();closeZoneModal()}
+});
+['rideModal','zoneModal'].forEach(id=>{
+  $('#'+id).addEventListener('click',e=>{if(e.target.id===id){id==='rideModal'?closeModal():closeZoneModal()}});
+});
+
+const nav=$('#nav');
+const progress=$('#progress');
+const heroBg=$('.hero-bg');
+let heroParallaxTick=false;
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',scrollY>30);
+  if(heroBg && !heroParallaxTick){
+    heroParallaxTick=true;
+    requestAnimationFrame(()=>{
+      const y=Math.min(scrollY,innerHeight)*0.5;
+      heroBg.style.transform=`translate3d(0,${y}px,0)`;
+      heroParallaxTick=false;
+    });
+  }
+  const h=document.documentElement.scrollHeight-innerHeight;
+  progress.style.width=(h>0?(scrollY/h)*100:0)+'%';
+  const sections=['home','zones','records','rides','history','compare'];
+  let current='home';
+  sections.forEach(id=>{const el=$('#'+id);if(el && scrollY+180>=el.offsetTop) current=id});
+  $$('.nav-links a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+current));
+},{passive:true});
+
+$('#mobileBtn').addEventListener('click',()=>$('#navLinks').classList.toggle('open'));
+$$('.nav-links a').forEach(a=>a.addEventListener('click',()=>$('#navLinks').classList.remove('open')));
+
+// Custom Language Menu Logic
+const langDropdown = $('#langDropdown');
+const langBtn = $('#langBtn');
+const currentLangLabel = $('#currentLangLabel');
+
+langBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  langDropdown.classList.toggle('open');
+  langBtn.setAttribute('aria-expanded', langDropdown.classList.contains('open'));
+});
+
+document.addEventListener('click', (e) => {
+  if (!langDropdown.contains(e.target)) {
+    langDropdown.classList.remove('open');
+    langBtn.setAttribute('aria-expanded', 'false');
+  }
+});
+
+$$('.lang-option').forEach(option => {
+  option.addEventListener('click', () => {
+    const lang = option.dataset.value;
+    $$('.lang-option').forEach(opt => opt.classList.remove('active'));
+    option.classList.add('active');
+    currentLangLabel.textContent = option.textContent;
+    langDropdown.classList.remove('open');
+    langBtn.setAttribute('aria-expanded', 'false');
+    applyLanguage(lang);
+  });
+});
+
+let counterDone=false;
+const statsObserver=new IntersectionObserver(entries=>{
+  if(!entries[0].isIntersecting || counterDone)return;
+  counterDone=true;
+  $$('.counter').forEach(el=>{
+    const target=+el.dataset.target,suffix=el.dataset.suffix||'';
+    const start=performance.now(),duration=1100;
+    const tick=now=>{
+      const p=Math.min((now-start)/duration,1);
+      const eased=1-Math.pow(1-p,3);
+      el.textContent=Math.round(target*eased)+suffix;
+      if(p<1)requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  });
+},{threshold:.35});
+statsObserver.observe($('.stats-grid'));
+
+const revealObserver=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');revealObserver.unobserve(e.target)}});
+},{threshold:.08});
+$$('.reveal').forEach(el=>revealObserver.observe(el));
+
+const translations={
+  en:{nav:['Home','Zones','Records','Coasters','History','Compare'],cta:'EXPLORE RIDES',heroEyebrow:'Zator, Poland • Fan-made park guide',heroCopy:'Explore Energylandia through a coaster database, immersive themed zones, park history and side-by-side ride comparisons — all in one place.',explore:'Explore the database',zonesBtn:'Enter the zones',featured:'Featured coaster',extreme:'Extreme',height:'Height',speed:'Speed',length:'Length',zonesKicker:'Explore the park',zonesTitle:'Seven worlds.<br>One <span style="color:var(--blue)">park.</span>',zonesIntro:'From medieval dragons to a submerged ancient city, Energylandia is built around radically different environments. Click a zone for its highlights.',recordsKicker:'Numbers that matter',recordsTitle:'Park <span style="color:var(--red)">records.</span>',recordsIntro:'A quick-hit view of the biggest numbers in the existing database. Open any coaster below for its complete profile.',records:['Tallest mega coaster in Europe','Fastest mega coaster in Europe','Roller coasters in the park','Tallest hybrid coaster in the world'],dbKicker:'Interactive database',dbTitle:'Coaster <span style="color:var(--blue)">vault.</span>',dbIntro:'Search, filter and sort the rides. Every card opens a detailed profile with the database values used by this fan site.',search:'Search by coaster or manufacturer…',filters:['All','Extreme','Thrill','Family','Kiddie'],sort:['Rank: best','Speed: fastest','Height: tallest','Length: longest','Year: newest'],load:'Load more coasters',compareKicker:'Head to head',compareTitle:'Compare<br><span style="color:var(--red)">giants.</span>',compareIntro:'Pick two coasters and instantly compare their height, speed, length, manufacturer and opening year.'},
+  pl:{nav:['Start','Strefy','Rekordy','Kolejki','Historia','Porównaj'],cta:'ODKRYJ KOLEJKI',heroEyebrow:'Zator, Polska • Fanowski przewodnik po parku',heroCopy:'Odkrywaj Energylandię dzięki filmowej bazie kolejek, tematycznym strefom, historii parku i porównywaniu atrakcji — wszystko w jednym miejscu.',explore:'Otwórz bazę kolejek',zonesBtn:'Wejdź do stref',featured:'Polecana kolejka',extreme:'Ekstremalna',height:'Wysokość',speed:'Prędkość',length:'Długość',zonesKicker:'Poznaj park',zonesTitle:'Siedem światów.<br>Jeden <span style="color:var(--blue)">park.</span>',zonesIntro:'Od średniowiecznych smoków po zatopione starożytne miasto — Energylandia oferuje zupełnie różne środowiska. Kliknij strefę, aby poznać jej atrakcje.',recordsKicker:'Liczby, które mają znaczenie',recordsTitle:'Rekordy <span style="color:var(--red)">parku.</span>',recordsIntro:'Najważniejsze liczby z bazy danych. Otwórz dowolną kolejkę poniżej, aby zobaczyć jej pełny profil.',records:['Najwyższy mega coaster w Europie','Najszybszy mega coaster w Europie','Największy park rozrywki w Europie','Najwyższa kolejka hybrydowa na świecie'],dbKicker:'Interaktywna baza',dbTitle:'Baza <span style="color:var(--blue)">coasterów.</span>',dbIntro:'Wyszukuj, filtruj i sortuj kolejki. Każda karta otwiera szczegółowy profil.',search:'Szukaj kolejki lub producenta…',filters:['Wszystkie','Ekstremalne','Thrill','Rodzinne','Dla dzieci'],sort:['Ranking: najlepsze','Prędkość: najwyższa','Wysokość: największa','Długość: największa','Rok: najnowsze'],load:'Załaduj więcej kolejek',compareKicker:'Pojedynek',compareTitle:'Porównaj<br><span style="color:var(--red)">giganty.</span>',compareIntro:'Wybierz dwie kolejki i porównaj ich wysokość, prędkość, długość, producenta i rok otwarcia.'},
+  de:{nav:['Start','Bereiche','Rekorde','Achterbahnen','Geschichte','Vergleichen'],cta:'ACHTERBAHNEN ENTDECKEN',heroEyebrow:'Zator, Polen • Fan-Führer zum Park',heroCopy:'Entdecke Energylandia mit einer filmischen Achterbahn-Datenbank, Themenbereichen, Parkgeschichte und direkten Vergleichen — alles an einem Ort.',explore:'Datenbank öffnen',zonesBtn:'Bereiche betreten',featured:'Empfohlene Achterbahn',extreme:'Extrem',height:'Höhe',speed:'Geschwindigkeit',length:'Länge',zonesKicker:'Den Park entdecken',zonesTitle:'Sieben Welten.<br>Ein <span style="color:var(--blue)">Park.</span>',zonesIntro:'Von mittelalterlichen Drachen bis zu einer versunkenen antiken Stadt bietet Energylandia völlig unterschiedliche Welten. Klicke auf einen Bereich für die Highlights.',recordsKicker:'Zahlen, die zählen',recordsTitle:'Park-<span style="color:var(--red)">rekorde.</span>',recordsIntro:'Die wichtigsten Zahlen aus der Datenbank. Öffne eine Achterbahn für ihr vollständiges Profil.',records:['Höchste Mega-Achterbahn Europas','Schnellste Mega-Achterbahn Europas','Größter Freizeitpark Europas','Höchste Hybrid-Achterbahn der Welt'],dbKicker:'Interaktive Datenbank',dbTitle:'Achterbahn-<span style="color:var(--blue)">Archiv.</span>',dbIntro:'Suche, filtere und sortiere die Fahrgeschäfte. Jede Karte öffnet ein detailliertes Profil.',search:'Nach Achterbahn oder Hersteller suchen…',filters:['Alle','Extrem','Thrill','Familie','Kinder'],sort:['Rang: beste','Geschwindigkeit: höchste','Höhe: höchste','Länge: längste','Jahr: neueste'],load:'Weitere Achterbahnen laden',compareKicker:'Direktvergleich',compareTitle:'Vergleiche<br><span style="color:var(--red)">Giganten.</span>',compareIntro:'Wähle zwei Achterbahnen und vergleiche Höhe, Geschwindigkeit, Länge, Hersteller und Eröffnungsjahr.'},
+  cs:{nav:['Domů','Zóny','Rekordy','Horské dráhy','Historie','Porovnat'],cta:'PROZKOUMAT DRÁHY',heroEyebrow:'Zator, Polsko • Fanouškovský průvodce parkem',heroCopy:'Prozkoumej Energylandii prostřednictvím filmové databáze horských drah, tematických zón, historie parku a vzájemného porovnání atrakcí — vše na jednom místě.',explore:'Otevřít databázi',zonesBtn:'Vstoupit do zón',featured:'Doporučená dráha',extreme:'Extrémní',height:'Výška',speed:'Rychlost',length:'Délka',zonesKicker:'Prozkoumej park',zonesTitle:'Sedm světů.<br>Jeden <span style="color:var(--blue)">park.</span>',zonesIntro:'Od středověkých draků po potopené starověké město — Energylandia nabízí zcela odlišná prostředí. Klikni na zónu a prohlédni si její zajímavosti.',recordsKicker:'Čísla, na kterých záleží',recordsTitle:'Rekordy <span style="color:var(--red)">parku.</span>',recordsIntro:'Rychlý přehled největších čísel v databázi. Otevři dráhu níže pro její kompletní profil.',records:['Nejvyšší mega coaster v Evropě','Nejrychlejší mega coaster v Evropě','Největší zábavní park v Evropě','Nejvyšší hybridní coaster na světě'],dbKicker:'Interaktivní databáze',dbTitle:'Databáze <span style="color:var(--blue)">coasterů.</span>',dbIntro:'Vyhledávej, filtruj a řaď dráhy. Každá karta otevře detailní profil.',search:'Hledat dráhu nebo výrobce…',filters:['Vše','Extrémní','Thrill','Rodinné','Dětské'],sort:['Řazení: nejlepší','Rychlost: nejrychlejší','Výška: nejvyšší','Délka: nejdelší','Rok: nejnovější'],load:'Načíst další dráhy',compareKicker:'Přímé srovnání',compareTitle:'Porovnej<br><span style="color:var(--red)">giganty.</span>',compareIntro:'Vyber dvě dráhy a okamžitě porovnej jejich výšku, rychlost, délku, výrobce a rok otevření.'},
+  sk:{nav:['Domov','Zóny','Rekordy','Horské dráhy','História','Porovnať'],cta:'OBJAVIŤ DRÁHY',heroEyebrow:'Zator, Poľsko • Fanúšikovský sprievodca parkom',heroCopy:'Objav Energylandiu prostredníctvom filmovej databázy horských dráh, tematických zón, histórie parku a porovnávania atrakcií — všetko na jednom mieste.',explore:'Otvoriť databázu',zonesBtn:'Vstúpiť do zón',featured:'Odporúčaná dráha',extreme:'Extrémna',height:'Výška',speed:'Rýchlosť',length:'Dĺžka',zonesKicker:'Preskúmaj park',zonesTitle:'Sedem svetov.<br>Jeden <span style="color:var(--blue)">park.</span>',zonesIntro:'Od stredovekých drakov po potopené starobylé mesto — Energylandia ponúka úplne odlišné prostredia. Klikni na zónu a pozri si jej atrakcie.',recordsKicker:'Čísla, na ktorých záleží',recordsTitle:'Parkové <span style="color:var(--red)">rekordy.</span>',recordsIntro:'Rýchly prehľad najväčších čísel v databáze. Otvor dráhu nižšie pre jej kompletný profil.',records:['Najvyšší mega coaster v Európe','Najrýchlejší mega coaster v Európe','Najväčší zábavný park v Európe','Najvyšší hybridný coaster na svete'],dbKicker:'Interaktívna databáza',dbTitle:'Databáza <span style="color:var(--blue)">coasterov.</span>',dbIntro:'Vyhľadávaj, filtruj a zoraďuj dráhy. Každá karta otvorí detailný profil.',search:'Hľadať dráhu alebo výrobcu…',filters:['Všetky','Extrémne','Thrill','Rodinné','Detské'],sort:['Poradie: najlepšie','Rýchlosť: najvyššia','Výška: najvyššia','Dĺžka: najdlhšia','Rok: najnovší'],load:'Načítať ďalšie dráhy',compareKicker:'Priame porovnanie',compareTitle:'Porovnaj<br><span style="color:var(--red)">giganty.</span>',compareIntro:'Vyber dve dráhy a okamžite porovnaj ich výšku, rýchlosť, dĺžku, výrobcu a rok otvorenia.'}
+};
+
+const rideUiTranslations={
+  en:{shown:'coasters shown',click:'click a card for full stats',profile:'View full profile',load:'Load more coasters',collapse:'Collapse coasters',rank:'Rank',opened:'Opened'},
+  pl:{shown:'kolejek wyświetlono',click:'kliknij kartę, aby zobaczyć pełne dane',profile:'Zobacz pełny profil',load:'Załaduj więcej kolejek',collapse:'Zwiń kolejki',rank:'Pozycja',opened:'Otwarto'},
+  de:{shown:'Achterbahnen angezeigt',click:'Karte anklicken für vollständige Daten',profile:'Vollständiges Profil',load:'Weitere Achterbahnen laden',collapse:'Achterbahnen einklappen',rank:'Rang',opened:'Eröffnet'},
+  cs:{shown:'zobrazených drah',click:'klikni na kartu pro úplné údaje',profile:'Zobrazit celý profil',load:'Načíst další dráhy',collapse:'Sbalit dráhy',rank:'Pořadí',opened:'Otevřeno'},
+  sk:{shown:'zobrazených dráh',click:'klikni na kartu pre úplné údaje',profile:'Zobraziť celý profil',load:'Načítať ďalšie dráhy',collapse:'Zbaliť dráhy',rank:'Poradie',opened:'Otvorené'}
+};
+
+const rideTranslations={
+  cs:{
+    'Zadra':{type:'Extrémní',desc:'Špičková hybridní dráha RMC s masivní dřevěnou konstrukcí, strmou ocelovou tratí a inverzemi.'},
+    'Hyperion':{type:'Extrémní',desc:'Vlajková mega dráha s obrovským pádem, airtime kopci ve vysoké rychlosti a extrémní dynamikou.'},
+    'Abyssus':{type:'Extrémní',desc:'Výkonná vícekrát odpalovaná dráha Vekoma plná airtime momentů, inverzí a rychlých přechodů.'},
+    'Formuła':{type:'Extrémní',desc:'Odpalovaná dráha Space Warp s prudkým zrychlením a několika inverzemi.'},
+    'Speed':{type:'Extrémní',desc:'Velká vodní dráha Intamin s vysokým výtahem a výrazným splashdownem.'},
+    'Roller Coaster Mayan':{type:'Extrémní',desc:'Vekoma Suspended Looping Coaster s intenzivními inverzemi a silnými přetíženími.'},
+    'Choco Chip Creek':{type:'Thrill',desc:'Moderní tematický mine train, který do Sweet Valley přináší rodinné dobrodružství.'},
+    'Dragon Roller Coaster':{type:'Rodinná',desc:'Zavěšená rodinná dráha s těsnými spirálami a pády těsně nad zemí.'},
+    'Energuś':{type:'Rodinná',desc:'Oblíbená juniorská dráha s plynulými zatáčkami pro rodiny.'},
+    'Light Explorers':{type:'Rodinná',desc:'Rodinná shuttle dráha s několika jízdami vpřed i vzad.'},
+    'Frida':{type:'Rodinná',desc:'Plynulá juniorská dráha zasazená do Dračí zóny.'},
+    'Boomerang':{type:'Rodinná',desc:'Juniorský Boomerang, který projíždí tratí dopředu i pozpátku.'},
+    'Honey Harbour':{type:'Rodinná',desc:'Rodinná dráha se sladkou tematikou a plynulými zatáčkami ve Sweet Valley.'},
+    'Draken':{type:'Rodinná',desc:'Okouzlující rodinná dráha ve Smoczym Grodě.'},
+    'Viking Roller Coaster':{type:'Thrill',desc:'Točivá dráha ve stylu wild mouse s nečekanými rotacemi a rodinným napětím.'},
+    'Mars':{type:'Rodinná',desc:'Juniorská dráha vytvořená pro rodinnou zábavu a mladší návštěvníky.'},
+    'Frutti Loop Coaster':{type:'Dětská',desc:'Kompaktní dětská dráha od SBF Visa Group v Bajtkolandii.'},
+    'Circus Coaster':{type:'Dětská',desc:'Poháněná okružní atrakce určená pro mladší děti.'},
+    'Happy Loops':{type:'Rodinná',desc:'Točivá trať plná veselých změn směru.'}
+  }
+};
+
+const rideTypeTranslations={
+  en:{},pl:{Extreme:'Ekstremalna',Thrill:'Dreszcz emocji',Family:'Rodzinna',Kiddie:'Dla dzieci'},
+  de:{Extreme:'Extrem',Thrill:'Nervenkitzel',Family:'Familie',Kiddie:'Kinder'},
+  cs:{Extreme:'Extrémní',Thrill:'Vzrušující',Family:'Rodinná',Kiddie:'Dětská'},
+  sk:{Extreme:'Extrémna',Thrill:'Vzrušujúca',Family:'Rodinná',Kiddie:'Detská'}
+};
+
+const rideDescriptionTranslations={
+  en:{},
+  pl:{Extreme:'Intensywna kolejka z dużą prędkością, dynamicznymi manewrami i mocnymi wrażeniami.',Thrill:'Pełna emocji atrakcja dla osób szukających adrenaliny.',Family:'Łagodniejsza przygoda zaprojektowana z myślą o rodzinach.',Kiddie:'Krótka, przyjazna dzieciom przejażdżka dla najmłodszych.'},
+  de:{Extreme:'Eine intensive Achterbahn mit hohem Tempo, dynamischen Manövern und starken Eindrücken.',Thrill:'Eine aufregende Attraktion für alle, die Adrenalin suchen.',Family:'Ein sanfteres Abenteuer für Familien.',Kiddie:'Eine kurze, kinderfreundliche Fahrt für die jüngsten Gäste.'},
+  cs:{Extreme:'Intenzivní dráha s vysokou rychlostí, dynamickými manévry a silnými zážitky.',Thrill:'Vzrušující atrakce pro návštěvníky, kteří hledají adrenalin.',Family:'Mírnější dobrodružství navržené pro rodiny.',Kiddie:'Krátká, dětem přátelská jízda pro nejmenší návštěvníky.'},
+  sk:{Extreme:'Intenzívna dráha s vysokou rýchlosťou, dynamickými manévrami a silnými zážitkami.',Thrill:'Vzrušujúca atrakcia pre návštevníkov, ktorí hľadajú adrenalin.',Family:'Jemnejšie dobrodružstvo navrhnuté pre rodiny.',Kiddie:'Krátka, detsky priateľská jazda pre najmenších návštevníkov.'}
+};
+
+const comparisonTranslations={
+  en:{one:'Coaster one',two:'Coaster two',metric:'Metric',type:'Type',manufacturer:'Manufacturer',openingYear:'Opening year',height:'Height',maxSpeed:'Max speed',trackLength:'Track length',parkRecord:'Largest amusement park in Europe'},
+  pl:{one:'Pierwsza kolejka',two:'Druga kolejka',metric:'Parametr',type:'Typ',manufacturer:'Producent',openingYear:'Rok otwarcia',height:'Wysokość',maxSpeed:'Maksymalna prędkość',trackLength:'Długość toru',parkRecord:'Największy park rozrywki w Europie'},
+  de:{one:'Erste Achterbahn',two:'Zweite Achterbahn',metric:'Merkmal',type:'Typ',manufacturer:'Hersteller',openingYear:'Eröffnungsjahr',height:'Höhe',maxSpeed:'Höchstgeschwindigkeit',trackLength:'Streckenlänge',parkRecord:'Größter Freizeitpark Europas'},
+  cs:{one:'První dráha',two:'Druhá dráha',metric:'Parametr',type:'Typ',manufacturer:'Výrobce',openingYear:'Rok otevření',height:'Výška',maxSpeed:'Maximální rychlost',trackLength:'Délka trati',parkRecord:'Největší zábavní park v Evropě'},
+  sk:{one:'Prvá dráha',two:'Druhá dráha',metric:'Parameter',type:'Typ',manufacturer:'Výrobca',openingYear:'Rok otvorenia',height:'Výška',maxSpeed:'Maximálna rýchlosť',trackLength:'Dĺžka trate',parkRecord:'Najväčší zábavný park v Európe'}
+};
+
+function applyLanguage(lang){
+  const t=translations[lang]||translations.en; document.documentElement.lang=lang;
+  $$('.nav-links a').forEach((a,i)=>a.textContent=t.nav[i]);
+  $('#navCta').innerHTML=t.cta+' <i class="fa-solid fa-arrow-right"></i>';
+  $('.eyebrow').innerHTML='<span class="live-dot"></span> '+t.heroEyebrow;
+  $('.hero-copy').textContent=t.heroCopy;
+  $('.hero-actions .btn-primary').innerHTML=t.explore+' <i class="fa-solid fa-arrow-down"></i>';
+  $('.hero-actions .btn-dark').innerHTML=t.zonesBtn+' <i class="fa-solid fa-compass"></i>';
+  $('.hero-panel .panel-label').textContent=t.featured;
+  $('.hero-panel .status').innerHTML='<span class="live-dot"></span> '+t.extreme;
+  const mini=$$('.mini-stat span'); [t.height,t.speed,t.length].forEach((x,i)=>mini[i].textContent=x);
+  const sh=$$('.section-head');
+  sh[0].querySelector('.section-kicker').textContent=t.zonesKicker; sh[0].querySelector('h2').innerHTML=t.zonesTitle; sh[0].querySelector('.section-intro').textContent=t.zonesIntro;
+  sh[1].querySelector('.section-kicker').textContent=t.recordsKicker; sh[1].querySelector('h2').innerHTML=t.recordsTitle; sh[1].querySelector('.section-intro').textContent=t.recordsIntro;
+  sh[2].querySelector('.section-kicker').textContent=t.dbKicker; sh[2].querySelector('h2').innerHTML=t.dbTitle; sh[2].querySelector('.section-intro').textContent=t.dbIntro;
+  sh[3].querySelector('.section-kicker').textContent=t.compareKicker; sh[3].querySelector('h2').innerHTML=t.compareTitle; sh[3].querySelector('.section-intro').textContent=t.compareIntro;
+  $$('.record-label').forEach((e,i)=>e.textContent=i===2?(comparisonTranslations[lang]||comparisonTranslations.en).parkRecord:t.records[i]);
+  const compareLabels=comparisonTranslations[lang]||comparisonTranslations.en;
+  $('#compareOneLabel').textContent=compareLabels.one;
+  $('#compareTwoLabel').textContent=compareLabels.two;
+  $('#search').placeholder=t.search;
+  $$('.pill').forEach((e,i)=>e.textContent=t.filters[i]);
+  const sortLabels=t.sort; $$('#sort option').forEach((e,i)=>e.textContent=sortLabels[i]);
+  $('#loadMoreBtn').innerHTML=t.load+' <i class="fa-solid fa-arrow-down"></i>';
+  localStorage.setItem('energylandiaLang',lang);
+  updateCompare();
+  renderRides();
+}
+
+fillCompare();
+const savedLang=localStorage.getItem('energylandiaLang')||'en'; 
+const initialOption = $(`.lang-option[data-value="${savedLang}"]`) || $(`.lang-option[data-value="en"]`);
+if (initialOption) {
+  $$('.lang-option').forEach(opt => opt.classList.remove('active'));
+  initialOption.classList.add('active');
+  currentLangLabel.textContent = initialOption.textContent;
+}
+applyLanguage(savedLang);
+renderRides();
+</script>
+</body>
+</html>
