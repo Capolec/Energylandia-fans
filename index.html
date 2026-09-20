@@ -568,24 +568,24 @@ img{display:block;max-width:100%}
   </div>
   <div class="records">
     <article class="record-card reveal">
-      <div class="record-top"><span class="record-label" id="recLbl1">Tallest mega coaster in Europe</span><span class="record-icon"><i class="fa-solid fa-arrow-up"></i></span></div>
-      <h3>Hyperion</h3><div class="record-value">77 <small>m</small></div>
-      <div class="record-foot"><span id="recFootCat1">Category record</span><b>Hyperion</b></div>
+      <div class="record-top"><span class="record-label" id="recLbl1">Tallest &amp; Fastest Mega Coaster in Europe</span><span class="record-icon"><i class="fa-solid fa-arrow-up"></i></span></div>
+      <h3>Hyperion</h3><div class="record-value">77 <small>m</small> <span style="font-size:30px;color:#cbd6e8">• 142 <small>km/h</small></span></div>
+      <div class="record-foot"><span id="recFootCat1">Height &amp; speed records</span><b>Hyperion</b></div>
     </article>
     <article class="record-card red reveal delay-1">
-      <div class="record-top"><span class="record-label" id="recLbl2">Fastest mega coaster in Europe</span><span class="record-icon"><i class="fa-solid fa-gauge-high"></i></span></div>
-      <h3>Hyperion</h3><div class="record-value">142 <small>km/h</small></div>
-      <div class="record-foot"><span id="recFootCat2">Category record</span><b>Hyperion</b></div>
-    </article>
-    <article class="record-card reveal delay-2">
-      <div class="record-top"><span class="record-label" id="recLbl3">Largest amusement park in Europe</span><span class="record-icon"><i class="fa-solid fa-map"></i></span></div>
+      <div class="record-top"><span class="record-label" id="recLbl2">Largest amusement park in Europe</span><span class="record-icon"><i class="fa-solid fa-map"></i></span></div>
       <h3>Energylandia</h3><div class="record-value">19 <small id="recCoasterUnit">coasters</small></div>
       <div class="record-foot"><span id="coasterCountFoot">Current count</span><b id="recLocVal">Zator, Poland</b></div>
     </article>
-    <article class="record-card red reveal delay-3">
-      <div class="record-top"><span class="record-label" id="recLbl4">Tallest hybrid coaster in the world</span><span class="record-icon"><i class="fa-solid fa-tree"></i></span></div>
+    <article class="record-card reveal delay-2">
+      <div class="record-top"><span class="record-label" id="recLbl3">Tallest hybrid coaster in the world</span><span class="record-icon"><i class="fa-solid fa-tree"></i></span></div>
       <h3>Zadra</h3><div class="record-value">63.8 <small>m</small></div>
       <div class="record-foot"><span id="recMfgLbl">Manufacturer</span><b>RMC</b></div>
+    </article>
+    <article class="record-card red reveal delay-3">
+      <div class="record-top"><span class="record-label" id="recLbl4">Best amusement park in Europe</span><span class="record-icon"><i class="fa-solid fa-trophy"></i></span></div>
+      <h3>Energylandia</h3><div class="record-value">#1</div>
+      <div class="record-foot"><span id="recBestFoot">Ranking</span><b>Europe</b></div>
     </article>
   </div>
 </section>
@@ -620,6 +620,36 @@ img{display:block;max-width:100%}
     <div class="load-more-wrap" id="loadMoreWrap">
       <button class="load-more" id="loadMoreBtn">Load more coasters <i class="fa-solid fa-arrow-down"></i></button>
       <button class="load-more" id="collapseBtn" hidden>Collapse coasters <i class="fa-solid fa-chevron-up"></i></button>
+    </div>
+
+    <!-- Under Construction Coaster Window -->
+    <div style="padding: 24px 18px 18px; border-top: 1px solid var(--line); background: rgba(5, 7, 13, 0.45);">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+        <span style="font-size: 11px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: var(--yellow); background: rgba(255,200,87,0.1); padding: 7px 14px; border-radius: 10px; border: 1px solid rgba(255,200,87,0.25); display: inline-flex; align-items: center; gap: 8px;">
+          Under Construction
+        </span>
+        <span style="font-size: 11px; color: var(--muted); font-weight: 600;">Upcoming Future Project</span>
+      </div>
+      <div style="max-width: 440px;">
+        <article class="ride" onclick="openRideModal('B&M Wing Coaster')">
+          <div class="ride-image">
+            <img src="bm_wing.jpg" alt="B&M Wing Coaster" loading="lazy" onerror="this.style.opacity='.25'">
+            <span class="ride-rank">#?</span>
+            <span class="ride-type">extreme</span>
+          </div>
+          <div class="ride-body">
+            <span class="manufacturer">Bolliger & Mabillard</span>
+            <h3>B&M Wing Coaster</h3>
+            <p class="ride-desc">A major new coaster under construction at Energylandia. Featuring B&M's signature wing-seater trains hanging outside the track, massive inversions, and near-miss elements.</p>
+            <div class="ride-stats">
+              <div class="ride-stat"><span>Height</span><b>~50-65m</b></div>
+              <div class="ride-stat"><span>Speed</span><b>~100-125km/h</b></div>
+              <div class="ride-stat"><span>Length</span><b>~1100-1400m</b></div>
+            </div>
+            <button class="view-btn">View Profile <i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </article>
+      </div>
     </div>
   </div>
 </section>
@@ -725,7 +755,8 @@ const coasters = [
   { name: "Mars", rank: 16, year: 2014, type: "Family", mfg: "SBF Visa Group", height: "6.0 m", heightNum: 6.0, speed: "24.7 km/h", speedNum: 24.7, length: "150 m", lengthNum: 150, image: "mars.jpg", desc: "Early junior model built for family entertainment and younger visitors." },
   { name: "Frutti Loop Coaster", rank: 17, year: 2014, type: "Kiddie", mfg: "SBF Visa Group", height: "3.7 m", heightNum: 3.7, speed: "20 km/h", speedNum: 20, length: "90 m", lengthNum: 90, image: "frutti_loop.jpg", desc: "A compact starter kiddie coaster by SBF Visa Group located in Bajtkolandia." },
   { name: "Circus Coaster", rank: 18, year: 2017, type: "Kiddie", mfg: "Visa Rides", height: "—", heightNum: 0, speed: "12 km/h", speedNum: 12, length: "32 m", lengthNum: 32, image: "circus_coaster.jpg", desc: "Powered circuit experience tailored for younger children." },
-  { name: "Happy Loops", rank: 19, year: 2017, type: "Family", mfg: "SBF Visa Group", height: "7 m", heightNum: 7, speed: "30 km/h", speedNum: 30, length: "90 m", lengthNum: 90, image: "happy_loops.jpg", desc: "Spinning track layout packed with joyful layout switches." }
+  { name: "Happy Loops", rank: 19, year: 2017, type: "Family", mfg: "SBF Visa Group", height: "7 m", heightNum: 7, speed: "30 km/h", speedNum: 30, length: "90 m", lengthNum: 90, image: "happy_loops.jpg", desc: "Spinning track layout packed with joyful layout switches." },
+  { name: "B&M Wing Coaster", rank: "?", year: "2027", type: "Extreme", mfg: "Bolliger & Mabillard", height: "~50-65m", heightNum: 57.5, speed: "~100-125km/h", speedNum: 112.5, length: "~1100-1400m", lengthNum: 1250, image: "bm_wing.jpg", desc: "A major new coaster under construction at Energylandia. Featuring B&M's signature wing-seater trains hanging outside the track, massive inversions, and near-miss elements." }
 ];
 
 const zoneData = {
@@ -757,6 +788,7 @@ function renderRides(){
   const copyUi=rideUiTranslations[document.documentElement.lang]||rideUiTranslations.en;
   const grid = $('#ridesGrid');
   let list = coasters.filter(c => {
+    if(c.rank === "?") return false; // Rendered separately in the Under Construction section
     const f = activeFilter === 'all' || c.type === activeFilter;
     const q = searchTerm.toLowerCase();
     const s = !q || c.name.toLowerCase().includes(q) || c.mfg.toLowerCase().includes(q);
@@ -832,7 +864,7 @@ function closeModal(){ $('#rideModal').classList.remove('active'); document.body
 
 function openZoneModal(key){
   const lang = document.documentElement.lang || 'en';
-  const zTrans = zoneTranslations[lang][key] || zoneTranslations.en[key];
+  const zTrans = (zoneTranslations[lang]||zoneTranslations.en)[key] || zoneTranslations.en[key];
   const zRides = zoneData[key];
   const labels = zoneUiTranslations[lang] || zoneUiTranslations.en;
 
@@ -1022,7 +1054,7 @@ function applyLanguage(lang){
 
   for(let i=1; i<=7; i++){
     const zKey = 'z' + i;
-    const zInfo = zoneTranslations[lang][zKey] || zoneTranslations.en[zKey];
+    const zInfo = (zoneTranslations[lang]||zoneTranslations.en)[zKey];
     if(zInfo){
       $('#z'+i+'Tag').textContent = zInfo.tag;
       $('#z'+i+'Name').textContent = zInfo.title;
@@ -1120,7 +1152,7 @@ const translations={
     recordsKicker:'Numbers that matter',
     recordsTitle:'Park <span style="color:var(--red)">records.</span>',
     recordsIntro:'A quick-hit view of the biggest numbers in the existing database. Open any coaster below for its complete profile.',
-    records:['Tallest mega coaster in Europe','Fastest mega coaster in Europe','Largest amusement park in Europe','Tallest hybrid coaster in the world'],
+    records:['Tallest & Fastest Mega Coaster in Europe','Largest amusement park in Europe','Tallest hybrid coaster in the world','Best amusement park in Europe'],
     recCatRecord:'Category record',
     recCurCount:'Current count',
     recLocZator:'Zator, Poland',
@@ -1165,7 +1197,7 @@ const translations={
     recordsKicker:'Liczby, które mają znaczenie',
     recordsTitle:'Rekordy <span style="color:var(--red)">parku.</span>',
     recordsIntro:'Najważniejsze liczby z bazy danych. Otwórz dowolną kolejkę poniżej, aby zobaczyć jej pełny profil.',
-    records:['Najwyższy mega coaster w Europie','Najszybszy mega coaster w Europie','Największy park rozrywki w Europie','Najwyższa kolejka hybrydowa na świecie'],
+    records:['Najwyższy i najszybszy mega coaster w Europie','Największy park rozrywki w Europie','Najwyższa kolejka hybrydowa na świecie','Najlepszy park rozrywki w Europie'],
     recCatRecord:'Rekord kategorii',
     recCurCount:'Aktualna liczba',
     recLocZator:'Zator, Polska',
@@ -1210,7 +1242,7 @@ const translations={
     recordsKicker:'Zahlen, die zählen',
     recordsTitle:'Park-<span style="color:var(--red)">rekorde.</span>',
     recordsIntro:'Die wichtigsten Zahlen aus der Datenbank. Öffne eine Achterbahn für ihr vollständiges Profil.',
-    records:['Höchste Mega-Achterbahn Europas','Schnellste Mega-Achterbahn Europas','Größter Freizeitpark Europas','Höchste Hybrid-Achterbahn der Welt'],
+    records:['Höchste & schnellste Mega-Achterbahn Europas','Größter Freizeitpark Europas','Höchste Hybrid-Achterbahn der Welt','Bester Freizeitpark Europas'],
     recCatRecord:'Kategorierekord',
     recCurCount:'Aktuelle Anzahl',
     recLocZator:'Zator, Polen',
@@ -1255,7 +1287,7 @@ const translations={
     recordsKicker:'Čísla, na kterých záleží',
     recordsTitle:'Rekordy <span style="color:var(--red)">parku.</span>',
     recordsIntro:'Rychlý přehled největších čísel v databázi. Otevři dráhu níže pro její kompletní profil.',
-    records:['Nejvyšší mega coaster v Evropě','Nejrychlejší mega coaster v Evropě','Největší zábavní park v Evropě','Nejvyšší hybridní coaster na světě'],
+    records:['Nejvyšší a nejrychlejší mega coaster v Evropě','Největší zábavní park v Evropě','Nejvyšší hybridní coaster na světě','Nejlepší zábavní park v Evropě'],
     recCatRecord:'Kategorie rekordu',
     recCurCount:'Aktuální počet',
     recLocZator:'Zator, Polsko',
@@ -1300,7 +1332,7 @@ const translations={
     recordsKicker:'Čísla, na ktorých záleží',
     recordsTitle:'Parkové <span style="color:var(--red)">rekordy.</span>',
     recordsIntro:'Rýchly prehľad najväčších čísel v databáze. Otvor dráhu nižšie pre jej kompletný profil.',
-    records:['Najvyšší mega coaster v Európe','Najrýchlejší mega coaster v Európe','Najväčší zábavný park v Európe','Najvyšší hybridný coaster na svete'],
+    records:['Najvyšší a najrýchlejší mega coaster v Európe','Najväčší zábavný park v Európe','Najvyšší hybridný coaster na svete','Najlepší zábavný park v Európe'],
     recCatRecord:'Kategória rekordu',
     recCurCount:'Aktuálny počet',
     recLocZator:'Zator, Poľsko',
@@ -1314,7 +1346,7 @@ const translations={
     sort:['Poradie: najlepšie','Rýchlosť: najvyššia','Výška: najvyššia','Dĺžka: najdlhšia','Rok: najnovší'],
     compareKicker:'Priame porovnanie',
     compareTitle:'Porovnaj<br><span style="color:var(--red)">giganty.</span>',
-    compareIntro:'Vyber dve dráhy a okamžite porovnaj ich výšku, rýchlosť, dĺžku, výrobcu a rok otvorenia.',
+    compareIntro:'Vyber dve dráhy a okamžite porovnaj ich výšku, rýchlosť, dĺžku, výrobca a rok otvorenia.',
     historyKicker:'Ako park rástol',
     historyTitle:'Desaťročie<br><span style="color:var(--blue)">expanzie.</span>',
     historyIntro:'Časová os parku prepracovaná do prehľadného vizuálneho príbehu.',
@@ -1337,7 +1369,7 @@ const timelineTranslations = {
     t8: { badge: "Next Gen", title: "B&M Wing Coaster", desc: "A brand new state-of-the-art Bolliger & Mabillard Wing Coaster will join the extreme lineup." }
   },
   pl: {
-    t1: { badge: "Wielkie otwarcie", title: "Początek parku", desc: "Energylandia oficjalnie otwiera się w Zatorze z początkowymi kolejkami rodzinnymi i dziecięcymi." },
+    t1: { badge: "Wielkie otwarcie", title: "Początek parku", desc: "Energylandia officially opens in Zator with initial family and kiddie coasters." },
     t2: { badge: "Pierwsze emocje", title: "Skok adrenaliny", desc: "Do parku dołączają Energuś, Dragon Roller Coaster oraz Roller Coaster Mayan." },
     t3: { badge: "Rozbudowa", title: "Starty i shuttle", desc: "Pojawia się Formuła, a zaraz po niej Boomerang, Circus Coaster i Happy Loops." },
     t4: { badge: "Megapark", title: "Hyperion i Speed", desc: "Park powiększa się o Hyperiona oraz potężny wodny coaster Speed." },
@@ -1354,208 +1386,109 @@ const timelineTranslations = {
     t5: { badge: "Drachenzone", title: "Smoczy Gród & Zadra", desc: "Die mittelalterliche Drachenzone eröffnet mit Zadra, Frida und Draken." },
     t6: { badge: "Aqualantis", title: "Versunkene Stadt", desc: "Aqualantis öffnet mit Abyssus und Light Explorers." },
     t7: { badge: "Sweet Valley", title: "Themen-Erweiterung", desc: "Sweet Valley debütiert mit Choco Chip Creek und Honey Harbour." },
-    t8: { badge: "Next Gen", title: "B&M Wing Coaster", desc: "Ein brandneuer, hochmoderner „Wing Coaster“ von Bolliger & Mabillard wird das Extrem-Angebot ergänzen." }
+    t8: { badge: "Next Gen", title: "B&M Wing Coaster", desc: "Ein brandneuer, hochmoderner Wing Coaster von Bolliger & Mabillard wird das Extrem-Angebot ergänzen." }
   },
   cs: {
     t1: { badge: "Velké otevření", title: "Založení parku", desc: "Energylandia se oficiálně otevírá v Zatoru s počátečními rodinnými a dětskými drahami." },
-    t2: { badge: "První vzrušení", title: "Adrenalinový skok", desc: "K parku se připojují Energuś, Dragon Roller Coaster a Roller Coaster Mayan." },
-    t3: { badge: "Expanze", title: "Starty a shuttles", desc: "Přichází Formuła, následovaná Boomerangem, Circus Coasterem a Happy Loops." },
-    t4: { badge: "Megapark", title: "Hyperion a Speed", desc: "Park přidává Hyperion a tyčící se vodní dráhu Speed." },
-    t5: { badge: "Dračí zóna", title: "Smoczy Gród a Zadra", desc: "Středověká Dračí zóna se otevírá se Zadrou, Fridou a Drakenem." },
-    t6: { badge: "Aqualantis", title: "Potopené město", desc: "Aqualantis se otevírá s Abyssusem a Light Explorers." },
-    t7: { badge: "Sweet Valley", title: "Pohlcující expanze", desc: "Sweet Valley debutuje s Choco Chip Creek a Honey Harbour." },
-    t8: { badge: "Next Gen", title: "B&M Wing Coaster", desc: "Zbrusu nový, špičkový Wing Coaster od Bolliger & Mabillard se připojí k extrémní nabídce." }
+    t2: { badge: "První vzrušení", title: "Skok adrenalinu", desc: "Energuś, Dragon Roller Coaster a Roller Coaster Mayan se připojují k parku." },
+    t3: { badge: "Expanze", title: "Starty a shuttle", desc: "Přichází Formuła, následovaná dráhami Boomerang, Circus Coaster a Happy Loops." },
+    t4: { badge: "Megapark", title: "Hyperion a Speed", desc: "Park přidává Hyperion a obří vodní coaster Speed." },
+    t5: { badge: "Dračí zóna", title: "Smoczy Gród a Zadra", desc: "Otevírá se středověká Dračí zóna s drahami Zadra, Frida a Draken." },
+    t6: { badge: "Aqualantis", title: "Potopené město", desc: "Aqualantis se otevírá s drahami Abyssus a Light Explorers." },
+    t7: { badge: "Sweet Valley", title: "Sladké rozšíření", desc: "Sweet Valley debutuje s drahami Choco Chip Creek a Honey Harbour." },
+    t8: { badge: "Next Gen", title: "B&M Wing Coaster", desc: "Zcela nová špičková dráha Wing Coaster od Bolliger & Mabillard posílí nabídku extrémních atrakcí." }
   },
   sk: {
-    t1: { badge: "Veľké otvorenie", title: "Začiatok parku", desc: "Energylandia sa oficiálne otvára v Zatore s prvotnými rodinnými a detskými dráhami." },
-    t2: { badge: "Prvé vzrušenie", title: "Adrenalínový skok", desc: "Energuś, Dragon Roller Coaster a Roller Coaster Mayan sa pripájajú k parku." },
-    t3: { badge: "Expanzia", title: "Štarty a shuttles", desc: "Prichádza Formuła, nasledovaná Bomerangom, Circus Coasterom a Happy Loops." },
-    t4: { badge: "Megapark", title: "Hyperion & Speed", desc: "Park pridáva Hyperion a obrovskú vodnú dráhu Speed." },
-    t5: { badge: "Dračia zóna", title: "Smoczy Gród & Zadra", desc: "Stredoveká Dračia zóna sa otvára so Zadrom, Fridom a Drakenom." },
-    t6: { badge: "Aqualantis", title: "Potopené mesto", desc: "Aqualantis sa otvára s Abyssusom a Light Explorers." },
-    t7: { badge: "Sweet Valley", title: "Sladká expanzia", desc: "Sweet Valley debutuje s Choco Chip Creek a Honey Harbour." },
-    t8: { badge: "Next gen", title: "B&M Wing Coaster", desc: "Zbrusu nový, špičkový Wing Coaster od Bolliger & Mabillard doplní ponuku extrémnych atrakcií." }
+    t1: { badge: "Veľké otvorenie", title: "Založenie parku", desc: "Energylandia sa oficiálne otvára v Zatore s počiatocnými rodinnými a detskými dráhami." },
+    t2: { badge: "Prvé vzrušenie", title: "Skok adrenalínu", desc: "Energuś, Dragon Roller Coaster a Roller Coaster Mayan sa pripájajú k parku." },
+    t3: { badge: "Expanzia", title: "Štarty a shuttle", desc: "Prichádza Formuła, nasledovaná dráhami Boomerang, Circus Coaster a Happy Loops." },
+    t4: { badge: "Megapark", title: "Hyperion a Speed", desc: "Park pridáva Hyperion a obrí vodný coaster Speed." },
+    t5: { badge: "Dračia zóna", title: "Smoczy Gród a Zadra", desc: "Otvára sa stredoveká Dračia zóna s dráhami Zadra, Frida a Draken." },
+    t6: { badge: "Aqualantis", title: "Potopené mesto", desc: "Aqualantis sa otvára s dráhami Abyssus a Light Explorers." },
+    t7: { badge: "Sweet Valley", title: "Sladké rozšírenie", desc: "Sweet Valley debutuje s dráhami Choco Chip Creek a Honey Harbour." },
+    t8: { badge: "Next Gen", title: "B&M Wing Coaster", desc: "Zcela nová špičková dráha Wing Coaster od Bolliger & Mabillard posilní ponuku extrémnych atrakcií." }
   }
-};
-
-const rideUiTranslations={
-  en:{shown:'coasters shown',click:'click a card for full stats',profile:'View full profile',load:'Load more coasters',collapse:'Collapse coasters',rank:'Rank',opened:'Opened'},
-  pl:{shown:'kolejek wyświetlono',click:'kliknij kartę, aby zobaczyć pełne dane',profile:'Zobacz pełny profil',load:'Załaduj więcej kolejek',collapse:'Zwiń kolejki',rank:'Pozycja',opened:'Otwarto'},
-  de:{shown:'Achterbahnen angezeigt',click:'Karte anklicken für vollständige Daten',profile:'Vollständiges Profil',load:'Weitere Achterbahnen laden',collapse:'Achterbahnen einklappen',rank:'Rang',opened:'Eröffnet'},
-  cs:{shown:'zobrazených drah',click:'klikni na kartu pro úplné údaje',profile:'Zobrazit celý profil',load:'Načíst další dráhy',collapse:'Sbalit dráhy',rank:'Pořadí',opened:'Otevřeno'},
-  sk:{shown:'zobrazených dráh',click:'klikni na kartu pre úplné údaje',profile:'Zobraziť celý profil',load:'Načítať ďalšie dráhy',collapse:'Zbaliť dráhy',rank:'Poradie',opened:'Otvorené'}
-};
-
-const zoneUiTranslations={
-  en:{highlights:'Highlights', highDesc:'Key attractions and coasters associated with this area.', experience:'Experience'},
-  pl:{highlights:'Główne atrakcje', highDesc:'Najważniejsze kolejki i obiekty znajdujące się w tej strefie.', experience:'Doświadczenie'},
-  de:{highlights:'Highlights', highDesc:'Die wichtigsten Achterbahnen und Attraktionen in diesem Bereich.', experience:'Erlebnis'},
-  cs:{highlights:'Hlavní atrakce', highDesc:'Klíčové horské dráhy a atrakce v této zóně.', experience:'Zážitek'},
-  sk:{highlights:'Hlavné atrakcie', highDesc:'Kľúčové horské dráhy a atrakcie v tejto zóne.', experience:'Zážitok'}
 };
 
 const zoneTranslations = {
   en: {
-    z1: { tag:'Adrenaline 5/5', title:'Extreme Zone', desc:"Home to Hyperion, Speed and some of the park's most intense rides.", modalDesc:'The ultimate adrenaline hub featuring Europe’s tallest hypercoaster and fastest water coaster.', exp:'Maximum adrenaline, dominated by the park’s largest thrill machines.' },
-    z2: { tag:'Medieval fantasy', title:'Dragon Zone', desc:'Dark timber, fire and the legendary wooden-steel giant Zadra.', modalDesc:'Medieval fantasy realm protected by legendary creatures and world-class coasters.', exp:'A medieval fantasy atmosphere built around timber, stone, fire and dragons.' },
-    z3: { tag:'Sunken city', title:'Aqualantis', desc:'Ancient ruins and the launch-heavy Abyssus.', modalDesc:'A majestic ancient city in ruins surrounded by roaring waters and high-speed launches.', exp:'A cinematic underwater-city theme paired with modern launch-coaster thrills.' },
-    z4: { tag:'Candy themed', title:'Sweet Valley', desc:'Bright colors, family rides and Choco Chip Creek.', modalDesc:'A colorful, candy-themed wonderland offering immersive family thrills.', exp:'Bright, playful theming designed around candy and family-friendly adventure.' },
-    z5: { tag:'All ages', title:'Family Zone', desc:'Gentler experiences for the whole crew.', modalDesc:'Attractions and gentle experiences designed for visitors of all generations.', exp:'A broad mix of accessible attractions aimed at families and mixed-age groups.' },
-    z6: { tag:'Bajtkolandia', title:'Little Kids', desc:'A colorful fairytale playground for younger guests.', modalDesc:'Magical fairytale wonderland tailored for toddlers and young children.', exp:'A fairytale-style environment designed for younger children.' },
-    z7: { tag:'Tropical oasis', title:'Water Park', desc:'Slides, splash zones, pools and places to slow down.', modalDesc:'A tropical paradise featuring numerous slides, water games, and relaxation beaches.', exp:'A tropical water-focused escape with slides, pools and relaxation areas.' }
+    z1: { tag: "Adrenaline 5/5", title: "Extreme Zone", desc: "Home to Hyperion, Speed and some of the park's most intense rides.", modalDesc: "The ultimate zone for adrenaline thrill-seekers.", exp: "Features intense G-forces, massive drops, and high speeds." },
+    z2: { tag: "Medieval fantasy", title: "Dragon Zone", desc: "Dark timber, fire and the legendary wooden-steel giant Zadra.", modalDesc: "Step into a mythical realm of dragons and wooden structures.", exp: "Dominated by Zadra, one of the world's highest ranked hybrid coasters." },
+    z3: { tag: "Sunken city", title: "Aqualantis", desc: "Ancient ruins and the launch-heavy Abyssus.", modalDesc: "Explore a forgotten underwater city themed with ancient ruins.", exp: "Home to double-launch coaster Abyssus and family shuttle coasters." },
+    z4: { tag: "Candy themed", title: "Sweet Valley", desc: "Bright colors, family rides and Choco Chip Creek.", modalDesc: "A colorful candy wonderland designed for families and kids.", exp: "Features smooth family coasters themed around treats and chocolate." },
+    z5: { tag: "All ages", title: "Family Zone", desc: "Gentler experiences for the whole crew.", modalDesc: "Fun and accessible rides suitable for parents and children.", exp: "A balanced mix of classic family coasters and gentle thrill rides." },
+    z6: { tag: "Bajtkolandia", title: "Little Kids", desc: "A colorful fairytale playground for younger guests.", modalDesc: "Dedicated zone for toddlers and young children.", exp: "Gentle kiddie coasters and colorful interactive attractions." },
+    z7: { tag: "Tropical oasis", title: "Water Park", desc: "Slides, splash zones, pools and places to slow down.", modalDesc: "Massive outdoor water park area with pools and slides.", exp: "Dozens of water slides, wave pools, and relaxation areas." }
   },
   pl: {
-    z1: { tag:'Adrenalina 5/5', title:'Strefa Ekstremalna', desc:'Dom dla Hyperiona, Speeda i najbardziej intensywnych atrakcji.', modalDesc:'Ektremalne centrum adrenaliny z najwyższym hypercoasterem i najszybszym water coasterem w Europie.', exp:'Maksymalna adrenalina zdominowana przez największe i najszybsze maszyny.' },
-    z2: { tag:'Średniowieczne fantasy', title:'Smoczy Gród', desc:'Ciemne drewno, ogień i legendarny drewniano-stalowy gigant Zadra.', modalDesc:'Średniowieczna kraina chroniona przez legendarne stworzenia i światowej klasy kolejki.', exp:'Klimat dawnego fantasy oparty na drewnie, kamieniu, smokach i ogniu.' },
-    z3: { tag:'Zatopione miasto', title:'Aqualantis', desc:'Starożytne ruiny i podwójnie wystrzeliwany Abyssus.', modalDesc:'Zatopione miasto obmywane falami, pełne nowoczesnych atrakcji.', exp:'Kinowy klimat podwodnego świata połączony z dreszczykiem emocji.' },
-    z4: { tag:'Cukierkowa kraina', title:'Sweet Valley', desc:'Żywe kolory, rodzinne atrakcje i Choco Chip Creek.', modalDesc:'Kolorowy, słodki świat oferujący rodzinną rozrywkę na wysokim poziomie.', exp:'Jasna, zabawna tematyka pełna słodyczy i radosnych przygód.' },
-    z5: { tag:'Dla każdego', title:'Strefa Rodzinna', desc:'Lżejsze wrażenia i atrakcje dla całej ekipy.', modalDesc:'Atrakcje zaprojektowane z myślą o osobach w każdym wieku.', exp:'Szeroki wybór dostępnych atrakcji dla wielopokoleniowych rodzin.' },
-    z6: { tag:'Bajtkolandia', title:'Strefa Bajkowa', desc:'Kolorowy, bajkowy plac zabaw dla najmłodszych.', modalDesc:'Magiczna, baśniowa kraina dostosowana do małych dzieci.', exp:'Bezpieczne środowisko przypominające najpiękniejsze bajki.' },
-    z7: { tag:'Tropikalna oaza', title:'Water Park', desc:'Zjeżdżalnie, strefy wodne i relaks na plaży.', modalDesc:'Tropikalny raj z wieloma zjeżdżalniami, grami wodnymi i plażami.', exp:'Wodna strefa relaksu inspirowana egzotycznymi wyspami.' }
+    z1: { tag: "Adrenalina 5/5", title: "Strefa Ekstremalna", desc: "Dom Hyperiona, Speeda i najbardziej intensywnych atrakcji.", modalDesc: "Strefa stworzona dla poszukiwaczy mocnych wrażeń.", exp: "Niezapomniane przeciążenia, potężne spadki i wielkie prędkości." },
+    z2: { tag: "Średniowieczny klimat", title: "Smoczy Gród", desc: "Ciemne drewno, ogień i hybrydowa Zadra.", modalDesc: "Przenieś się do mitycznej krainy smoków.", exp: "Strefa zdominowana przez Zadrę — jedną z najlepszych hybryd na świecie." },
+    z3: { tag: "Zatopione miasto", title: "Aqualantis", desc: "Starożytne ruiny i podwójnie podnoszący ciśnienie Abyssus.", modalDesc: "Odkryj zapomniane podwodne miasto.", exp: "Dom coastera Abyssus i atrakcji wodnych." },
+    z4: { tag: "Słodki świat", title: "Sweet Valley", desc: "Jaskrawe kolory, atrakcje rodzinne i Choco Chip Creek.", modalDesc: "Kolorowa kraina słodyczy stworzona dla rodzin.", exp: "Płynne kolejki rodzinne w klimacie łakoci." },
+    z5: { tag: "Dla każdego", title: "Strefa Rodzinna", desc: "Łagodniejsze wrażenia dla całej rodziny.", modalDesc: "Radość i dostępność dla rodziców z dziećmi.", exp: "Zbalansowany miks klasycznych i rodzinnych atrakcji." },
+    z6: { tag: "Bajtkolandia", title: "Dla Najmłodszych", desc: "Baśniowy plac zabaw dla najmłodszych gości.", modalDesc: "Strefa dedykowana maluchom.", exp: "Łagodne kolejki dziecięce i kolorowe atrakcje." },
+    z7: { tag: "Tropikalna oaza", title: "Park Wodny", desc: "Zjeżdżalnie, strefy basenowe i relaks.", modalDesc: "Potężna strefa wodna z basenami i zjeżdżalniami.", exp: "Dziesiątki zjeżdżalni, basen z falami i strefy wypoczynku." }
   },
   de: {
-    z1: { tag:'Adrenalin 5/5', title:'Extreme Zone', desc:'Heimat von Hyperion, Speed und den intensivsten Fahrten des Parks.', modalDesc:'Das ultimative Adrenalinzentrum mit Europas höchstem Hypercoaster.', exp:'Maximales Adrenalin, dominiert von riesigen Thrill-Maschinen.' },
-    z2: { tag:'Mittelalter-Fantasy', title:'Drachenzone', desc:'Dunkles Holz, Feuer und der legendäre Stahl-Holz-Gigant Zadra.', modalDesc:'Ein mittelalterliches Reich, beschützt von Drachen und Achterbahnen.', exp:'Eine fantastische Atmosphäre gebaut aus Holz, Stein, Feuer und Drachen.' },
-    z3: { tag:'Versunkene Stadt', title:'Aqualantis', desc:'Antike Ruinen und der rasante Launch-Coaster Abyssus.', modalDesc:'Eine majestätische, versunkene Stadt mit gewaltigen Wasser-Elementen.', exp:'Filmisches Unterwasserstadt-Thema gepaart mit modernem Nervenkitzel.' },
-    z4: { tag:'Süßigkeiten-Thema', title:'Sweet Valley', desc:'Bunte Farben, Familienfahrten und der Choco Chip Creek.', modalDesc:'Ein farbenfrohes Süßigkeiten-Wunderland für die ganze Familie.', exp:'Helle, verspielte Thematisierung rund um Naschereien und Abenteuer.' },
-    z5: { tag:'Jedes Alter', title:'Familienzone', desc:'Sanftere Erlebnisse für die gesamte Crew.', modalDesc:'Attraktionen, die für Besucher aller Generationen konzipiert sind.', exp:'Ein breiter Mix an zugänglichen Attraktionen für Groß und Klein.' },
-    z6: { tag:'Bajtkolandia', title:'Kinderzone', desc:'Ein bunter Märchen-Spielplatz für die kleinen Gäste.', modalDesc:'Ein magisches Märchenwunderland, zugeschnitten auf Kleinkinder.', exp:'Eine märchenhafte Umgebung, die speziell für Kinder gestaltet wurde.' },
-    z7: { tag:'Tropische Oase', title:'Water Park', desc:'Rutschen, Splash-Zonen, Pools und Orte zum Entspannen.', modalDesc:'Ein tropisches Paradies mit Rutschen, Wasserspielen und Stränden.', exp:'Ein tropischer Wasser-Rückzugsort für heiße Sommertage.' }
+    z1: { tag: "Adrenalin 5/5", title: "Extrem-Bereich", desc: "Zuhause von Hyperion, Speed und extremen Rides.", modalDesc: "Für alle, die den absoluten Nervenkitzel suchen.", exp: "Hohe G-Kräfte, steile Drops und Höchstgeschwindigkeiten." },
+    z2: { tag: "Mittelalter-Fantasy", title: "Drachenzone", desc: "Dunkles Holz, Feuer und die Hybrid-Achterbahn Zadra.", modalDesc: "Betrete ein mythisches Reich voller Drachen.", exp: "Dominiert von Zadra, einer der besten Hybridbahnen der Welt." },
+    z3: { tag: "Versunkene Stadt", title: "Aqualantis", desc: "Antike Ruinen und der Launch-Coaster Abyssus.", modalDesc: "Erkunde eine versunkene antike Stadt.", exp: "Heimat des Double-Launch-Coasters Abyssus." },
+    z4: { tag: "Süßigkeiten-Thema", title: "Sweet Valley", desc: "Bunte Farben und Choco Chip Creek.", modalDesc: "Ein buntes Wunderland für die ganze Familie.", exp: "Sanfte Familienachterbahnen im Schokoladen-Design." },
+    z5: { tag: "Für alle Altersgruppen", title: "Familienbereich", desc: "Sanftere Erlebnisse für die ganze Familie.", modalDesc: "Zugänglicher Spaß für Groß und Klein.", exp: "Ausgewogene Mischung aus Familienbahnen." },
+    z6: { tag: "Bajtkolandia", title: "Kinderwelt", desc: "Ein märchenhafter Spielplatz für die Kleinsten.", modalDesc: "Spezieller Bereich für Kleinkinder.", exp: "Sanfte Kinderachterbahnen und bunte Karussells." },
+    z7: { tag: "Tropische Oase", title: "Wasserpark", desc: "Rutschen, Pools und Erholung.", modalDesc: "Riesiger Outdoor-Wasserpark.", exp: "Zahlreiche Wasserrutschen und Wellenbecken." }
   },
   cs: {
-    z1: { tag:'Adrenalin 5/5', title:'Extrémní Zóna', desc:'Domov Hyperionu, Speedu a nejintenzivnějších atrakcí.', modalDesc:'Ultimátní adrenalinové centrum s nejvyšším hypercoasterem.', exp:'Maximální adrenalin s dominujícími rychlými stroji.' },
-    z2: { tag:'Středověké fantasy', title:'Dračí Zóna', desc:'Tmavé dřevo, oheň a legendární hybridní gigant Zadra.', modalDesc:'Středověká fantasy říše chráněná mýtickými tvory a horskými dráhami.', exp:'Fantastická atmosféra postavená na dřevě, kameni, ohni a dracích.' },
-    z3: { tag:'Potopené město', title:'Aqualantis', desc:'Starověké ruiny a odpalovaný coaster Abyssus.', modalDesc:'Majestátní potopené město obklopené vodními a rychlostními dráhami.', exp:'Filmové téma podvodního světa s moderním adrenalinem.' },
-    z4: { tag:'Cukrovinkový svět', title:'Sweet Valley', desc:'Jasné barvy, rodinné jízdy a Choco Chip Creek.', modalDesc:'Barevný a sladký svět nabízející dokonalé rodinné vzrušení.', exp:'Hravé prostředí zaměřené na sladkosti a rodinné dobrodružství.' },
-    z5: { tag:'Všechny věky', title:'Rodinná Zóna', desc:'Klidnější zážitky pro celou rodinu.', modalDesc:'Atrakce a jemnější zážitky navržené pro všechny generace.', exp:'Široká směs přístupných atrakcí zaměřených na rodiny.' },
-    z6: { tag:'Bajtkolandia', title:'Pro Děti', desc:'Barevné pohádkové hřiště pro mladší návštěvníky.', modalDesc:'Magický pohádkový svět šitý na míru batolatům a malým dětem.', exp:'Pohádkové prostředí navržené pro nejmenší.' },
-    z7: { tag:'Tropická oáza', title:'Water Park', desc:'Tobogány, bazény a místa pro dokonalý relax.', modalDesc:'Tropický ráj s mnoha skluzavkami, vodními hrami a plážemi.', exp:'Únik do tropů s důrazem na vodu a relaxaci.' }
+    z1: { tag: "Adrenalin 5/5", title: "Extrémní zóna", desc: "Domov Hyperionu, Speedu a nejintenzivnějších atrakcí.", modalDesc: "Zóna stvořená pro milovníky adrenalinu.", exp: "Vysoké přetížení, masivní drops a vysoké rychlosti." },
+    z2: { tag: "Středověká fantasy", title: "Dračí zóna", desc: "Tmavé dřevo, oheň a legendární Zadra.", modalDesc: "Vstup do mýtické říše draků.", exp: "Dominanta Zadra — jeden z nejlepších hybridních coasterů světa." },
+    z3: { tag: "Potopené město", title: "Aqualantis", desc: "Starověké ruiny a vystřelovací Abyssus.", modalDesc: "Prozkoumej zapomenuté podmořské město.", exp: "Domov launch coasteru Abyssus a rodinných drah." },
+    z4: { tag: "Sladký svět", title: "Sweet Valley", desc: "Pestré barvy, rodinné jízdy a Choco Chip Creek.", modalDesc: "Pestrobarevný svět sladkostí pro rodiny.", exp: "Plynulé rodinné dráhy v tématu sladkostí." },
+    z5: { tag: "Pro všechny věkové kategorie", title: "Rodinná zóna", desc: "Jemnější zážitky pro celou rodinu.", modalDesc: "Zábava vhodná pro rodiče s dětmi.", exp: "Vyvážený mix klasických rodinných drah." },
+    z6: { tag: "Bajtkolandia", title: "Pro nejmenší", desc: "Pohádkové hřiště pro nejmenší návštěvníky.", modalDesc: "Zóna vyhrazená malým dětem.", exp: "Jemné dětské dráhy a barevné atrakce." },
+    z7: { tag: "Tropická oáza", title: "Aquapark", desc: "Tobogány, bazény a relaxace.", modalDesc: "Velký vodní park s bazény a tobogány.", exp: "Desítky tobogánů, bazén s vlnobitím a odpočinkové zóny." }
   },
   sk: {
-    z1: { tag:'Adrenalín 5/5', title:'Extrémna Zóna', desc:'Domov pre Hyperion, Speed a najintenzívnejšie atrakcie.', modalDesc:'Ultimátne adrenalínové centrum s najvyšším hypercoasterom.', exp:'Maximálny adrenalín, dominujú najväčšie stroje v parku.' },
-    z2: { tag:'Stredoveké fantasy', title:'Dračia Zóna', desc:'Tmavé drevo, oheň a legendárny gigant Zadra.', modalDesc:'Stredoveká ríša chránená bájnymi tvormi a horskými dráhami.', exp:'Fantastická atmosféra postavená na dreve, kameni, ohni a drakoch.' },
-    z3: { tag:'Potopené mesto', title:'Aqualantis', desc:'Starobylé ruiny a silný Abyssus.', modalDesc:'Majestátne potopené mesto s ohromnými vodnými kulisami.', exp:'Filmové téma podmorského sveta spojená s moderným vzrušením.' },
-    z4: { tag:'Cukríkový svet', title:'Sweet Valley', desc:'Svetlé farby, rodinné jazdy a Choco Chip Creek.', modalDesc:'Farebný, sladký svet plný rodinnej zábavy.', exp:'Žiarivé prostredie postavené na sladkostiach a dobrodružstve.' },
-    z5: { tag:'Pre každého', title:'Rodinná Zóna', desc:'Pokojnejšie zážitky pre celú rodinu.', modalDesc:'Atrakcie navrhnuté pre návštevníkov všetkých generácií.', exp:'Široká škála dostupných atrakcií pre viacgeneračné rodiny.' },
-    z6: { tag:'Bajtkolandia', title:'Pre Deti', desc:'Farebné rozprávkové ihrisko pre najmenších.', modalDesc:'Magický rozprávkový svet vytvorený pre batoľatá a malé deti.', exp:'Bezpečné prostredie navrhnuté špeciálne pre deti.' },
-    z7: { tag:'Tropická oáza', title:'Water Park', desc:'Tobogany, bazény a miesta na spomalenie.', modalDesc:'Tropický raj s mnohými toboganmi, vodnými hrami a plážami.', exp:'Útek do vôd a relaxu s tropickou tématikou.' }
+    z1: { tag: "Adrenalín 5/5", title: "Extrémna zóna", desc: "Domov Hyperionu, Speedu a najintenzívnejších atrakcií.", modalDesc: "Zóna vytvorená pre milovníkov adrenalínu.", exp: "Vysoké preťaženie, masívne spadnutia a vysoké rýchlosti." },
+    z2: { tag: "Stredoveká fantasy", title: "Dračia zóna", desc: "Tmavé drevo, oheň a legendárna Zadra.", modalDesc: "Vstúp do mýtockej ríše drakov.", exp: "Dominanta Zadra — jeden z najlepších hybridných coasterov sveta." },
+    z3: { tag: "Potopené mesto", title: "Aqualantis", desc: "Staroveké ruiny a vystreľovací Abyssus.", modalDesc: "Preskúmaj zabudnuté podmorské mesto.", exp: "Domov launch coasteru Abyssus a rodinných dráh." },
+    z4: { tag: "Sladký svet", title: "Sweet Valley", desc: "Pestré farby, rodinné jazdy a Choco Chip Creek.", modalDesc: "Pestrofarebný svet sladkostí pre rodiny.", exp: "Plynulé rodinné dráhy v téme sladkostí." },
+    z5: { tag: "Pre všetky vekové kategórie", title: "Rodinná zóna", desc: "Jemnejšie zážitky pre celú rodinu.", modalDesc: "Zábava vhodná pre rodičov s deťmi.", exp: "Vyvážený mix klasických rodinných dráh." },
+    z6: { tag: "Bajtkolandia", title: "Pre najmenších", desc: "Rozprávkové ihrisko pre najmenších návštevníkov.", modalDesc: "Zóna vyhradená malým deťom.", exp: "Jemné detské dráhy a farebné atrakcie." },
+    z7: { tag: "Tropická oáza", title: "Aquapark", desc: "Tobogany, bazény a relaxácia.", modalDesc: "Veľký vodný park s bazénmi a toboganmi.", exp: "Desiatky toboganov, bazén s vlnobitím a odpočinkové zóny." }
   }
 };
 
-const rideTranslations={
-  en:{},
-  pl:{
-    'Zadra':{type:'Ekstremalna',desc:'Światowej klasy kolejka hybrydowa RMC z masywną drewnianą konstrukcją i stalowym torem z inwersjami.'},
-    'Hyperion':{type:'Ekstremalna',desc:'Korona parku: potężny mega coaster z oszałamiającymi spadkami i ogromną prędkością.'},
-    'Abyssus':{type:'Ekstremalna',desc:'Podwójnie wystrzeliwana kolejka Vekoma pełna inwersji i niesamowitego przyspieszenia.'},
-    'Formuła':{type:'Ekstremalna',desc:'Kolejka typu Space Warp z gwałtownym startem i wieloma inwersjami.'},
-    'Speed':{type:'Ekstremalna',desc:'Ogromny wodny coaster Intamin z wysoką windą i potężnym uderzeniem w wodę.'},
-    'Roller Coaster Mayan':{type:'Ekstremalna',desc:'Kolejka odwrócona (SLC) dostarczająca intensywnych inwersji i silnych przeciążeń.'},
-    'Choco Chip Creek':{type:'Thrill',desc:'Nowoczesny, tematyczny Mine Train zapewniający doskonałą przygodę dla całej rodziny.'},
-    'Dragon Roller Coaster':{type:'Rodzinna',desc:'Zawieszona kolejka familijna mijająca ciasne zakręty tuż nad ziemią.'},
-    'Energuś':{type:'Rodzinna',desc:'Popularny, łagodny coaster z płynnymi zwrotami dla młodszych odkrywców.'},
-    'Light Explorers':{type:'Rodzinna',desc:'Rodzinna kolejka typu shuttle, jadąca do przodu oraz do tyłu.'},
-    'Frida':{type:'Rodzinna',desc:'Płynna, łagodna kolejka dla najmłodszych położona w Smoczym Grodzie.'},
-    'Boomerang':{type:'Rodzinna',desc:'Mniejszy model Boomerang, jadący do przodu, a potem wracający tyłem.'},
-    'Honey Harbour':{type:'Rodzinna',desc:'Słodko stylizowana, łagodna kolejka oferująca przyjemne łuki w Sweet Valley.'},
-    'Draken':{type:'Rodzinna',desc:'Czarująca mała kolejka umiejscowiona obok potężnej Zadry.'},
-    'Viking Roller Coaster':{type:'Thrill',desc:'Kręcąca się kolejka w stylu wild mouse dająca niespodziewane obroty.'},
-    'Mars':{type:'Rodzinna',desc:'Jeden z pierwszych małych coasterów stworzony z myślą o dzieciach.'},
-    'Frutti Loop Coaster':{type:'Dla dzieci',desc:'Kompaktowa, wolna kolejka dla maluchów zbudowana w Bajtkolandii.'},
-    'Circus Coaster':{type:'Dla dzieci',desc:'Prosta kolejka napędzana silnikiem z cyrkowym motywem.'},
-    'Happy Loops':{type:'Rodzinna',desc:'Mała kolejka, której wagoniki obracają się podczas jazdy.'}
-  },
-  de:{
-    'Zadra':{type:'Extrem',desc:'Weltklasse RMC-Hybridachterbahn mit massiver Holzstruktur und stählernen Inversionen.'},
-    'Hyperion':{type:'Extrem',desc:'Das Juwel: ein Mega-Coaster mit gewaltigen Drops und Airtime-Hügeln bei extremer Geschwindigkeit.'},
-    'Abyssus':{type:'Extrem',desc:'Kraftvoller Multi-Launch-Coaster von Vekoma, vollgepackt mit Inversionen und rasanten Übergängen.'},
-    'Formuła':{type:'Extrem',desc:'Beschleunigungsstarker Launch-Coaster (Space Warp) mit mehreren Inversionen.'},
-    'Speed':{type:'Extrem',desc:'Massiver Wasser-Coaster von Intamin mit gigantischem Lift und riesigem Splashdown.'},
-    'Roller Coaster Mayan':{type:'Extrem',desc:'Vekoma Suspended Looping Coaster (SLC) mit intensiven G-Kräften.'},
-    'Choco Chip Creek':{type:'Thrill',desc:'Modernes, thematisiertes Mine-Train-Abenteuer für immersiven Familienspaß im Sweet Valley.'},
-    'Dragon Roller Coaster':{type:'Familie',desc:'Eine sanfte, aber schnelle Familien-Hängeachterbahn mit bodennahen Kurven.'},
-    'Energuś':{type:'Familie',desc:'Beliebter Junior-Coaster mit geschmeidigen, schnellen Kurven für Familien.'},
-    'Light Explorers':{type:'Familie',desc:'Spannendes Familien-Shuttle-Layout, das vorwärts und rückwärts durchfahren wird.'},
-    'Frida':{type:'Familie',desc:'Ein sanfter Junior-Coaster, versteckt im Drachengebiet.'},
-    'Boomerang':{type:'Familie',desc:'Ein Junior-Boomerang-Modell, das vorwärts und anschließend rückwärts fährt.'},
-    'Honey Harbour':{type:'Familie',desc:'Süße Familienachterbahn mit sanften Kurven im Sweet Valley.'},
-    'Draken':{type:'Familie',desc:'Eine charmante kleine Familienachterbahn im Smoczy Gród.'},
-    'Viking Roller Coaster':{type:'Thrill',desc:'Spinning Wild-Mouse-Achterbahn mit wilden Rotationen.'},
-    'Mars':{type:'Familie',desc:'Ein frühes Einsteigermodell für Familienunterhaltung und jüngere Kinder.'},
-    'Frutti Loop Coaster':{type:'Kinder',desc:'Eine kompakte Einsteiger-Achterbahn für die Kleinsten.'},
-    'Circus Coaster':{type:'Kinder',desc:'Kleine, angetriebene Achterbahn für ganz junge Gäste.'},
-    'Happy Loops':{type:'Familie',desc:'Zirkus-Spinning-Coaster mit spaßigen Streckenwechseln.'}
-  },
-  cs:{
-    'Zadra':{type:'Extrémní',desc:'Špičková hybridní dráha RMC s masivní dřevěnou konstrukcí, strmou ocelovou tratí a inverzemi.'},
-    'Hyperion':{type:'Extrémní',desc:'Vlajková mega dráha s obrovským pádem, airtime kopci ve vysoké rychlosti a extrémní dynamikou.'},
-    'Abyssus':{type:'Extrémní',desc:'Výkonná vícekrát odpalovaná dráha Vekoma plná airtime momentů, inverzí a rychlých přechodů.'},
-    'Formuła':{type:'Extrémní',desc:'Odpalovaná dráha Space Warp s prudkým zrychlením a několika inverzemi.'},
-    'Speed':{type:'Extrémní',desc:'Velká vodní dráha Intamin s vysokým výtahem a výrazným splashdownem.'},
-    'Roller Coaster Mayan':{type:'Extrémní',desc:'Vekoma Suspended Looping Coaster s intenzivními inverzemi a silnými přetíženími.'},
-    'Choco Chip Creek':{type:'Thrill',desc:'Moderní tematický mine train, který do Sweet Valley přináší rodinné dobrodružství.'},
-    'Dragon Roller Coaster':{type:'Rodinná',desc:'Zavěšená rodinná dráha s těsnými spirálami a pády těsně nad zemí.'},
-    'Energuś':{type:'Rodinná',desc:'Oblíbená juniorská dráha s plynulými zatáčkami pro rodiny.'},
-    'Light Explorers':{type:'Rodinná',desc:'Rodinná shuttle dráha s několika jízdami vpřed i vzad.'},
-    'Frida':{type:'Rodinná',desc:'Plynulá juniorská dráha zasazená do Dračí zóny.'},
-    'Boomerang':{type:'Rodinná',desc:'Juniorský Boomerang, který projíždí tratí dopředu i pozpátku.'},
-    'Honey Harbour':{type:'Rodinná',desc:'Rodinná dráha se sladkou tematikou a plynulými zatáčkami ve Sweet Valley.'},
-    'Draken':{type:'Rodinná',desc:'Okouzlující rodinná dráha ve Smoczym Grodě.'},
-    'Viking Roller Coaster':{type:'Thrill',desc:'Točivá dráha ve stylu wild mouse s nečekanými rotacemi a rodinným napětím.'},
-    'Mars':{type:'Rodinná',desc:'Juniorská dráha vytvořená pro rodinnou zábavu a mladší návštěvníky.'},
-    'Frutti Loop Coaster':{type:'Dětská',desc:'Kompaktní dětská dráha od SBF Visa Group v Bajtkolandii.'},
-    'Circus Coaster':{type:'Dětská',desc:'Poháněná okružní atrakce určená pro mladší děti.'},
-    'Happy Loops':{type:'Rodinná',desc:'Točivá trať plná veselých změn směru.'}
-  },
-  sk:{
-    'Zadra':{type:'Extrémna',desc:'Špičková hybridná dráha RMC s masívnou drevenou konštrukciou a oceľovou traťou s inverziami.'},
-    'Hyperion':{type:'Extrémna',desc:'Vlajková mega dráha s obrovskými pádmi, airtime kopcami a extrémnou rýchlosťou.'},
-    'Abyssus':{type:'Extrémna',desc:'Viacnásobne odpaľovaná dráha Vekoma plná inverzií a dynamických prechodov.'},
-    'Formuła':{type:'Extrémna',desc:'Odpaľovaná dráha Space Warp so silným zrýchlením a inverziami.'},
-    'Speed':{type:'Extrémna',desc:'Veľká vodná dráha Intamin s masívnym výťahom a silným vodným splashdownom.'},
-    'Roller Coaster Mayan':{type:'Extrémna',desc:'Vekoma SLC (zavesená dráha) prinášajúca silné inverzie a preťaženia.'},
-    'Choco Chip Creek':{type:'Thrill',desc:'Moderný horský banský vláčik s rodinným napätím v Sweet Valley.'},
-    'Dragon Roller Coaster':{type:'Rodinná',desc:'Závesná rodinná dráha s tesnými zákrutami nízko nad zemou.'},
-    'Energuś':{type:'Rodinná',desc:'Populárna juniorská dráha s hladkými zákrutami.'},
-    'Light Explorers':{type:'Rodinná',desc:'Rodinná dráha jazdiaca časť cesty dopredu a časť dozadu.'},
-    'Frida':{type:'Rodinná',desc:'Kompaktná a hladká rodinná dráha v Dračej zóne.'},
-    'Boomerang':{type:'Rodinná',desc:'Juniorský bumerang jazdiaci dopredu aj dozadu.'},
-    'Honey Harbour':{type:'Rodinná',desc:'Hladká a sladko tematická rodinná dráha vo Sweet Valley.'},
-    'Draken':{type:'Rodinná',desc:'Krásna malá rodinná dráha v Smoczym Grodzie.'},
-    'Viking Roller Coaster':{type:'Thrill',desc:'Rotujúca dráha wild mouse ponúkajúca divoké točenia.'},
-    'Mars':{type:'Rodinná',desc:'Jedna z prvých detských dráh pre mladšie deti.'},
-    'Frutti Loop Coaster':{type:'Detská',desc:'Veľmi krátka detská dráha určená naozaj pre najmenších.'},
-    'Circus Coaster':{type:'Detská',desc:'Poháňaná detská okružná dráha.'},
-    'Happy Loops':{type:'Rodinná',desc:'Točivá dráha plná radostných obratov.'}
-  }
+const rideTranslations = {};
+const rideDescriptionTranslations = {};
+const rideTypeTranslations = {};
+
+const rideUiTranslations = {
+  en: { shown: "coasters shown", click: "Click any card for full details", load: "Load more coasters", collapse: "Collapse coasters", profile: "View Profile", rank: "Rank", opened: "Opening Year" },
+  pl: { shown: "kolejek wyświetlonych", click: "Kliknij kartę, aby zobaczyć szczegóły", load: "Załaduj więcej", collapse: "Zwiń listę", profile: "Zobacz Profil", rank: "Ranking", opened: "Rok otwarcia" },
+  de: { shown: "Achterbahnen angezeigt", click: "Klicke für Details", load: "Mehr laden", collapse: "Einklappen", profile: "Profil Ansehen", rank: "Rang", opened: "Eröffnungsjahr" },
+  cs: { shown: "zobrazených drah", click: "Klikni na kartu pro detaily", load: "Načíst další", collapse: "Sbalit seznam", profile: "Zobrazit Profil", rank: "Pořadí", opened: "Rok otevření" },
+  sk: { shown: "zobrazených dráh", click: "Klikni na kartu pre detaily", load: "Načítať ďalšie", collapse: "Zbaliť zoznam", profile: "Zobraziť Profil", rank: "Poradie", opened: "Rok otvorenia" }
 };
 
-const rideTypeTranslations={
-  en:{},pl:{Extreme:'Ekstremalna',Thrill:'Dreszcz emocji',Family:'Rodzinna',Kiddie:'Dla dzieci'},
-  de:{Extreme:'Extrem',Thrill:'Nervenkitzel',Family:'Familie',Kiddie:'Kinder'},
-  cs:{Extreme:'Extrémní',Thrill:'Vzrušující',Family:'Rodinná',Kiddie:'Dětská'},
-  sk:{Extreme:'Extrémna',Thrill:'Vzrušujúca',Family:'Rodinná',Kiddie:'Detská'}
+const zoneUiTranslations = {
+  en: { highlights: "Highlights", highDesc: "Key attractions and coasters associated with this area.", experience: "Experience" },
+  pl: { highlights: "Główne Atrakcje", highDesc: "Kluczowe kolejki i atrakcje przypisane do tej strefy.", experience: "Wrażenia" },
+  de: { highlights: "Highlights", highDesc: "Wichtige Attraktionen und Achterbahnen dieses Bereichs.", experience: "Erlebnis" },
+  cs: { highlights: "Hlavní Atrakce", highDesc: "Klíčové dráhy a atrakce spojené s touto zónou.", experience: "Zážitky" },
+  sk: { highlights: "Hlavné Atrakcie", highDesc: "Kľúčové dráhy a atrakcie spojené s touto zónou.", experience: "Zážitky" }
 };
 
-const rideDescriptionTranslations={
-  en:{},
-  pl:{Extreme:'Intensywna kolejka z dużą prędkością, dynamicznymi manewrami i mocnymi wrażeniami.',Thrill:'Pełna emocji atrakcja dla osób szukających adrenaliny.',Family:'Łagodniejsza przygoda zaprojektowana z myślą o rodzinach.',Kiddie:'Krótka, przyjazna dzieciom przejażdżka dla najmłodszych.'},
-  de:{Extreme:'Eine intensive Achterbahn mit hohem Tempo, dynamischen Manövern und starken Eindrücken.',Thrill:'Eine aufregende Attraktion für alle, die Adrenalin suchen.',Family:'Ein sanfteres Abenteuer für Familien.',Kiddie:'Eine kurze, kinderfreundliche Fahrt für die jüngsten Gäste.'},
-  cs:{Extreme:'Intenzivní dráha s vysokou rychlostí, dynamickými manévry a silnými zážitky.',Thrill:'Vzrušující atrakce pro návštěvníky, kteří hledají adrenalin.',Family:'Mírnější dobrodružství navržené pro rodiny.',Kiddie:'Krátká, dětem přátelská jízda pro nejmenší návštěvníky.'},
-  sk:{Extreme:'Intenzívna dráha s vysokou rýchlosťou, dynamickými manévrami a silnými zážitkami.',Thrill:'Vzrušujúca atrakcia pre návštevníkov, ktorí hľadajú adrenalin.',Family:'Jemnejšie dobrodružstvo navružené pre rodiny.',Kiddie:'Krátka, detsky priateľská jazda pre najmenších návštevníkov.'}
+const comparisonTranslations = {
+  en: { one: "Coaster one", two: "Coaster two", metric: "Metric / Specification", type: "Category / Type", manufacturer: "Manufacturer", openingYear: "Opening Year", height: "Height", maxSpeed: "Max Speed", trackLength: "Track Length" },
+  pl: { one: "Kolejka pierwsza", two: "Kolejka druga", metric: "Metryka / Specyfikacja", type: "Kategoria / Typ", manufacturer: "Producent", openingYear: "Rok otwarcia", height: "Wysokość", maxSpeed: "Prędkość max", trackLength: "Długość toru" },
+  de: { one: "Achterbahn 1", two: "Achterbahn 2", metric: "Spezifikation", type: "Kategorie / Typ", manufacturer: "Hersteller", openingYear: "Eröffnungsjahr", height: "Höhe", maxSpeed: "Max. Tempo", trackLength: "Streckenlänge" },
+  cs: { one: "Horská dráha 1", two: "Horská dráha 2", metric: "Specifikace", type: "Kategorie / Typ", manufacturer: "Výrobce", openingYear: "Rok otevření", height: "Výška", maxSpeed: "Max. rychlost", trackLength: "Délka trati" },
+  sk: { one: "Horská dráha 1", two: "Horská dráha 2", metric: "Špecifikácia", type: "Kategória / Typ", manufacturer: "Výrobca", openingYear: "Rok otvorenia", height: "Výška", maxSpeed: "Max. rýchlosť", trackLength: "Dĺžka trate" }
 };
 
-const comparisonTranslations={
-  en:{one:'Coaster one',two:'Coaster two',metric:'Metric',type:'Type',manufacturer:'Manufacturer',openingYear:'Opening year',height:'Height',maxSpeed:'Max speed',trackLength:'Track length'},
-  pl:{one:'Pierwsza kolejka',two:'Druga kolejka',metric:'Parametr',type:'Typ',manufacturer:'Producent',openingYear:'Rok otwarcia',height:'Wysokość',maxSpeed:'Maksymalna prędkość',trackLength:'Długość toru'},
-  de:{one:'Erste Achterbahn',two:'Zweite Achterbahn',metric:'Merkmal',type:'Typ',manufacturer:'Hersteller',openingYear:'Eröffnungsjahr',height:'Höhe',maxSpeed:'Höchstgeschwindigkeit',trackLength:'Streckenlänge'},
-  cs:{one:'První dráha',two:'Druhá dráha',metric:'Parametr',type:'Typ',manufacturer:'Výrobce',openingYear:'Rok otevření',height:'Výška',maxSpeed:'Maximální rychlost',trackLength:'Délka trati'},
-  sk:{one:'Prvá dráha',two:'Družá dráha',metric:'Parameter',type:'Typ',manufacturer:'Výrobca',openingYear:'Rok otvorenia',height:'Výška',maxSpeed:'Maximálna rýchlosť',trackLength:'Dĺžka trate'}
-};
-
-// Initial setup call
-fillCompare();
+// Initial setup
 renderRides();
+fillCompare();
 </script>
 </body>
 </html>
