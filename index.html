@@ -176,11 +176,13 @@ img{display:block;max-width:100%}
 .live-dot{width:8px;height:8px;background:#48e79c;border-radius:50%;box-shadow:0 0 16px #48e79c;animation:pulse 1.7s infinite}
 @keyframes pulse{50%{opacity:.35;transform:scale(.65)}}
 .hero h1{
-  font-family:Oswald,sans-serif;font-size:clamp(58px,9vw,132px);line-height:.82;
-  text-transform:uppercase;letter-spacing:-3px;max-width:950px
+  font-family:Oswald,sans-serif;font-size:clamp(52px,7vw,104px);line-height:.88;
+  text-transform:uppercase;letter-spacing:-2px;max-width:950px;text-wrap:balance
 }
 .hero h1 .blue{color:var(--blue);text-shadow:0 0 55px rgba(25,211,255,.28)}
 .hero h1 .red{color:var(--red);text-shadow:0 0 55px rgba(255,49,81,.22)}
+/* Languages with diacritics (háčky, čárky, umlauts) need a bit more line height so accents don't touch the line above */
+html:not([lang="en"]) .hero h1{line-height:1.1}
 .hero-copy{max-width:690px;color:#d7dfeb;font-size:17px;line-height:1.7;margin-top:28px;text-shadow:0 2px 18px rgba(0,0,0,.75)}
 .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
 .btn{
@@ -410,7 +412,7 @@ img{display:block;max-width:100%}
   .logo{font-size:21px}
   .lang-btn{padding:0 9px;gap:5px}
   .hero-content{padding:130px 20px 80px}
-  .hero h1{font-size:clamp(56px,16vw,100px);letter-spacing:-2px}
+  .hero h1{font-size:clamp(42px,12vw,80px);letter-spacing:-1px}
   .hero-copy{font-size:14px}
   .stats-grid{grid-template-columns:repeat(2,1fr)}
   .stat:nth-child(2){border-right:0}
@@ -487,7 +489,7 @@ img{display:block;max-width:100%}
   <div class="hero-content">
     <div>
       <div class="eyebrow" id="heroEyebrow"><span class="live-dot"></span> Zator, Poland • Fan-made park guide</div>
-      <h1 id="heroTitle">Built for <span class="blue">giants.</span><br>Made for <span class="red">thrills.</span></h1>
+      <h1 id="heroTitle"><span class="blue">Faster</span> than you think.<br><span class="red">Higher</span> than you dare.</h1>
       <p class="hero-copy" id="heroCopy">Explore Energylandia through a coaster database, immersive themed zones, park history and side-by-side ride comparisons — all in one place.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="#rides" id="exploreBtn">Explore the database <i class="fa-solid fa-arrow-down"></i></a>
@@ -1452,7 +1454,7 @@ const translations={
     zonesTitle:'Sedem svetov.<br>Jeden <span style="color:var(--blue)">park.</span>',
     zonesIntro:'Od stredovekých drakov po potopené starobylé mesto — Energylandia ponúka úplne odlišné prostredia. Klikni na zónu a pozri si jej atrakcie.',
     recordsKicker:'Čísla, na ktorých záleží',
-    recordsTitle:'Rekordy <span style="color:var(--red)">parku.</span>',
+    recordsTitle:'Parkové <span style="color:var(--red)">rekordy.</span>',
     recordsIntro:'Rýchly prehľad najväčších čísel v databáze. Otvor dráhu nižšie pre jej kompletný profil.',
     records:['Najvyšší a najrýchlejší mega coaster v Európe','Najväčší zábavný park v Európe','Najvyšší hybridný coaster na svete','Najlepší zábavný park v Európe'],
     recCatRecord:'Kategória rekordu',
@@ -1473,7 +1475,7 @@ const translations={
     historyTitle:'Desaťročie<br><span style="color:var(--blue)">expanzie.</span>',
     historyIntro:'Časová os parku prepracovaná do prehľadného vizuálneho príbehu.',
     footerCopy:'Prerobený fanúšikovský sprievodca Energylandii zameraný na horské dráhy, zóny a históriu parku.',
-    footerExp:'Preskúmať', footerZones:'Tematické zóny', footerRides:'Databáza dráh', footerRecords:'Rekordy Parku',
+    footerExp:'Preskúmať', footerZones:'Tematické zóny', footerRides:'Databáza dráh', footerRecords:'Parkové rekordy',
     footerTools:'Nástroje', footerCompare:'Porovnať dráhy', footerHistory:'História parku', footerTop:'Späť na začiatok',
     footerNote1:'Vytvorené fanúšikmi • Neoficiálne spojené s Energylandiou', footerNote2:'Vytvorené ako jednosúborový HTML zážitok'
   }
@@ -1682,35 +1684,35 @@ const rideTranslations = {
 
 const extraUi = {
   en: {
-    h1: 'Built for <span class="blue">giants.</span><br>Made for <span class="red">thrills.</span>',
+    h1: '<span class="blue">Faster</span> than you think.<br><span class="red">Higher</span> than you dare.',
     ticker: ['ENERGYLANDIA <b>•</b> ZATOR, POLAND','ZADRA <b>•</b> HYPERION <b>•</b> ABYSSUS','19 COASTERS <b>•</b> 7 THEMING AREAS','THRILLS <b>•</b> FAMILY <b>•</b> WATER <b>•</b> ADVENTURE'],
     recHeightSpeed: 'Height & speed records', recBestFoot: 'Ranking', recBestVal: 'Europe',
     ucBadge: 'Under Construction', ucNote: 'Upcoming Future Project',
     empty: 'No coasters match that search.', themed: 'Themed area'
   },
   pl: {
-    h1: 'Stworzony dla <span class="blue">gigantów.</span><br>Stworzony dla <span class="red">emocji.</span>',
+    h1: '<span class="blue">Szybciej</span>, niż myślisz.<br><span class="red">Wyżej</span>, niż się odważysz.',
     ticker: ['ENERGYLANDIA <b>•</b> ZATOR, POLSKA','ZADRA <b>•</b> HYPERION <b>•</b> ABYSSUS','19 KOLEJEK <b>•</b> 7 STREF TEMATYCZNYCH','EMOCJE <b>•</b> RODZINA <b>•</b> WODA <b>•</b> PRZYGODA'],
     recHeightSpeed: 'Rekordy wysokości i prędkości', recBestFoot: 'Ranking', recBestVal: 'Europa',
     ucBadge: 'W budowie', ucNote: 'Nadchodzący projekt',
     empty: 'Żadna kolejka nie pasuje do wyszukiwania.', themed: 'Strefa tematyczna'
   },
   de: {
-    h1: 'Gebaut für <span class="blue">Giganten.</span><br>Gemacht für <span class="red">Nervenkitzel.</span>',
+    h1: '<span class="blue">Schneller</span>, als du denkst.<br><span class="red">Höher</span>, als du dich traust.',
     ticker: ['ENERGYLANDIA <b>•</b> ZATOR, POLEN','ZADRA <b>•</b> HYPERION <b>•</b> ABYSSUS','19 ACHTERBAHNEN <b>•</b> 7 THEMENBEREICHE','NERVENKITZEL <b>•</b> FAMILIE <b>•</b> WASSER <b>•</b> ABENTEUER'],
     recHeightSpeed: 'Höhen- & Geschwindigkeitsrekorde', recBestFoot: 'Ranking', recBestVal: 'Europa',
     ucBadge: 'Im Bau', ucNote: 'Kommendes Zukunftsprojekt',
     empty: 'Keine Achterbahn entspricht dieser Suche.', themed: 'Themenbereich'
   },
   cs: {
-    h1: 'Postaveno pro <span class="blue">obry.</span><br>Stvořeno pro <span class="red">vzrušení.</span>',
+    h1: '<span class="blue">Rychleji</span>, než si myslíš.<br><span class="red">Výš</span>, než se odvážíš.',
     ticker: ['ENERGYLANDIA <b>•</b> ZATOR, POLSKO','ZADRA <b>•</b> HYPERION <b>•</b> ABYSSUS','19 HORSKÝCH DRAH <b>•</b> 7 TEMATICKÝCH ZÓN','VZRUŠENÍ <b>•</b> RODINA <b>•</b> VODA <b>•</b> DOBRODRUŽSTVÍ'],
     recHeightSpeed: 'Rekordy ve výšce a rychlosti', recBestFoot: 'Žebříček', recBestVal: 'Evropa',
     ucBadge: 'Ve výstavbě', ucNote: 'Připravovaný budoucí projekt',
     empty: 'Žádná dráha neodpovídá hledání.', themed: 'Tematická zóna'
   },
   sk: {
-    h1: 'Postavené pre <span class="blue">obrov.</span><br>Stvorené pre <span class="red">vzrušenie.</span>',
+    h1: '<span class="blue">Rýchlejšie</span>, než si myslíš.<br><span class="red">Vyššie</span>, než sa odvážiš.',
     ticker: ['ENERGYLANDIA <b>•</b> ZATOR, POĽSKO','ZADRA <b>•</b> HYPERION <b>•</b> ABYSSUS','19 HORSKÝCH DRÁH <b>•</b> 7 TEMATICKÝCH ZÓN','VZRUŠENIE <b>•</b> RODINA <b>•</b> VODA <b>•</b> DOBRODRUŽSTVO'],
     recHeightSpeed: 'Rekordy vo výške a rýchlosti', recBestFoot: 'Rebríček', recBestVal: 'Európa',
     ucBadge: 'Vo výstavbe', ucNote: 'Pripravovaný budúci projekt',
