@@ -121,6 +121,9 @@ img{display:block;max-width:100%}
   border-radius: 10px; cursor: pointer; transition: .2s; display: flex; align-items: center; gap: 8px;
 }
 .lang-option:hover, .lang-option.active { background: rgba(25,211,255,.12); color: var(--blue); }
+.unit-menu { min-width: 200px; }
+.lang-option .u-sub { margin-left: auto; opacity: .55; font-size: 9px; letter-spacing: .4px; text-transform: none; font-weight: 700; white-space: nowrap; }
+.lang-option.active .u-sub { opacity: .85; }
 
 .load-more-wrap { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 0 18px 24px; }
 .load-more { min-height: 48px; padding: 0 24px; border: 1px solid rgba(25,211,255,.28); border-radius: 13px; background: rgba(25,211,255,.07); color: #b9f4ff; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; transition: .25s var(--ease); }
@@ -402,6 +405,10 @@ img{display:block;max-width:100%}
   .nav.scrolled{padding:7px 10px}
   .nav-inner{height:60px;border-radius:17px}
   .nav-cta{display:none}
+  .nav-inner{gap:8px;padding:0 10px 0 14px}
+  .nav-right{gap:5px}
+  .logo{font-size:21px}
+  .lang-btn{padding:0 9px;gap:5px}
   .hero-content{padding:130px 20px 80px}
   .hero h1{font-size:clamp(56px,16vw,100px);letter-spacing:-2px}
   .hero-copy{font-size:14px}
@@ -424,6 +431,10 @@ img{display:block;max-width:100%}
   .zone-modal-grid{grid-template-columns:1fr}
   .footer-links{gap:30px}
   .footer-bottom{display:block;line-height:1.8}
+}
+@media(max-width:520px){
+  #currentUnitLabel{display:none}
+  .unit-menu{min-width:185px}
 }
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
@@ -457,6 +468,13 @@ img{display:block;max-width:100%}
           <button class="lang-option" data-value="sk">🇸🇰 Slovenčina</button>
         </div>
       </div>
+      <div class="custom-lang-dropdown" id="unitDropdown">
+        <button class="lang-btn" id="unitBtn" aria-expanded="false" aria-label="Units"><span id="currentUnitIco">🌍</span><span id="currentUnitLabel">Metric</span> <i class="fa-solid fa-chevron-down"></i></button>
+        <div class="lang-menu unit-menu" id="unitMenu">
+          <button class="lang-option active" data-unit="metric">🌍 <span id="unitOptMetric">Metric</span><span class="u-sub">m · km/h · ha</span></button>
+          <button class="lang-option" data-unit="imperial">🇺🇸 <span id="unitOptImperial">Imperial</span><span class="u-sub">ft · mph · ac</span></button>
+        </div>
+      </div>
       <a href="#rides" class="nav-cta" id="navCta">EXPLORE RIDES <i class="fa-solid fa-arrow-right"></i></a>
       <button class="icon-btn mobile-btn" id="mobileBtn" aria-label="Open menu"><i class="fa-solid fa-bars"></i></button>
     </div>
@@ -469,7 +487,7 @@ img{display:block;max-width:100%}
   <div class="hero-content">
     <div>
       <div class="eyebrow" id="heroEyebrow"><span class="live-dot"></span> Zator, Poland • Fan-made park guide</div>
-      <h1>Built for <span class="blue">giants.</span><br>Made for <span class="red">thrills.</span></h1>
+      <h1 id="heroTitle">Built for <span class="blue">giants.</span><br>Made for <span class="red">thrills.</span></h1>
       <p class="hero-copy" id="heroCopy">Explore Energylandia through a coaster database, immersive themed zones, park history and side-by-side ride comparisons — all in one place.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="#rides" id="exploreBtn">Explore the database <i class="fa-solid fa-arrow-down"></i></a>
@@ -491,7 +509,7 @@ img{display:block;max-width:100%}
       </div>
       <div class="feature-stats">
         <div class="mini-stat"><b id="featHeightVal">77 m</b><span id="featHeightLbl">Height</span></div>
-        <div class="mini-stat"><b>142</b><span id="featSpeedLbl">km/h</span></div>
+        <div class="mini-stat"><b id="featSpeedVal">142 km/h</b><span id="featSpeedLbl">Speed</span></div>
         <div class="mini-stat"><b id="featLenVal">1450 m</b><span id="featLenLbl">Length</span></div>
       </div>
     </aside>
@@ -515,7 +533,7 @@ img{display:block;max-width:100%}
   <div class="stats-grid">
     <div class="stat reveal"><strong class="counter" data-target="133">0</strong><span id="statAttractions">Attractions</span></div>
     <div class="stat reveal delay-1"><strong class="counter" data-target="19">0</strong><span id="statCoasters">Roller coasters</span></div>
-    <div class="stat reveal delay-2"><strong class="counter" data-target="70" data-suffix="+">0</strong><span id="statHectares">Hectares</span></div>
+    <div class="stat reveal delay-2"><strong class="counter" id="areaCounter" data-target="70" data-suffix="+">0</strong><span id="statHectares">Hectares</span></div>
     <div class="stat reveal delay-3"><strong class="counter" data-target="2014">0</strong><span id="statOpened">Opened</span></div>
   </div>
 </section>
@@ -569,7 +587,7 @@ img{display:block;max-width:100%}
   <div class="records">
     <article class="record-card reveal">
       <div class="record-top"><span class="record-label" id="recLbl1">Tallest &amp; Fastest Mega Coaster in Europe</span><span class="record-icon"><i class="fa-solid fa-arrow-up"></i></span></div>
-      <h3>Hyperion</h3><div class="record-value">77 <small>m</small> <span style="font-size:30px;color:#cbd6e8">• 142 <small>km/h</small></span></div>
+      <h3>Hyperion</h3><div class="record-value" id="recHypVal">142 <small>km/h</small> <span style="font-size:30px;color:#cbd6e8">• 77 <small>m</small></span></div>
       <div class="record-foot"><span id="recFootCat1">Height &amp; speed records</span><b>Hyperion</b></div>
     </article>
     <article class="record-card red reveal delay-1">
@@ -579,13 +597,13 @@ img{display:block;max-width:100%}
     </article>
     <article class="record-card reveal delay-2">
       <div class="record-top"><span class="record-label" id="recLbl3">Tallest hybrid coaster in the world</span><span class="record-icon"><i class="fa-solid fa-tree"></i></span></div>
-      <h3>Zadra</h3><div class="record-value">63.8 <small>m</small></div>
+      <h3>Zadra</h3><div class="record-value" id="recZadVal">63.8 <small>m</small></div>
       <div class="record-foot"><span id="recMfgLbl">Manufacturer</span><b>RMC</b></div>
     </article>
     <article class="record-card red reveal delay-3">
       <div class="record-top"><span class="record-label" id="recLbl4">Best amusement park in Europe</span><span class="record-icon"><i class="fa-solid fa-trophy"></i></span></div>
       <h3>Energylandia</h3><div class="record-value">#1</div>
-      <div class="record-foot"><span id="recBestFoot">Ranking</span><b>Europe</b></div>
+      <div class="record-foot"><span id="recBestFoot">Ranking</span><b id="recBestVal">Europe</b></div>
     </article>
   </div>
 </section>
@@ -625,28 +643,26 @@ img{display:block;max-width:100%}
     <!-- Under Construction Coaster Window -->
     <div style="padding: 24px 18px 18px; border-top: 1px solid var(--line); background: rgba(5, 7, 13, 0.45);">
       <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
-        <span style="font-size: 11px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: var(--yellow); background: rgba(255,200,87,0.1); padding: 7px 14px; border-radius: 10px; border: 1px solid rgba(255,200,87,0.25); display: inline-flex; align-items: center; gap: 8px;">
-          Under Construction
-        </span>
-        <span style="font-size: 11px; color: var(--muted); font-weight: 600;">Upcoming Future Project</span>
+        <span id="ucBadge" style="font-size: 11px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: var(--yellow); background: rgba(255,200,87,0.1); padding: 7px 14px; border-radius: 10px; border: 1px solid rgba(255,200,87,0.25); display: inline-flex; align-items: center; gap: 8px;">Under Construction</span>
+        <span id="ucNote" style="font-size: 11px; color: var(--muted); font-weight: 600;">Upcoming Future Project</span>
       </div>
       <div style="max-width: 440px;">
         <article class="ride" onclick="openRideModal('B&M Wing Coaster')">
           <div class="ride-image">
             <img src="bm_wing.jpg" alt="B&M Wing Coaster" loading="lazy" onerror="this.style.opacity='.25'">
             <span class="ride-rank">#?</span>
-            <span class="ride-type">extreme</span>
+            <span class="ride-type" id="ucType">extreme</span>
           </div>
           <div class="ride-body">
             <span class="manufacturer">Bolliger & Mabillard</span>
             <h3>B&M Wing Coaster</h3>
-            <p class="ride-desc">A major new coaster under construction at Energylandia. Featuring B&M's signature wing-seater trains hanging outside the track, massive inversions, and near-miss elements.</p>
+            <p class="ride-desc" id="ucDesc">A major new coaster under construction at Energylandia. Featuring B&M's signature wing-seater trains hanging outside the track, massive inversions, and near-miss elements.</p>
             <div class="ride-stats">
-              <div class="ride-stat"><span>Height</span><b>~50-65m</b></div>
-              <div class="ride-stat"><span>Speed</span><b>~100-125km/h</b></div>
-              <div class="ride-stat"><span>Length</span><b>~1100-1400m</b></div>
+              <div class="ride-stat"><span id="ucH">Height</span><b id="ucHVal">~50-65m</b></div>
+              <div class="ride-stat"><span id="ucS">Speed</span><b id="ucSVal">~100-125km/h</b></div>
+              <div class="ride-stat"><span id="ucL">Length</span><b id="ucLVal">~1100-1400m</b></div>
             </div>
-            <button class="view-btn">View Profile <i class="fa-solid fa-arrow-right"></i></button>
+            <button class="view-btn" id="ucBtn">View Profile <i class="fa-solid fa-arrow-right"></i></button>
           </div>
         </article>
       </div>
@@ -776,11 +792,28 @@ let activeFilter = 'all';
 let searchTerm = '';
 let sortBy = 'best';
 let visibleCount = 9;
+let unitSystem = 'metric';   // 'metric' | 'imperial'
+let currentRide = null;
 
+const M_TO_FT = 3.28084, KMH_TO_MPH = 0.621371, HA_TO_AC = 2.47105;
+
+// Converts any metric text like "63.8 m", "121.0 km/h" or "~50-65m" to imperial (only when imperial is on)
+function convUnits(str){
+  if(unitSystem !== 'imperial' || typeof str !== 'string') return str;
+  return str.replace(/(\d+(?:\.\d+)?)(?:(\s*[-–]\s*)(\d+(?:\.\d+)?))?(\s*)(km\/h|m)\b/g, (all, a, sep, b, sp, u) => {
+    const f = u === 'km/h' ? KMH_TO_MPH : M_TO_FT;
+    const nu = u === 'km/h' ? 'mph' : 'ft';
+    const cv = n => Math.round(parseFloat(n) * f);
+    return cv(a) + (sep ? sep + cv(b) : '') + ' ' + nu;
+  });
+}
+
+function getLang(){ return document.documentElement.lang || 'en'; }
+function extra(){ return extraUi[getLang()] || extraUi.en; }
+function typeLabel(type){ return (rideTypeTranslations[getLang()]||{})[type] || type; }
 function rideCopy(c){
-  const lang=document.documentElement.lang||'en';
-  const localized=(rideTranslations[lang]||{})[c.name]||{};
-  return {desc:localized.desc||(rideDescriptionTranslations[lang]||{})[c.type]||c.desc,type:localized.type||(rideTypeTranslations[lang]||{})[c.type]||c.type};
+  const loc=(rideTranslations[getLang()]||{})[c.name]||{};
+  return {desc:loc.desc||c.desc, type:typeLabel(c.type)};
 }
 
 function renderRides(){
@@ -812,7 +845,7 @@ function renderRides(){
   $('#loadMoreBtn').innerHTML = `${copyUi.load} <i class="fa-solid fa-arrow-down"></i>`;
   $('#collapseBtn').innerHTML = `${copyUi.collapse} <i class="fa-solid fa-chevron-up"></i>`;
   if(!list.length){
-    grid.innerHTML = `<div class="empty"><i class="fa-solid fa-magnifying-glass"></i><div>No coasters match that search.</div></div>`;
+    grid.innerHTML = `<div class="empty"><i class="fa-solid fa-magnifying-glass"></i><div>${extra().empty}</div></div>`;
     return;
   }
 
@@ -828,9 +861,9 @@ function renderRides(){
         <h3>${c.name}</h3>
         <p class="ride-desc">${rideCopy(c).desc}</p>
         <div class="ride-stats">
-          <div class="ride-stat"><span>${ui.height}</span><b>${c.height}</b></div>
-          <div class="ride-stat"><span>${ui.speed}</span><b>${c.speed}</b></div>
-          <div class="ride-stat"><span>${ui.length}</span><b>${c.length}</b></div>
+          <div class="ride-stat"><span>${ui.height}</span><b>${convUnits(c.height)}</b></div>
+          <div class="ride-stat"><span>${ui.speed}</span><b>${convUnits(c.speed)}</b></div>
+          <div class="ride-stat"><span>${ui.length}</span><b>${convUnits(c.length)}</b></div>
         </div>
         <button class="view-btn">${copyUi.profile} <i class="fa-solid fa-arrow-right"></i></button>
       </div>
@@ -841,6 +874,7 @@ function renderRides(){
 function openRideModal(name){
   const c = coasters.find(x=>x.name===name);
   if(!c) return;
+  currentRide=name;
   const ui=translations[document.documentElement.lang]||translations.en;
   const copyUi=rideUiTranslations[document.documentElement.lang]||rideUiTranslations.en;
   const copy=rideCopy(c);
@@ -849,9 +883,9 @@ function openRideModal(name){
   $('#modalKicker').textContent=`${c.mfg} • ${copy.type} • ${copyUi.rank} #${c.rank}`;
   $('#modalName').textContent=c.name;
   $('#modalDesc').textContent=copy.desc;
-  $('#modalHeight').textContent=c.height;
-  $('#modalSpeed').textContent=c.speed;
-  $('#modalLength').textContent=c.length;
+  $('#modalHeight').textContent=convUnits(c.height);
+  $('#modalSpeed').textContent=convUnits(c.speed);
+  $('#modalLength').textContent=convUnits(c.length);
   $('#modalYear').textContent=c.year;
   $('#mStatH').textContent=ui.height;
   $('#mStatS').textContent=ui.speed;
@@ -876,6 +910,7 @@ function openZoneModal(key){
   $('#zoneModalH1').textContent = labels.highlights;
   $('#zoneModalP1').textContent = labels.highDesc;
   $('#zoneModalH2').textContent = labels.experience;
+  $('#zoneModalKicker').textContent = extra().themed;
 
   $('#zoneModal').classList.add('active');
   document.body.classList.add('modal-open');
@@ -918,12 +953,12 @@ function updateCompare(){
   };
   $('#compareTable').innerHTML=`
     <tr><th>${labels.metric}</th><th>${a.name}</th><th>${b.name}</th></tr>
-    ${metric(labels.type,a.type,b.type)}
+    ${metric(labels.type,typeLabel(a.type),typeLabel(b.type))}
     ${metric(labels.manufacturer,a.mfg,b.mfg)}
     ${metric(labels.openingYear,a.year,b.year)}
-    ${metric(labels.height,a.height,b.height,'num')}
-    ${metric(labels.maxSpeed,a.speed,b.speed,'num')}
-    ${metric(labels.trackLength,a.length,b.length,'num')}
+    ${metric(labels.height,convUnits(a.height),convUnits(b.height),'num')}
+    ${metric(labels.maxSpeed,convUnits(a.speed),convUnits(b.speed),'num')}
+    ${metric(labels.trackLength,convUnits(a.length),convUnits(b.length),'num')}
   `;
 }
 $('#compare1').addEventListener('change',updateCompare);
@@ -972,31 +1007,97 @@ $$('.nav-links a').forEach(a=>a.addEventListener('click',()=>$('#navLinks').clas
 const langDropdown = $('#langDropdown');
 const langBtn = $('#langBtn');
 const currentLangLabel = $('#currentLangLabel');
+const unitDropdown = $('#unitDropdown');
+const unitBtn = $('#unitBtn');
 
-langBtn.addEventListener('click', (e) => {
-  e.stopPropagation();
-  langDropdown.classList.toggle('open');
-  langBtn.setAttribute('aria-expanded', langDropdown.classList.contains('open'));
+// Both dropdowns share the same behaviour: opening one closes the other, clicking outside closes both
+const dropdowns = [{dd: langDropdown, btn: langBtn}, {dd: unitDropdown, btn: unitBtn}];
+function closeDropdowns(except){
+  dropdowns.forEach(d => {
+    if(d.dd !== except){ d.dd.classList.remove('open'); d.btn.setAttribute('aria-expanded','false'); }
+  });
+}
+dropdowns.forEach(d => {
+  d.btn.addEventListener('click', e => {
+    e.stopPropagation();
+    closeDropdowns(d.dd);
+    d.dd.classList.toggle('open');
+    d.btn.setAttribute('aria-expanded', d.dd.classList.contains('open'));
+  });
 });
+document.addEventListener('click', () => closeDropdowns(null));
 
-document.addEventListener('click', (e) => {
-  if (!langDropdown.contains(e.target)) {
-    langDropdown.classList.remove('open');
-    langBtn.setAttribute('aria-expanded', 'false');
-  }
-});
-
-$$('.lang-option').forEach(option => {
+$$('#langMenu .lang-option').forEach(option => {
   option.addEventListener('click', () => {
     const lang = option.dataset.value;
-    $$('.lang-option').forEach(opt => opt.classList.remove('active'));
+    $$('#langMenu .lang-option').forEach(opt => opt.classList.remove('active'));
     option.classList.add('active');
     currentLangLabel.textContent = option.textContent;
-    langDropdown.classList.remove('open');
-    langBtn.setAttribute('aria-expanded', 'false');
+    closeDropdowns(null);
     applyLanguage(lang);
   });
 });
+
+$$('#unitMenu .lang-option').forEach(option => {
+  option.addEventListener('click', () => {
+    unitSystem = option.dataset.unit;
+    $$('#unitMenu .lang-option').forEach(opt => opt.classList.toggle('active', opt === option));
+    closeDropdowns(null);
+    applyUnits();
+  });
+});
+
+// Updates the (translated) text of the unit dropdown
+function updateUnitMenuText(){
+  const u = unitUi[getLang()] || unitUi.en;
+  const imp = unitSystem === 'imperial';
+  $('#unitOptMetric').textContent = u.metric;
+  $('#unitOptImperial').textContent = u.imperial;
+  $('#currentUnitLabel').textContent = imp ? u.imperial : u.metric;
+  $('#currentUnitIco').textContent = imp ? '🇺🇸' : '🌍';
+  unitBtn.setAttribute('aria-label', u.aria);
+}
+
+// Switches every unit on the page between metric and imperial
+function applyUnits(){
+  const imp = unitSystem === 'imperial';
+  const ft = v => Math.round(v * M_TO_FT);
+  const mph = v => Math.round(v * KMH_TO_MPH);
+
+  // Hero panel
+  $('#featHeightVal').textContent = convUnits('77 m');
+  $('#featSpeedVal').textContent  = convUnits('142 km/h');
+  $('#featLenVal').textContent    = convUnits('1450 m');
+
+  // Records
+  const sub = '<span style="font-size:30px;color:#cbd6e8">';
+  $('#recHypVal').innerHTML = imp
+    ? `${mph(142)} <small>mph</small> ${sub}• ${ft(77)} <small>ft</small></span>`
+    : `142 <small>km/h</small> ${sub}• 77 <small>m</small></span>`;
+  $('#recZadVal').innerHTML = imp ? `${ft(63.8)} <small>ft</small>` : `63.8 <small>m</small>`;
+
+  // Park area: hectares <-> acres
+  const area = $('#areaCounter');
+  const areaTarget = imp ? Math.round(70 * HA_TO_AC) : 70;
+  area.dataset.target = areaTarget;
+  area.dataset.suffix = '+';
+  if(counterDone) area.textContent = areaTarget + '+';
+  const t = translations[getLang()] || translations.en;
+  $('#statHectares').textContent = imp ? (unitUi[getLang()] || unitUi.en).acres : t.statHectares;
+
+  // Under construction card
+  const bm = coasters.find(c => c.name === 'B&M Wing Coaster');
+  if(bm){
+    $('#ucHVal').textContent = convUnits(bm.height);
+    $('#ucSVal').textContent = convUnits(bm.speed);
+    $('#ucLVal').textContent = convUnits(bm.length);
+  }
+
+  updateUnitMenuText();
+  renderRides();      // ride cards
+  updateCompare();    // compare table
+  if($('#rideModal').classList.contains('active') && currentRide) openRideModal(currentRide);
+}
 
 let counterDone=false;
 const statsObserver=new IntersectionObserver(entries=>{
@@ -1022,110 +1123,131 @@ const revealObserver=new IntersectionObserver(entries=>{
 $$('.reveal').forEach(el=>revealObserver.observe(el));
 
 function applyLanguage(lang){
+  if(!translations[lang]) lang='en';
   document.documentElement.lang=lang;
-  const t=translations[lang]||translations.en;
-  
-  // Nav links
-  const navAs=$$('.nav-links a');
-  t.nav.forEach((lbl,i)=>{if(navAs[i])navAs[i].textContent=lbl});
-  $('#navCta').innerHTML=`${t.cta} <i class="fa-solid fa-arrow-right"></i>`;
-  
-  // Hero section
-  $('#heroEyebrow').innerHTML=`<span class="live-dot"></span> ${t.eyebrow}`;
-  $('#heroCopy').textContent=t.heroCopy;
-  $('#exploreBtn').innerHTML=`${t.explore} <i class="fa-solid fa-arrow-down"></i>`;
-  $('#zonesBtn').innerHTML=`${t.zonesBtn} <i class="fa-solid fa-compass"></i>`;
-  $('#featuredLabel').textContent=t.featured;
-  $('#extremeLabel').textContent=t.extreme;
-  $('#featHeightLbl').textContent=t.height;
-  $('#featSpeedLbl').textContent=t.speed;
-  $('#featLenLbl').textContent=t.length;
+  // Fall back to English for any key that is missing, so nothing can ever be "undefined"
+  const t=Object.assign({},translations.en,translations[lang]);
+  const x=Object.assign({},extraUi.en,extraUi[lang]);
+  const txt=(sel,val)=>{const el=$(sel); if(el && val!=null) el.textContent=val;};
+  const html=(sel,val)=>{const el=$(sel); if(el && val!=null) el.innerHTML=val;};
 
-  // Stats labels
-  $('#statAttractions').textContent=t.statAttractions;
-  $('#statCoasters').textContent=t.statCoasters;
-  $('#statHectares').textContent=t.statHectares;
-  $('#statOpened').textContent=t.statOpened;
+  try{
+    // Nav
+    const navAs=$$('.nav-links a');
+    t.nav.forEach((lbl,i)=>{if(navAs[i])navAs[i].textContent=lbl});
+    html('#navCta',`${t.cta} <i class="fa-solid fa-arrow-right"></i>`);
 
-  // Zones Section
-  $('#zonesKicker').textContent=t.zonesKicker;
-  $('#zonesTitle').innerHTML=t.zonesTitle;
-  $('#zonesIntro').textContent=t.zonesIntro;
+    // Hero
+    html('#heroEyebrow',`<span class="live-dot"></span> ${t.eyebrow}`);
+    html('#heroTitle',x.h1);
+    txt('#heroCopy',t.heroCopy);
+    html('#exploreBtn',`${t.explore} <i class="fa-solid fa-arrow-down"></i>`);
+    html('#zonesBtn',`${t.zonesBtn} <i class="fa-solid fa-compass"></i>`);
+    txt('#featuredLabel',t.featured);
+    txt('#extremeLabel',t.extreme);
+    txt('#featHeightLbl',t.height);
+    txt('#featSpeedLbl',t.speed);
+    txt('#featLenLbl',t.length);
 
-  for(let i=1; i<=7; i++){
-    const zKey = 'z' + i;
-    const zInfo = (zoneTranslations[lang]||zoneTranslations.en)[zKey];
-    if(zInfo){
-      $('#z'+i+'Tag').textContent = zInfo.tag;
-      $('#z'+i+'Name').textContent = zInfo.title;
-      $('#z'+i+'Desc').textContent = zInfo.desc;
+    // Ticker
+    $$('.ticker-item').forEach((el,i)=>{ el.innerHTML=x.ticker[i%x.ticker.length]; });
+
+    // Stats
+    txt('#statAttractions',t.statAttractions);
+    txt('#statCoasters',t.statCoasters);
+    txt('#statHectares', unitSystem==='imperial' ? (unitUi[lang]||unitUi.en).acres : t.statHectares);
+    updateUnitMenuText();
+    txt('#statOpened',t.statOpened);
+
+    // Zones
+    txt('#zonesKicker',t.zonesKicker);
+    html('#zonesTitle',t.zonesTitle);
+    txt('#zonesIntro',t.zonesIntro);
+    const zSet=zoneTranslations[lang]||zoneTranslations.en;
+    for(let i=1;i<=7;i++){
+      const zInfo=zSet['z'+i]||zoneTranslations.en['z'+i];
+      if(zInfo){
+        txt('#z'+i+'Tag',zInfo.tag);
+        txt('#z'+i+'Name',zInfo.title);
+        txt('#z'+i+'Desc',zInfo.desc);
+      }
     }
+
+    // Records
+    txt('#recordsKicker',t.recordsKicker);
+    html('#recordsTitle',t.recordsTitle);
+    txt('#recordsIntro',t.recordsIntro);
+    txt('#recLbl1',t.records[0]);
+    txt('#recLbl2',t.records[1]);
+    txt('#recLbl3',t.records[2]);
+    txt('#recLbl4',t.records[3]);
+    txt('#recFootCat1',x.recHeightSpeed);
+    txt('#coasterCountFoot',t.recCurCount);
+    txt('#recLocVal',t.recLocZator);
+    txt('#recCoasterUnit',t.recCoasterUnit);
+    txt('#recMfgLbl',t.recMfg);
+    txt('#recBestFoot',x.recBestFoot);
+    txt('#recBestVal',x.recBestVal);
+
+    // Coaster vault / database
+    txt('#dbKicker',t.dbKicker);
+    html('#dbTitle',t.dbTitle);
+    txt('#dbIntro',t.dbIntro);
+    const searchEl=$('#search'); if(searchEl) searchEl.placeholder=t.search;
+    const pills=$$('.pill');
+    t.filters.forEach((f,i)=>{if(pills[i])pills[i].textContent=f});
+    const sortOpts=$$('#sort option');
+    t.sort.forEach((sLbl,i)=>{if(sortOpts[i])sortOpts[i].textContent=sLbl});
+
+    // Under construction card
+    const ui=t, copyUi=rideUiTranslations[lang]||rideUiTranslations.en;
+    txt('#ucBadge',x.ucBadge);
+    txt('#ucNote',x.ucNote);
+    txt('#ucType',typeLabel('Extreme'));
+    const bm=coasters.find(c=>c.name==='B&M Wing Coaster');
+    if(bm) txt('#ucDesc',rideCopy(bm).desc);
+    txt('#ucH',ui.height); txt('#ucS',ui.speed); txt('#ucL',ui.length);
+    html('#ucBtn',`${copyUi.profile} <i class="fa-solid fa-arrow-right"></i>`);
+
+    // Compare
+    txt('#compareKicker',t.compareKicker);
+    html('#compareTitle',t.compareTitle);
+    txt('#compareIntro',t.compareIntro);
+    const compLabels=comparisonTranslations[lang]||comparisonTranslations.en;
+    txt('#compareOneLabel',compLabels.one);
+    txt('#compareTwoLabel',compLabels.two);
+    updateCompare();
+
+    // History
+    txt('#historyKicker',t.historyKicker);
+    html('#historyTitle',t.historyTitle);
+    txt('#historyIntro',t.historyIntro);
+    const timelineData=timelineTranslations[lang]||timelineTranslations.en;
+    $$('#timelineContainer .time-card').forEach((card,idx)=>{
+      const d=timelineData['t'+(idx+1)]||timelineTranslations.en['t'+(idx+1)];
+      if(!d) return;
+      card.querySelector('.time-badge').textContent=d.badge;
+      card.querySelector('h3').textContent=d.title;
+      card.querySelector('p').textContent=d.desc;
+    });
+
+    // Footer
+    txt('#footerCopy',t.footerCopy);
+    txt('#footerExpTitle',t.footerExp);
+    txt('#footerZones',t.footerZones);
+    txt('#footerRides',t.footerRides);
+    txt('#footerRecords',t.footerRecords);
+    txt('#footerToolsTitle',t.footerTools);
+    txt('#footerCompare',t.footerCompare);
+    txt('#footerHistory',t.footerHistory);
+    txt('#footerTop',t.footerTop);
+    txt('#footerNote1',t.footerNote1);
+    txt('#footerNote2',t.footerNote2);
+  }catch(err){
+    console.error('applyLanguage error:',err);
   }
 
-  // Records Section
-  $('#recordsKicker').textContent=t.recordsKicker;
-  $('#recordsTitle').innerHTML=t.recordsTitle;
-  $('#recordsIntro').textContent=t.recordsIntro;
-  $('#recLbl1').textContent=t.records[0];
-  $('#recLbl2').textContent=t.records[1];
-  $('#recLbl3').textContent=t.records[2];
-  $('#recLbl4').textContent=t.records[3];
-  $('#recFootCat1').textContent=t.recCatRecord;
-  $('#recFootCat2').textContent=t.recCatRecord;
-  $('#coasterCountFoot').textContent=t.recCurCount;
-  $('#recLocVal').textContent=t.recLocZator;
-  $('#recCoasterUnit').textContent=t.recCoasterUnit;
-  $('#recMfgLbl').textContent=t.recMfg;
-
-  // Database Section
-  $('#dbKicker').textContent=t.dbKicker;
-  $('#dbTitle').innerHTML=t.dbTitle;
-  $('#dbIntro').textContent=t.dbIntro;
-  $('#search').placeholder=t.search;
-  
-  const pills=$$('.pill');
-  t.filters.forEach((fLbl,i)=>{if(pills[i])pills[i].textContent=fLbl});
-
-  const sortOpts=$$('#sort option');
-  t.sort.forEach((sLbl,i)=>{if(sortOpts[i])sortOpts[i].textContent=sLbl});
-
-  // Compare Section
-  $('#compareKicker').textContent=t.compareKicker;
-  $('#compareTitle').innerHTML=t.compareTitle;
-  $('#compareIntro').textContent=t.compareIntro;
-  const compLabels=comparisonTranslations[lang]||comparisonTranslations.en;
-  $('#compareOneLabel').textContent=compLabels.one;
-  $('#compareTwoLabel').textContent=compLabels.two;
-  updateCompare();
-
-  // History Section
-  $('#historyKicker').textContent=t.historyKicker;
-  $('#historyTitle').innerHTML=t.historyTitle;
-  $('#historyIntro').textContent=t.historyIntro;
-
-  const timelineData = timelineTranslations[lang] || timelineTranslations.en;
-  $$('#timelineContainer .time-card').forEach((card, idx) => {
-    const key = 't' + (idx + 1);
-    if(timelineData[key]) {
-      card.querySelector('.time-badge').textContent = timelineData[key].badge;
-      card.querySelector('h3').textContent = timelineData[key].title;
-      card.querySelector('p').textContent = timelineData[key].desc;
-    }
-  });
-
-  // Footer
-  $('#footerCopy').textContent=t.footerCopy;
-  $('#footerExpTitle').textContent=t.footerExp;
-  $('#footerZones').textContent=t.footerZones;
-  $('#footerRides').textContent=t.footerRides;
-  $('#footerRecords').textContent=t.footerRecords;
-  $('#footerToolsTitle').textContent=t.footerTools;
-  $('#footerCompare').textContent=t.footerCompare;
-  $('#footerHistory').textContent=t.footerHistory;
-  $('#footerTop').textContent=t.footerTop;
-  $('#footerNote1').textContent=t.footerNote1;
-  $('#footerNote2').textContent=t.footerNote2;
-
+  // Always re-render the cards, even if something above failed
   renderRides();
 }
 
@@ -1234,7 +1356,7 @@ const translations={
     length:'Länge',
     statAttractions:'Attraktionen',
     statCoasters:'Achterbahnen',
-    statHektares:'Hektar',
+    statHectares:'Hektar',
     statOpened:'Eröffnet',
     zonesKicker:'Den Park entdecken',
     zonesTitle:'Sieben Welten.<br>Ein <span style="color:var(--blue)">Park.</span>',
@@ -1327,10 +1449,10 @@ const translations={
     statHectares:'Hektárov',
     statOpened:'Otvorené',
     zonesKicker:'Preskúmaj park',
-    zonesTitle:'Sedm svetov.<br>Jeden <span style="color:var(--blue)">park.</span>',
+    zonesTitle:'Sedem svetov.<br>Jeden <span style="color:var(--blue)">park.</span>',
     zonesIntro:'Od stredovekých drakov po potopené starobylé mesto — Energylandia ponúka úplne odlišné prostredia. Klikni na zónu a pozri si jej atrakcie.',
     recordsKicker:'Čísla, na ktorých záleží',
-    recordsTitle:'Parkové <span style="color:var(--red)">rekordy.</span>',
+    recordsTitle:'Rekordy <span style="color:var(--red)">parku.</span>',
     recordsIntro:'Rýchly prehľad najväčších čísel v databáze. Otvor dráhu nižšie pre jej kompletný profil.',
     records:['Najvyšší a najrýchlejší mega coaster v Európe','Najväčší zábavný park v Európe','Najvyšší hybridný coaster na svete','Najlepší zábavný park v Európe'],
     recCatRecord:'Kategória rekordu',
@@ -1346,12 +1468,12 @@ const translations={
     sort:['Poradie: najlepšie','Rýchlosť: najvyššia','Výška: najvyššia','Dĺžka: najdlhšia','Rok: najnovší'],
     compareKicker:'Priame porovnanie',
     compareTitle:'Porovnaj<br><span style="color:var(--red)">giganty.</span>',
-    compareIntro:'Vyber dve dráhy a okamžite porovnaj ich výšku, rýchlosť, dĺžku, výrobca a rok otvorenia.',
+    compareIntro:'Vyber dve dráhy a okamžite porovnaj ich výšku, rýchlosť, dĺžku, výrobcu a rok otvorenia.',
     historyKicker:'Ako park rástol',
     historyTitle:'Desaťročie<br><span style="color:var(--blue)">expanzie.</span>',
     historyIntro:'Časová os parku prepracovaná do prehľadného vizuálneho príbehu.',
     footerCopy:'Prerobený fanúšikovský sprievodca Energylandii zameraný na horské dráhy, zóny a históriu parku.',
-    footerExp:'Preskúmať', footerZones:'Tematické zóny', footerRides:'Databáza dráh', footerRecords:'Parkové rekordy',
+    footerExp:'Preskúmať', footerZones:'Tematické zóny', footerRides:'Databáza dráh', footerRecords:'Rekordy Parku',
     footerTools:'Nástroje', footerCompare:'Porovnať dráhy', footerHistory:'História parku', footerTop:'Späť na začiatok',
     footerNote1:'Vytvorené fanúšikmi • Neoficiálne spojené s Energylandiou', footerNote2:'Vytvorené ako jednosúborový HTML zážitok'
   }
@@ -1369,7 +1491,7 @@ const timelineTranslations = {
     t8: { badge: "Next Gen", title: "B&M Wing Coaster", desc: "A brand new state-of-the-art Bolliger & Mabillard Wing Coaster will join the extreme lineup." }
   },
   pl: {
-    t1: { badge: "Wielkie otwarcie", title: "Początek parku", desc: "Energylandia officially opens in Zator with initial family and kiddie coasters." },
+    t1: { badge: "Wielkie otwarcie", title: "Początek parku", desc: "Energylandia oficjalnie otwiera się w Zatorze z pierwszymi kolejkami rodzinnymi i dziecięcymi." },
     t2: { badge: "Pierwsze emocje", title: "Skok adrenaliny", desc: "Do parku dołączają Energuś, Dragon Roller Coaster oraz Roller Coaster Mayan." },
     t3: { badge: "Rozbudowa", title: "Starty i shuttle", desc: "Pojawia się Formuła, a zaraz po niej Boomerang, Circus Coaster i Happy Loops." },
     t4: { badge: "Megapark", title: "Hyperion i Speed", desc: "Park powiększa się o Hyperiona oraz potężny wodny coaster Speed." },
@@ -1399,14 +1521,14 @@ const timelineTranslations = {
     t8: { badge: "Next Gen", title: "B&M Wing Coaster", desc: "Zcela nová špičková dráha Wing Coaster od Bolliger & Mabillard posílí nabídku extrémních atrakcí." }
   },
   sk: {
-    t1: { badge: "Veľké otvorenie", title: "Založenie parku", desc: "Energylandia sa oficiálne otvára v Zatore s počiatocnými rodinnými a detskými dráhami." },
+    t1: { badge: "Veľké otvorenie", title: "Založenie parku", desc: "Energylandia sa oficiálne otvára v Zatore s počiatočnými rodinnými a detskými dráhami." },
     t2: { badge: "Prvé vzrušenie", title: "Skok adrenalínu", desc: "Energuś, Dragon Roller Coaster a Roller Coaster Mayan sa pripájajú k parku." },
     t3: { badge: "Expanzia", title: "Štarty a shuttle", desc: "Prichádza Formuła, nasledovaná dráhami Boomerang, Circus Coaster a Happy Loops." },
     t4: { badge: "Megapark", title: "Hyperion a Speed", desc: "Park pridáva Hyperion a obrí vodný coaster Speed." },
     t5: { badge: "Dračia zóna", title: "Smoczy Gród a Zadra", desc: "Otvára sa stredoveká Dračia zóna s dráhami Zadra, Frida a Draken." },
     t6: { badge: "Aqualantis", title: "Potopené mesto", desc: "Aqualantis sa otvára s dráhami Abyssus a Light Explorers." },
     t7: { badge: "Sweet Valley", title: "Sladké rozšírenie", desc: "Sweet Valley debutuje s dráhami Choco Chip Creek a Honey Harbour." },
-    t8: { badge: "Next Gen", title: "B&M Wing Coaster", desc: "Zcela nová špičková dráha Wing Coaster od Bolliger & Mabillard posilní ponuku extrémnych atrakcií." }
+    t8: { badge: "Next Gen", title: "B&M Wing Coaster", desc: "Úplne nová špičková dráha Wing Coaster od Bolliger & Mabillard posilní ponuku extrémnych atrakcií." }
   }
 };
 
@@ -1417,7 +1539,7 @@ const zoneTranslations = {
     z3: { tag: "Sunken city", title: "Aqualantis", desc: "Ancient ruins and the launch-heavy Abyssus.", modalDesc: "Explore a forgotten underwater city themed with ancient ruins.", exp: "Home to double-launch coaster Abyssus and family shuttle coasters." },
     z4: { tag: "Candy themed", title: "Sweet Valley", desc: "Bright colors, family rides and Choco Chip Creek.", modalDesc: "A colorful candy wonderland designed for families and kids.", exp: "Features smooth family coasters themed around treats and chocolate." },
     z5: { tag: "All ages", title: "Family Zone", desc: "Gentler experiences for the whole crew.", modalDesc: "Fun and accessible rides suitable for parents and children.", exp: "A balanced mix of classic family coasters and gentle thrill rides." },
-    z6: { tag: "Bajtkolandia", title: "Little Kids", desc: "A colorful fairytale playground for younger guests.", modalDesc: "Dedicated zone for toddlers and young children.", exp: "Gentle kiddie coasters and colorful interactive attractions." },
+    z6: { tag: "Zone for the smallest children", title: "Little Kids zone", desc: "A colorful fairytale playground for younger guests.", modalDesc: "Dedicated zone for toddlers and young children.", exp: "Gentle kiddie coasters and colorful interactive attractions." },
     z7: { tag: "Tropical oasis", title: "Water Park", desc: "Slides, splash zones, pools and places to slow down.", modalDesc: "Massive outdoor water park area with pools and slides.", exp: "Dozens of water slides, wave pools, and relaxation areas." }
   },
   pl: {
@@ -1426,7 +1548,7 @@ const zoneTranslations = {
     z3: { tag: "Zatopione miasto", title: "Aqualantis", desc: "Starożytne ruiny i podwójnie podnoszący ciśnienie Abyssus.", modalDesc: "Odkryj zapomniane podwodne miasto.", exp: "Dom coastera Abyssus i atrakcji wodnych." },
     z4: { tag: "Słodki świat", title: "Sweet Valley", desc: "Jaskrawe kolory, atrakcje rodzinne i Choco Chip Creek.", modalDesc: "Kolorowa kraina słodyczy stworzona dla rodzin.", exp: "Płynne kolejki rodzinne w klimacie łakoci." },
     z5: { tag: "Dla każdego", title: "Strefa Rodzinna", desc: "Łagodniejsze wrażenia dla całej rodziny.", modalDesc: "Radość i dostępność dla rodziców z dziećmi.", exp: "Zbalansowany miks klasycznych i rodzinnych atrakcji." },
-    z6: { tag: "Bajtkolandia", title: "Dla Najmłodszych", desc: "Baśniowy plac zabaw dla najmłodszych gości.", modalDesc: "Strefa dedykowana maluchom.", exp: "Łagodne kolejki dziecięce i kolorowe atrakcje." },
+    z6: { tag: "Dla Najmłodszych", title: "Bajkolandia", desc: "Baśniowy plac zabaw Bajkolandia gości.", modalDesc: "Strefa dedykowana maluchom.", exp: "Łagodne kolejki dziecięce i kolorowe atrakcje." },
     z7: { tag: "Tropikalna oaza", title: "Park Wodny", desc: "Zjeżdżalnie, strefy basenowe i relaks.", modalDesc: "Potężna strefa wodna z basenami i zjeżdżalniami.", exp: "Dziesiątki zjeżdżalni, basen z falami i strefy wypoczynku." }
   },
   de: {
@@ -1444,12 +1566,12 @@ const zoneTranslations = {
     z3: { tag: "Potopené město", title: "Aqualantis", desc: "Starověké ruiny a vystřelovací Abyssus.", modalDesc: "Prozkoumej zapomenuté podmořské město.", exp: "Domov launch coasteru Abyssus a rodinných drah." },
     z4: { tag: "Sladký svět", title: "Sweet Valley", desc: "Pestré barvy, rodinné jízdy a Choco Chip Creek.", modalDesc: "Pestrobarevný svět sladkostí pro rodiny.", exp: "Plynulé rodinné dráhy v tématu sladkostí." },
     z5: { tag: "Pro všechny věkové kategorie", title: "Rodinná zóna", desc: "Jemnější zážitky pro celou rodinu.", modalDesc: "Zábava vhodná pro rodiče s dětmi.", exp: "Vyvážený mix klasických rodinných drah." },
-    z6: { tag: "Bajtkolandia", title: "Pro nejmenší", desc: "Pohádkové hřiště pro nejmenší návštěvníky.", modalDesc: "Zóna vyhrazená malým dětem.", exp: "Jemné dětské dráhy a barevné atrakce." },
+    z6: { tag: "Zóna pro nejmenší děti", title: "Pro Nejmladší", desc: "Pohádkové hřiště pro nejmenší návštěvníky.", modalDesc: "Zóna vyhrazená malým dětem.", exp: "Jemné dětské dráhy a barevné atrakce." },
     z7: { tag: "Tropická oáza", title: "Aquapark", desc: "Tobogány, bazény a relaxace.", modalDesc: "Velký vodní park s bazény a tobogány.", exp: "Desítky tobogánů, bazén s vlnobitím a odpočinkové zóny." }
   },
   sk: {
     z1: { tag: "Adrenalín 5/5", title: "Extrémna zóna", desc: "Domov Hyperionu, Speedu a najintenzívnejších atrakcií.", modalDesc: "Zóna vytvorená pre milovníkov adrenalínu.", exp: "Vysoké preťaženie, masívne spadnutia a vysoké rýchlosti." },
-    z2: { tag: "Stredoveká fantasy", title: "Dračia zóna", desc: "Tmavé drevo, oheň a legendárna Zadra.", modalDesc: "Vstúp do mýtockej ríše drakov.", exp: "Dominanta Zadra — jeden z najlepších hybridných coasterov sveta." },
+    z2: { tag: "Stredoveká fantasy", title: "Dračia zóna", desc: "Tmavé drevo, oheň a legendárna Zadra.", modalDesc: "Vstúp do mýtickej ríše drakov.", exp: "Dominanta Zadra — jeden z najlepších hybridných coasterov sveta." },
     z3: { tag: "Potopené mesto", title: "Aqualantis", desc: "Staroveké ruiny a vystreľovací Abyssus.", modalDesc: "Preskúmaj zabudnuté podmorské mesto.", exp: "Domov launch coasteru Abyssus a rodinných dráh." },
     z4: { tag: "Sladký svet", title: "Sweet Valley", desc: "Pestré farby, rodinné jazdy a Choco Chip Creek.", modalDesc: "Pestrofarebný svet sladkostí pre rodiny.", exp: "Plynulé rodinné dráhy v téme sladkostí." },
     z5: { tag: "Pre všetky vekové kategórie", title: "Rodinná zóna", desc: "Jemnejšie zážitky pre celú rodinu.", modalDesc: "Zábava vhodná pre rodičov s deťmi.", exp: "Vyvážený mix klasických rodinných dráh." },
@@ -1458,9 +1580,143 @@ const zoneTranslations = {
   }
 };
 
-const rideTranslations = {};
-const rideDescriptionTranslations = {};
-const rideTypeTranslations = {};
+const rideTypeTranslations = {
+  en: { Extreme:"Extreme", Thrill:"Thrill", Family:"Family", Kiddie:"Kiddie" },
+  pl: { Extreme:"Ekstremalna", Thrill:"Thrill", Family:"Rodzinna", Kiddie:"Dziecięca" },
+  de: { Extreme:"Extrem", Thrill:"Thrill", Family:"Familie", Kiddie:"Kinder" },
+  cs: { Extreme:"Extrémní", Thrill:"Thrill", Family:"Rodinná", Kiddie:"Dětská" },
+  sk: { Extreme:"Extrémna", Thrill:"Thrill", Family:"Rodinná", Kiddie:"Detská" }
+};
+
+const rideTranslations = {
+  en: {},
+  pl: {
+    "Zadra": { desc: "Światowej klasy hybrydowa kolejka RMC o potężnej drewnianej konstrukcji, ekstremalnie stromym stalowym torze i inwersjach." },
+    "Hyperion": { desc: "Perła w koronie parku — mega coaster z ogromnymi spadkami, szybkimi wzgórzami nieważkości i ekstremalną prędkością." },
+    "Abyssus": { desc: "Potężna kolejka Vekoma z wieloma startami, pełna momentów nieważkości, inwersji i błyskawicznych przejść." },
+    "Formuła": { desc: "Dynamiczna kolejka startowa typu Space Warp z wieloma inwersjami." },
+    "Speed": { desc: "Ogromna wodna kolejka Intamin z gigantycznym wyciągiem i spektakularnym wpadnięciem do wody." },
+    "Roller Coaster Mayan": { desc: "Kolejka podwieszana Vekoma (Suspended Looping Coaster) z intensywnymi inwersjami i przeciążeniami." },
+    "Choco Chip Creek": { desc: "Tematyczna, nowoczesna kolejka górnicza, która wprowadza rodzinną zabawę w klimacie Sweet Valley." },
+    "Dragon Roller Coaster": { desc: "Podwieszana kolejka rodzinna z ciasnymi helisami i spadkami tuż nad ziemią." },
+    "Energuś": { desc: "Popularna kolejka juniorska, płynnie pokonująca szybkie zakręty, idealna dla rodzin." },
+    "Light Explorers": { desc: "Rodzinna kolejka typu shuttle z wieloma przejazdami do przodu i do tyłu." },
+    "Frida": { desc: "Płynna, rodzinna kolejka juniorska ukryta w Smoczym Grodzie." },
+    "Boomerang": { desc: "Juniorska wersja Boomeranga, która pokonuje tor do przodu i do tyłu." },
+    "Honey Harbour": { desc: "Słodko stylizowana kolejka rodzinna z płynnymi, dynamicznymi zakrętami w Sweet Valley." },
+    "Draken": { desc: "Urokliwa kolejka rodzinna ukryta w Smoczym Grodzie." },
+    "Viking Roller Coaster": { desc: "Wirująca kolejka w stylu wild mouse z nieprzewidywalnymi obrotami i rodzinnymi emocjami." },
+    "Mars": { desc: "Wczesny model juniorski stworzony z myślą o rodzinnej rozrywce i młodszych gościach." },
+    "Frutti Loop Coaster": { desc: "Kompaktowa kolejka dla najmłodszych od SBF Visa Group, znajdująca się w Bajtkolandii." },
+    "Circus Coaster": { desc: "Kolejka z napędem, stworzona z myślą o najmłodszych dzieciach." },
+    "Happy Loops": { desc: "Wirujący układ toru pełen radosnych zmian kierunku." },
+    "B&M Wing Coaster": { desc: "Duża nowa kolejka budowana w Energylandii. Charakterystyczne dla B&M pociągi typu wing z miejscami po bokach toru, ogromne inwersje i efekty near-miss." }
+  },
+  de: {
+    "Zadra": { desc: "Hybrid-Achterbahn von RMC der Weltklasse mit imposanter Holzstruktur, extrem steilen Stahlschienen und Inversionen." },
+    "Hyperion": { desc: "Die Krönung des Parks: eine Mega-Achterbahn mit gewaltigen Drops, schnellen Airtime-Hügeln und extremer Geschwindigkeit." },
+    "Abyssus": { desc: "Kraftvolle Vekoma-Achterbahn mit mehreren Launches, voller Airtime, Inversionen und blitzschnellen Übergängen." },
+    "Formuła": { desc: "Rasante Launch-Achterbahn vom Modell Space Warp mit mehreren Inversionen." },
+    "Speed": { desc: "Gewaltige Intamin-Wasserachterbahn mit riesigem Lift und spektakulärem Splashdown." },
+    "Roller Coaster Mayan": { desc: "Vekoma Suspended Looping Coaster (SLC) mit intensiven Inversionen und hohen G-Kräften." },
+    "Choco Chip Creek": { desc: "Thematisch gestaltete, moderne Minenzug-Achterbahn, die Familienspaß nach Sweet Valley bringt." },
+    "Dragon Roller Coaster": { desc: "Hängende Familien-Achterbahn mit engen Helices und Abfahrten knapp über dem Boden." },
+    "Energuś": { desc: "Beliebte Junior-Achterbahn, die schnelle Kurven für Familien sanft meistert." },
+    "Light Explorers": { desc: "Spannende Familien-Shuttle-Bahn mit mehreren Fahrten vorwärts und rückwärts." },
+    "Frida": { desc: "Sanfte Familien-Junior-Achterbahn, eingebettet in die Drachenzone." },
+    "Boomerang": { desc: "Junior-Boomerang, der die Strecke vorwärts und rückwärts durchfährt." },
+    "Honey Harbour": { desc: "Süß thematisierte Familien-Achterbahn mit sanften, dynamischen Kurven in Sweet Valley." },
+    "Draken": { desc: "Charmante Familien-Achterbahn in Smoczy Gród." },
+    "Viking Roller Coaster": { desc: "Spinning-Coaster im Wilde-Maus-Stil mit unberechenbaren Drehungen und Familien-Nervenkitzel." },
+    "Mars": { desc: "Frühes Junior-Modell, gebaut für Familienunterhaltung und jüngere Besucher." },
+    "Frutti Loop Coaster": { desc: "Kompakte Einsteiger-Kinderachterbahn von SBF Visa Group in Bajtkolandia." },
+    "Circus Coaster": { desc: "Motorbetriebene Runde, zugeschnitten auf die jüngsten Kinder." },
+    "Happy Loops": { desc: "Drehendes Streckenlayout voller fröhlicher Richtungswechsel." },
+    "B&M Wing Coaster": { desc: "Eine große neue Achterbahn im Bau bei Energylandia. Mit den typischen Wing-Zügen von B&M, deren Sitze seitlich der Schiene hängen, gewaltigen Inversionen und Beinahe-Kollisionen." }
+  },
+  cs: {
+    "Zadra": { desc: "Hybridní horská dráha RMC světové úrovně s mohutnou dřevěnou konstrukcí, extrémně strmou ocelovou tratí a inverzemi." },
+    "Hyperion": { desc: "Chlouba parku — mega coaster s ohromujícími pády, rychlými kopci pro pocit beztíže a extrémní rychlostí." },
+    "Abyssus": { desc: "Výkonná dráha Vekoma s několika vystřeleními, plná beztíže, inverzí a bleskových přechodů." },
+    "Formuła": { desc: "Dynamická vystřelovací dráha modelu Space Warp s několika inverzemi." },
+    "Speed": { desc: "Obří vodní dráha Intamin s vysokým výtahem a velkolepým dopadem do vody." },
+    "Roller Coaster Mayan": { desc: "Podvěšená dráha Vekoma (Suspended Looping Coaster) s intenzivními inverzemi a přetížením." },
+    "Choco Chip Creek": { desc: "Tematická moderní důlní dráha, která přináší rodinnou zábavu do prostředí Sweet Valley." },
+    "Dragon Roller Coaster": { desc: "Podvěšená rodinná dráha s těsnými vývrtkami a pády těsně nad zemí." },
+    "Energuś": { desc: "Oblíbená juniorská dráha, která plynule projíždí rychlými zatáčkami, ideální pro rodiny." },
+    "Light Explorers": { desc: "Vzrušující rodinná shuttle dráha s několika projížďkami vpřed i vzad." },
+    "Frida": { desc: "Plynulá rodinná juniorská dráha ukrytá v Dračí zóně." },
+    "Boomerang": { desc: "Juniorský model Boomerang, který projíždí trať vpřed i vzad." },
+    "Honey Harbour": { desc: "Sladce tematická rodinná dráha s plynulými dynamickými zatáčkami v Sweet Valley." },
+    "Draken": { desc: "Půvabná rodinná dráha ukrytá v oblasti Smoczy Gród." },
+    "Viking Roller Coaster": { desc: "Točivá dráha ve stylu divoké myši s nepředvídatelnými rotacemi a rodinným vzrušením." },
+    "Mars": { desc: "Starší juniorský model určený pro rodinnou zábavu a mladší návštěvníky." },
+    "Frutti Loop Coaster": { desc: "Kompaktní startovací dětská dráha od SBF Visa Group v části Bajtkolandia." },
+    "Circus Coaster": { desc: "Motorová dráha přizpůsobená nejmenším dětem." },
+    "Happy Loops": { desc: "Točivé uspořádání trati plné veselých změn směru." },
+    "B&M Wing Coaster": { desc: "Velká nová dráha ve výstavbě v Energylandii. Nabídne typické vlaky B&M Wing se sedadly po stranách trati, obří inverze a průlety těsně kolem překážek." }
+  },
+  sk: {
+    "Zadra": { desc: "Hybridná horská dráha RMC svetovej úrovne s mohutnou drevenou konštrukciou, extrémne strmou oceľovou traťou a inverziami." },
+    "Hyperion": { desc: "Chlúba parku — mega coaster s ohromujúcimi pádmi, rýchlymi kopcami pre pocit beztiaže a extrémnou rýchlosťou." },
+    "Abyssus": { desc: "Výkonná dráha Vekoma s viacerými štartmi, plná beztiaže, inverzií a bleskových prechodov." },
+    "Formuła": { desc: "Dynamická štartovacia dráha modelu Space Warp s viacerými inverziami." },
+    "Speed": { desc: "Obrovská vodná dráha Intamin s vysokým výťahom a veľkolepým dopadom do vody." },
+    "Roller Coaster Mayan": { desc: "Podvesená dráha Vekoma (Suspended Looping Coaster) s intenzívnymi inverziami a preťažením." },
+    "Choco Chip Creek": { desc: "Tematická moderná banská dráha, ktorá prináša rodinnú zábavu do prostredia Sweet Valley." },
+    "Dragon Roller Coaster": { desc: "Podvesená rodinná dráha s tesnými špirálami a pádmi tesne nad zemou." },
+    "Energuś": { desc: "Obľúbená juniorská dráha, ktorá plynulo prechádza rýchlymi zákrutami, ideálna pre rodiny." },
+    "Light Explorers": { desc: "Vzrušujúca rodinná shuttle dráha s viacerými jazdami dopredu aj dozadu." },
+    "Frida": { desc: "Plynulá rodinná juniorská dráha ukrytá v Dračej zóne." },
+    "Boomerang": { desc: "Juniorský model Boomerang, ktorý prechádza traťou dopredu aj dozadu." },
+    "Honey Harbour": { desc: "Sladko tematická rodinná dráha s plynulými dynamickými zákrutami v Sweet Valley." },
+    "Draken": { desc: "Pôvabná rodinná dráha ukrytá v oblasti Smoczy Gród." },
+    "Viking Roller Coaster": { desc: "Točivá dráha v štýle divokej myši s nepredvídateľnými rotáciami a rodinným vzrušením." },
+    "Mars": { desc: "Starší juniorský model určený pre rodinnú zábavu a mladších návštevníkov." },
+    "Frutti Loop Coaster": { desc: "Kompaktná štartovacia detská dráha od SBF Visa Group v časti Bajtkolandia." },
+    "Circus Coaster": { desc: "Motorová dráha prispôsobená najmenším deťom." },
+    "Happy Loops": { desc: "Točivé usporiadanie trate plné veselých zmien smeru." },
+    "B&M Wing Coaster": { desc: "Veľká nová dráha vo výstavbe v Energylandii. Ponúkne typické vlaky B&M Wing so sedadlami po stranách trate, obrovské inverzie a prelety tesne popri prekážkach." }
+  }
+};
+
+const extraUi = {
+  en: {
+    h1: 'Built for <span class="blue">giants.</span><br>Made for <span class="red">thrills.</span>',
+    ticker: ['ENERGYLANDIA <b>•</b> ZATOR, POLAND','ZADRA <b>•</b> HYPERION <b>•</b> ABYSSUS','19 COASTERS <b>•</b> 7 THEMING AREAS','THRILLS <b>•</b> FAMILY <b>•</b> WATER <b>•</b> ADVENTURE'],
+    recHeightSpeed: 'Height & speed records', recBestFoot: 'Ranking', recBestVal: 'Europe',
+    ucBadge: 'Under Construction', ucNote: 'Upcoming Future Project',
+    empty: 'No coasters match that search.', themed: 'Themed area'
+  },
+  pl: {
+    h1: 'Stworzony dla <span class="blue">gigantów.</span><br>Stworzony dla <span class="red">emocji.</span>',
+    ticker: ['ENERGYLANDIA <b>•</b> ZATOR, POLSKA','ZADRA <b>•</b> HYPERION <b>•</b> ABYSSUS','19 KOLEJEK <b>•</b> 7 STREF TEMATYCZNYCH','EMOCJE <b>•</b> RODZINA <b>•</b> WODA <b>•</b> PRZYGODA'],
+    recHeightSpeed: 'Rekordy wysokości i prędkości', recBestFoot: 'Ranking', recBestVal: 'Europa',
+    ucBadge: 'W budowie', ucNote: 'Nadchodzący projekt',
+    empty: 'Żadna kolejka nie pasuje do wyszukiwania.', themed: 'Strefa tematyczna'
+  },
+  de: {
+    h1: 'Gebaut für <span class="blue">Giganten.</span><br>Gemacht für <span class="red">Nervenkitzel.</span>',
+    ticker: ['ENERGYLANDIA <b>•</b> ZATOR, POLEN','ZADRA <b>•</b> HYPERION <b>•</b> ABYSSUS','19 ACHTERBAHNEN <b>•</b> 7 THEMENBEREICHE','NERVENKITZEL <b>•</b> FAMILIE <b>•</b> WASSER <b>•</b> ABENTEUER'],
+    recHeightSpeed: 'Höhen- & Geschwindigkeitsrekorde', recBestFoot: 'Ranking', recBestVal: 'Europa',
+    ucBadge: 'Im Bau', ucNote: 'Kommendes Zukunftsprojekt',
+    empty: 'Keine Achterbahn entspricht dieser Suche.', themed: 'Themenbereich'
+  },
+  cs: {
+    h1: 'Postaveno pro <span class="blue">obry.</span><br>Stvořeno pro <span class="red">vzrušení.</span>',
+    ticker: ['ENERGYLANDIA <b>•</b> ZATOR, POLSKO','ZADRA <b>•</b> HYPERION <b>•</b> ABYSSUS','19 HORSKÝCH DRAH <b>•</b> 7 TEMATICKÝCH ZÓN','VZRUŠENÍ <b>•</b> RODINA <b>•</b> VODA <b>•</b> DOBRODRUŽSTVÍ'],
+    recHeightSpeed: 'Rekordy ve výšce a rychlosti', recBestFoot: 'Žebříček', recBestVal: 'Evropa',
+    ucBadge: 'Ve výstavbě', ucNote: 'Připravovaný budoucí projekt',
+    empty: 'Žádná dráha neodpovídá hledání.', themed: 'Tematická zóna'
+  },
+  sk: {
+    h1: 'Postavené pre <span class="blue">obrov.</span><br>Stvorené pre <span class="red">vzrušenie.</span>',
+    ticker: ['ENERGYLANDIA <b>•</b> ZATOR, POĽSKO','ZADRA <b>•</b> HYPERION <b>•</b> ABYSSUS','19 HORSKÝCH DRÁH <b>•</b> 7 TEMATICKÝCH ZÓN','VZRUŠENIE <b>•</b> RODINA <b>•</b> VODA <b>•</b> DOBRODRUŽSTVO'],
+    recHeightSpeed: 'Rekordy vo výške a rýchlosti', recBestFoot: 'Rebríček', recBestVal: 'Európa',
+    ucBadge: 'Vo výstavbe', ucNote: 'Pripravovaný budúci projekt',
+    empty: 'Žiadna dráha nezodpovedá hľadaniu.', themed: 'Tematická zóna'
+  }
+};
 
 const rideUiTranslations = {
   en: { shown: "coasters shown", click: "Click any card for full details", load: "Load more coasters", collapse: "Collapse coasters", profile: "View Profile", rank: "Rank", opened: "Opening Year" },
@@ -1484,6 +1740,14 @@ const comparisonTranslations = {
   de: { one: "Achterbahn 1", two: "Achterbahn 2", metric: "Spezifikation", type: "Kategorie / Typ", manufacturer: "Hersteller", openingYear: "Eröffnungsjahr", height: "Höhe", maxSpeed: "Max. Tempo", trackLength: "Streckenlänge" },
   cs: { one: "Horská dráha 1", two: "Horská dráha 2", metric: "Specifikace", type: "Kategorie / Typ", manufacturer: "Výrobce", openingYear: "Rok otevření", height: "Výška", maxSpeed: "Max. rychlost", trackLength: "Délka trati" },
   sk: { one: "Horská dráha 1", two: "Horská dráha 2", metric: "Špecifikácia", type: "Kategória / Typ", manufacturer: "Výrobca", openingYear: "Rok otvorenia", height: "Výška", maxSpeed: "Max. rýchlosť", trackLength: "Dĺžka trate" }
+};
+
+const unitUi = {
+  en: { acres:'Acres',  metric:'Metric',    imperial:'Imperial',   aria:'Units' },
+  pl: { acres:'Akry',   metric:'Metryczne', imperial:'Imperialne', aria:'Jednostki' },
+  de: { acres:'Acres',  metric:'Metrisch',  imperial:'Imperial',   aria:'Einheiten' },
+  cs: { acres:'Akrů',   metric:'Metrické',  imperial:'Imperiální', aria:'Jednotky' },
+  sk: { acres:'Akrov',  metric:'Metrické',  imperial:'Imperiálne', aria:'Jednotky' }
 };
 
 // Initial setup
